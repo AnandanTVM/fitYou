@@ -1,0 +1,21 @@
+.card {
+    background-color: #0000009c !important;
+
+}
+
+.Clogin-Main {
+    color: white;
+    position: relative;
+}
+
+.Clogin-Main img {
+    width: 500px;
+    height: 520px;
+    position: absolute;
+
+}
+
+.Clogin-img1 {
+    right: 10px;
+    bottom: 50px;
+}
