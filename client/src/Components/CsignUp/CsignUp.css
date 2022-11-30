@@ -1,0 +1,19 @@
+.card {
+    background-color: #0000009c !important;
+
+}
+
+.Csignup-Main {
+    color: white;
+    position: relative;
+}
+
+.Csignup-Main img {
+    width: 500px;
+    height: 900px;
+    position: absolute;
+
+    right: 20px;
+    bottom: 20px;
+
+}
