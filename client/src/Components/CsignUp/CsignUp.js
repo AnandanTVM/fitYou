@@ -48,20 +48,20 @@ function CsignUp() {
 
                                                 <h6 className="mb-2 pb-1">Gender: </h6>
 
-                                                <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                                <div className="form-check form-check-inline" id='clr'>
+                                                    <input className="form-check-input inputColor" type="radio" name="inlineRadioOptions" id="femaleGender"
                                                         value="option1" />
                                                     <label className="form-check-label" >Female</label>
                                                 </div>
 
                                                 <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                                    <input className="form-check-input inputColor" type="radio" name="inlineRadioOptions" id="maleGender"
                                                         value="option2" />
                                                     <label className="form-check-label" >Male</label>
                                                 </div>
 
                                                 <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                                                    <input className="form-check-input inputColor" type="radio" name="inlineRadioOptions" id="otherGender"
                                                         value="option3" />
                                                     <label className="form-check-label" >Other</label>
                                                 </div>

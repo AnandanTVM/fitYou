@@ -3,3 +3,21 @@ body {
   font-family: 'Ubuntu', sans-serif, 'Roboto', sans-serif;
   background-color: #1E1C1C;
 }
+.btn-primary{
+  background-color: #ED533B ;
+  color: whitesmoke!important;
+  border-color: black;
+
+  
+}
+.btn-primary:hover{
+  
+background-color:whitesmoke ;
+  color: #ED533B !important;
+  border-color: black;
+}
+
+.inputColor:checked{
+  background-color: #ED533B;
+  border-color: #ED533B;
+}

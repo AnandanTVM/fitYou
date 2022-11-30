@@ -4,6 +4,7 @@ import ModelWoman from '../../images/welcomWoman.png'
 import { Link } from 'react-router-dom'
 
 function Clogin() {
+    let cc={color:"#ED533B"}
     return (
         <div>
             <div className='Clogin-Main'>
@@ -44,7 +45,7 @@ function Clogin() {
                                             </div>
 
                                             <label className="d-flex justify-content-center" >Login With OTP?</label>
-                                            <Link to='/signup' > <label className="d-flex justify-content-center" >Create an account Sign Up</label>
+                                            <Link to='/signup' > <label className="d-flex justify-content-center" style={cc} >Create an account Sign Up</label>
                                             </Link>
                                             <div className="mt-4 pt-2">
                                                 <input className="btn btn-primary btn-lg" type="submit" value="Submit" />
