@@ -1,0 +1,14 @@
+.TrainerSignup-Main {
+    color: white;
+    position: relative;
+}
+
+.TrainerSignup-Main img {
+    width: 500px;
+    height: 900px;
+    position: absolute;
+
+
+    bottom: 20px;
+
+}

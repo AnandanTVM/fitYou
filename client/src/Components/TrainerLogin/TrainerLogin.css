@@ -1,0 +1,16 @@
+.trainerlogin-Main {
+    color: white;
+    position: relative;
+}
+
+.trainerlogin-Main img {
+    width: 500px;
+    height: 520px;
+    position: absolute;
+
+}
+
+.trainerlogin-img1 {
+    right: 10px;
+    bottom: 50px;
+}

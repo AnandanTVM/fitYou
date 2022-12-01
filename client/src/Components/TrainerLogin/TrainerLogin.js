@@ -1,14 +1,15 @@
 import React from 'react'
-import './Clogin.css'
-import ModelWoman from '../../images/welcomWoman.png'
 import { Link } from 'react-router-dom'
-
-function Clogin() {
-
+//images
+import Modelman from '../../images/LoginTrainer.png'
+//css
+import './TrainerLogin.css'
+function TrainerLogin() {
     return (
         <div>
-            <div className='Clogin-Main'>
-                <img src={ModelWoman} className="Clogin-img1" alt="modelimage" />
+
+            <div className='trainerlogin-Main'>
+                <img src={Modelman} className="trainerlogin-img1" alt="modelimage" />
 
                 <section className=" gradient-custom">
                     <div className="container py-5 h-100">
@@ -45,7 +46,7 @@ function Clogin() {
                                             </div>
 
                                             <label className="d-flex justify-content-center" >Login With OTP?</label>
-                                            <Link to='/signup' > <label className="d-flex justify-content-center CreatSingup-textcolour"  >Create an account Sign Up</label>
+                                            <Link to='/signup' > <label className="d-flex justify-content-center CreatSingup-textcolour">Create an account Sign Up</label>
                                             </Link>
                                             <div className="mt-4 pt-2">
                                                 <input className="btn btn-primary btn-lg" type="submit" value="Submit" />
@@ -63,4 +64,4 @@ function Clogin() {
     )
 }
 
-export default Clogin
+export default TrainerLogin

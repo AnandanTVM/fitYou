@@ -42,7 +42,7 @@ function NavHome(props) {
                                 </Link>}
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><Link className="dropdown-item" to="/signup">Clent Signup</Link></li>
-                                    <li><hr className="dropdown-divider" /></li> <li><Link className="dropdown-item" to="/">Trainer Signup</Link></li>
+                                    <li><hr className="dropdown-divider" /></li> <li><Link className="dropdown-item" to="/trainerSignup">Trainer Signup</Link></li>
 
 
                                 </ul>
@@ -55,7 +55,7 @@ function NavHome(props) {
                                 </Link>}
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><Link className="dropdown-item" to="/login">Client Login</Link></li>
-                                    <li><Link className="dropdown-item" to="/">Trainer Login</Link></li>
+                                    <li><Link className="dropdown-item" to="/trainerLogin">Trainer Login</Link></li>
                                     <li><hr className="dropdown-divider" /></li>
                                     <li><Link className="dropdown-item" to="/">Admin Login</Link></li>
                                 </ul>
