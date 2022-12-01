@@ -3,14 +3,23 @@ import React from 'react'
 import { useFormik } from 'formik'
 //validation import
 import { userSchema } from '../../validation/userValidation'
+//redux
+
+import { doSingUp } from '../../redux/singup'
 //images
 import Model from '../../images/models.png'
 //css
 import './CsignUp.css'
+import { useDispatch } from 'react-redux'
 function CsignUp() {
+const dispatch=useDispatch();
     const onSubmit = (values, actions) => {
-        console.log(values);
-        console.log(actions);
+        // console.log(values);
+        // console.log(actions);
+        
+        dispatch(doSingUp(values))
+        console.log("done");
+
     }
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -31,12 +40,6 @@ function CsignUp() {
         onSubmit,
 
     })
-
-
-
-
-
-
 
 
     return (
