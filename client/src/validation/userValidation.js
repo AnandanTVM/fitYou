@@ -1,0 +1,21 @@
+import * as yup from "yup";
+
+//password rule
+const passwordRule = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+
+
+//scheema
+export const userSchema = yup.object().shape({
+    fname: yup.string().min(2, "First name must be at least 2 characters").max(20).required("Required"),
+    lname: yup.string().min(1).max(20).required("Required"),
+    dob: yup.date().required("Required"),
+    gender: yup.string().required("Required"),
+    email: yup.string().email("Please enter a valid email").required("Required"),
+    phone: yup.number("Phone number must be a 10 digit number").positive().integer().required("Required"),
+    password: yup.string().min(5).max(16).matches(passwordRule, "please Create a stronger password").required("Required"),
+    cpassword: yup.string().oneOf([yup.ref("password"), null], "Password must match").required("Required"),
+    weight: yup.number().positive().integer().required("Required"),
+    height: yup.number().positive().integer().required("Required"),
+
+
+});

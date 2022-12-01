@@ -17,3 +17,13 @@
     bottom: 20px;
 
 }
+
+input.input-error,
+select.input-error {
+    border-color: red;
+    border-width: 2px;
+}
+
+.red-error {
+    color: rgb(223, 96, 96);
+}
