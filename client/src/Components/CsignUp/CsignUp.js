@@ -1,23 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import * as yup from "yup";
 import { useFormik } from 'formik'
+import { useNavigate } from 'react-router-dom'
 //validation import
 import { userSchema } from '../../validation/userValidation'
-//redux
+import { clientRegister } from '../../action/HomeAction'
 
-import { doSingUp } from '../../redux/singup'
 //images
 import Model from '../../images/models.png'
 //css
 import './CsignUp.css'
-import { useDispatch } from 'react-redux'
+
 function CsignUp() {
-const dispatch=useDispatch();
-    const onSubmit = (values, actions) => {
-        // console.log(values);
-        // console.log(actions);
-        
-        dispatch(doSingUp(values))
+    const navigate = useNavigate();
+
+    const [error, setError] = useState('')
+    const onSubmit = async (values, actions) => {
+
+        const status = await clientRegister(values)
+        if (status.status === "error") {
+            setError("Client already existed")
+        } else if (status.status === "success") {
+            navigate('/login')
+        }
+        console.log(status);
+
         console.log("done");
 
     }
@@ -54,7 +61,7 @@ const dispatch=useDispatch();
                                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
 
                                     <form onSubmit={handleSubmit}>
-
+                                        {error ? <p className='red-error'>{error}</p> : ""}
                                         <div className="row">
                                             <div className="col-md-6 mb-4">
 
