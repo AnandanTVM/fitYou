@@ -20,4 +20,25 @@ export const clientRegister = async (value) => {
 
 
 }
+export const trainerRegister = async (value) => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    const { data } = await axiosHomeInstance.post(
+        "/trainerRegister",
+        value,
+        config
+    );
+    if (data.status) {
+        return data
+
+
+    }
+
+
+
+
+}
 

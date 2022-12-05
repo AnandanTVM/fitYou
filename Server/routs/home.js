@@ -1,21 +1,11 @@
-const { response } = require('express');
-let express = require('express');
-let { clientSignup } = require('../controllers/homeControllers');
+// const { response } = require('express');
+const express = require('express');
+const homeControllers = require('../controllers/homeControllers');
 
-let router = express.Router();
+const router = express.Router();
 
-
-//sing up for Client
-router.post('/api/clientRegister',clientSignup)
-router.post('/api/TrainerRegister', async (req, res) => {
-    console.log(req.body)
-
-
-})
-
-
-
-
-
+// sing up for Client
+router.post('/api/clientRegister', homeControllers.clientSignup);
+router.post('/api/trainerRegister', homeControllers.trainerSignup);
 
 module.exports = router;

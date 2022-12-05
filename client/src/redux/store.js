@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit'
 
-import singupdetaila  from './singup'
+import singupdetaila  from './signup'
 
 export const store= configureStore({
 

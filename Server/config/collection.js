@@ -1,6 +1,5 @@
 module.exports = {
-
-    CLIENT_COLLECTION: 'client',
-    Admin_COLLECTION: 'admin',
-
-}
+  CLIENT_COLLECTION: 'client',
+  TRAINER_COLLECTION: 'trainer',
+  Admin_COLLECTION: 'admin',
+};

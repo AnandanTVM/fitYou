@@ -4,6 +4,7 @@
 const AsyncHandler = require('express-async-handler');
 const homeHelper = require('../helpers/homeHelpers');
 
+
 const clientSignup = AsyncHandler(async (req, res) => {
   const data = req.body;
   // remove unwated feild from object
@@ -22,5 +23,27 @@ const clientSignup = AsyncHandler(async (req, res) => {
     });
 });
 
+const trainerSignup = AsyncHandler(async (req, res) => {
+  const data = req.body;
+  // remove unwated feild from object
+  delete data.cpassword;
+  homeHelper
+    .dotrainerSignup(data)
+    .then((response) => {
+      if (response.phoneFound) {
+        res.json({ status: 'error', error: 'Duplicate Phone number' });
+      } else {
+        res.json({ status: 'success' });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
+});
+
 // exports
-exports.clientSignup = clientSignup;
+module.exports = {
+  clientSignup,
+  trainerSignup,
+};

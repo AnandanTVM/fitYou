@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 //validation import
-import { userSchema } from '../../validation/userValidation'
+import { userSchema } from '../../validation/homeValidation'
 import { clientRegister } from '../../action/HomeAction'
 
 //images
@@ -45,9 +45,8 @@ function CsignUp() {
         },
         validationSchema: userSchema,
         onSubmit,
-
     })
-
+console.log(errors);
 
     return (
         <div className='Csignup-Main'>
