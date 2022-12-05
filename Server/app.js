@@ -11,9 +11,11 @@ app.use(express.json());
 
 // routs
 const homeRouter = require('./routs/home');
+const clientRouter = require('./routs/client');
 
 // redirects to roughts
 app.use('/', homeRouter);
+app.use('/client', clientRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

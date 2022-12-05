@@ -1,7 +1,14 @@
-
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { Clogin, E404, Home, Signup, TLogin, TrSignup } from "./Pages";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import {
+  ClientHome,
+  Clogin,
+  E404,
+  Home,
+  Signup,
+  TLogin,
+  TrSignup,
+} from './Pages';
 
 function App() {
   return (
@@ -12,6 +19,7 @@ function App() {
         <Route path="/login" element={<Clogin />} />
         <Route path="/trainerSignup" element={<TrSignup />} />
         <Route path="/trainerLogin" element={<TLogin />} />
+        <Route path="/clientHome" element={<ClientHome />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>
