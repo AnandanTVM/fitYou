@@ -5,12 +5,11 @@ const clientHelpers = require('../helpers/clientHelpers');
 
 const clientLogin = AsyncHandler(async (req, res) => {
   clientHelpers.douserLogin(req.body).then((response) => {
-    console.log(response);
     if (response.status) {
       const token = jwt.sign(
         {
           userId: response.user._id,
-          name: response.user.name,
+          name: response.user.fname,
           email: response.user.email,
         },
         'fityou5055'

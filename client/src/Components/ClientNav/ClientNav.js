@@ -9,7 +9,6 @@ function ClientNav(props) {
   const userName = localStorage.getItem('userDetails');
   const logout = () => {
     localStorage.removeItem('token');
-
     localStorage.removeItem('userDetails');
     navigate('/');
   };

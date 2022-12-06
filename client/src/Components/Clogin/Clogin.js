@@ -24,7 +24,6 @@ function Clogin() {
       const user = jwt(data.user);
       console.log(user);
       localStorage.setItem('userDetails', user.name);
-      localStorage.setItem('userEmail', user.email);
 
       navigate('/clientHome');
     } else {
