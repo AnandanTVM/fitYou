@@ -4,4 +4,7 @@ export { default as Clogin } from './Clogin';
 export { default as TrSignup } from './TSignup';
 export { default as TLogin } from './TLogin';
 export { default as ClientHome } from './ClientHome';
+export { default as AdminLogin } from './AdminLogin';
+export { default as AdminHome } from './AdminHome';
+export { default as AdminUserInfo } from './AdminUserInfo';
 export { default as E404 } from './E404';

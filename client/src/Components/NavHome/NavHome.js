@@ -133,7 +133,7 @@ function NavHome(props) {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/">
+                    <Link className="dropdown-item" to="/adminLogin">
                       Admin Login
                     </Link>
                   </li>

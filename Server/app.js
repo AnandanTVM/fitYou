@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 
 const app = express();
 const cors = require('cors');
@@ -12,9 +13,11 @@ app.use(express.json());
 // routs
 const homeRouter = require('./routs/home');
 const clientRouter = require('./routs/client');
+const adminRouter = require('./routs/admin');
 
 // redirects to roughts
 app.use('/', homeRouter);
+app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
 
 // catch 404 and forward to error handler

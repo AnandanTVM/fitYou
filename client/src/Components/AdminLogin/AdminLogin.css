@@ -1,17 +1,19 @@
 
-.Clogin-Main {
+
+.adminlogin-Main {
     color: white;
     position: relative;
 }
 
-.Clogin-Main img {
-    width: 500px;
+.adminlogin-Main img {
+    width: 750px;
     height: 520px;
     position: absolute;
+ 
 
 }
 
-.Clogin-img1 {
-    right: 10px;
+.adminlogin-img1 {
+    left:300px;
     bottom: 50px;
 }

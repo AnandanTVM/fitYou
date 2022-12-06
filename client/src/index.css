@@ -1,23 +1,38 @@
 body {
   margin: 0;
   font-family: 'Ubuntu', sans-serif, 'Roboto', sans-serif;
+  color: #ed533be5;
   background-color: #1E1C1C;
+  overflow-x: hidden;
 }
 
-.btn-primary {
+.btn{
   background-color: #ED533B;
   color: whitesmoke !important;
   border-color: black;
 
 
 }
+.btn:hover {
 
+  background-color: whitesmoke;
+  color: #ED533B !important;
+  border-color: black;
+}
+.btn-primary{
+  background-color: #ED533B;
+  color: whitesmoke !important;
+  border-color: black;
+
+
+}
 .btn-primary:hover {
 
   background-color: whitesmoke;
   color: #ED533B !important;
   border-color: black;
 }
+
 
 .inputColor:checked {
   background-color: #ED533B;
@@ -26,4 +41,8 @@ body {
 
 .CreatSingup-textcolour {
   color: #ED533B
+}
+.card {
+  background-color: #0000009c !important;
+
 }

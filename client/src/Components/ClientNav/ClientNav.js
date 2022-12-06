@@ -10,14 +10,14 @@ function ClientNav(props) {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userDetails');
-    navigate('/');
+    navigate('/login');
   };
   return (
     <div>
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/clientHome">
               <img src={logo} alt="not avalable" height="50" width="140" />
             </Link>
             <button
@@ -38,11 +38,11 @@ function ClientNav(props) {
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mal">
                 <li className="nav-item">
                   {props.home ? (
-                    <Link className="nav-link active" to="/">
+                    <Link className="nav-link active" to="/clientHome">
                       Home
                     </Link>
                   ) : (
-                    <Link className="nav-link " to="/">
+                    <Link className="nav-link " to="/clientHome">
                       Home
                     </Link>
                   )}
@@ -109,14 +109,12 @@ function ClientNav(props) {
                   </ul>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
-                    <button
-                      className="navbtn btn btn-primary btn-md"
-                      onClick={logout}
-                    >
-                      LogOut
-                    </button>
-                  </Link>
+                  <button
+                    className="navbtn btn btn-primary btn-md"
+                    onClick={logout}
+                  >
+                    LogOut
+                  </button>
                 </li>
               </ul>
               {/* <form className="d-flex">

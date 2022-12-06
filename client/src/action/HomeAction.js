@@ -1,4 +1,8 @@
-import { axiosClientInstance, axiosHomeInstance } from '../axios/axios';
+import {
+  axiosClientInstance,
+  axiosHomeInstance,
+  axiosAdminInstance,
+} from '../axios/axios';
 export const clientRegister = async (value) => {
   const config = {
     headers: {
@@ -29,6 +33,9 @@ export const trainerRegister = async (value) => {
     return data;
   }
 };
+
+// Client Login action
+
 export const clientLogin = async (value) => {
   console.log(value);
   const config = {
@@ -41,6 +48,21 @@ export const clientLogin = async (value) => {
     value,
     config
   );
+  if (data) {
+    return data;
+  }
+};
+
+// admin Login ACTION
+
+export const adminLogin = async (value) => {
+  console.log(value);
+  const config = {
+    headers: {
+      'content-type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.post('/adminLogin', value, config);
   if (data) {
     return data;
   }

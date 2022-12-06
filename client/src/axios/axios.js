@@ -6,3 +6,6 @@ export const axiosHomeInstance = axios.create({
 export const axiosClientInstance = axios.create({
   baseURL: 'http://localhost:3001/client/api',
 });
+export const axiosAdminInstance = axios.create({
+  baseURL: 'http://localhost:3001/admin/api',
+});

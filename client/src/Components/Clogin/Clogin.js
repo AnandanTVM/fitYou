@@ -27,7 +27,7 @@ function Clogin() {
 
       navigate('/clientHome');
     } else {
-      setError('Invalid Email/Password..');
+      setError('Invalid Phone Number/Password..');
     }
   }
 

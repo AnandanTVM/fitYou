@@ -1,32 +1,33 @@
 import React, { useEffect } from 'react';
-import { ClientNav } from '../Components';
+import AdminNav from '../Components/AdminNav/AdminNav';
 import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
-function ClientHome() {
+import { UserInfo } from '../Components';
+function AdminUserInfo() {
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('Admintoken');
     if (token) {
       const user = jwt(token);
 
       // setUserName(user.name);
 
       if (!user) {
-        localStorage.removeItem('token');
-        navigate('/login');
+        localStorage.removeItem('Admintoken');
+        navigate('/adminLogin');
       } else {
         // populateQuote()
       }
     } else {
-      navigate('/login');
+      navigate('/adminLogin');
     }
   }, [navigate]);
-
   return (
     <div>
-      <ClientNav home />
+      <AdminNav authentication />
+      <UserInfo />
     </div>
   );
 }
 
-export default ClientHome;
+export default AdminUserInfo;
