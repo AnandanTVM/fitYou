@@ -155,7 +155,7 @@ function AdminNav(props) {
                 <li className="nav-item">
                   <div className="dropdown">
                     <button
-                      className="navbtn btn  btn-md dropdown-toggle"
+                      className="navbtn btn btn-primary btn-md dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown"

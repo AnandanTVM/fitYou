@@ -6,7 +6,7 @@ body {
   overflow-x: hidden;
 }
 
-.btn{
+/* .btn{
   background-color: #ED533B;
   color: whitesmoke !important;
   border-color: black;
@@ -18,7 +18,7 @@ body {
   background-color: whitesmoke;
   color: #ED533B !important;
   border-color: black;
-}
+} */
 .btn-primary{
   background-color: #ED533B;
   color: whitesmoke !important;

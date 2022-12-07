@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { detailsEdit, detailsStore } from '../../redux/adminReducer';
+// import jwt from 'jwt-decode';
+import { getUserInfo } from '../../action/AdminAction';
+
 import './AdminUserInfo';
 
 function AdminUserInfo() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [details, SetDetails] = useState();
+
+  useEffect(() => {
+    const token = localStorage.getItem('Admintoken');
+    fetchData();
+
+    async function fetchData() {
+      const data = await getUserInfo(token);
+      SetDetails(data.clientDetails);
+      dispatch(detailsStore(data.clientDetails));
+    }
+  }, [dispatch]);
+
   return (
     <div className="container">
       <div className="row mt-4">
@@ -9,33 +30,63 @@ function AdminUserInfo() {
       </div>
       <div className="row">
         <div>
-          <table class="table" >
-            <thead >
-              <tr className="table-warning" style={{backgroundColor:"#ef553b"}}>
-                <th scope="col" style={{backgroundColor:"#ef553b"}}>#</th>
-                <th scope="col" style={{backgroundColor:"#ef553b"}}>First</th>
-                <th scope="col" style={{backgroundColor:"#ef553b"}}>Last</th>
-                <th scope="col" style={{backgroundColor:"#ef553b"}}>Handle</th>
+          <table className="table">
+            <thead>
+              <tr
+                className="table-warning"
+                style={{ backgroundColor: '#ef553b' }}
+              >
+                <th scope="col" style={{ backgroundColor: '#ef553b' }}>
+                  Slno
+                </th>
+                <th scope="col" style={{ backgroundColor: '#ef553b' }}>
+                  First
+                </th>
+
+                <th scope="col" style={{ backgroundColor: '#ef553b' }}>
+                  Email
+                </th>
+                <th scope="col" style={{ backgroundColor: '#ef553b' }}>
+                  Phone
+                </th>
+                <th scope="col" style={{ backgroundColor: '#ef553b' }}>
+                  Delete
+                </th>
+                <th scope="col" style={{ backgroundColor: '#ef553b' }}>
+                  View More
+                </th>
               </tr>
             </thead>
-            <tbody style={{color:"#e6e6e6"}} >
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
+            <tbody style={{ color: '#e6e6e6' }}>
+              {details
+                ? details.map((data, index) => {
+                    return (
+                      <tr key={index}>
+                        <th scope="row">{index + 1}</th>
+                        <td>
+                          {data.fname} {data.lname}
+                        </td>
+
+                        <td>{data.email}</td>
+                        <td>{data.phone}</td>
+                        <td>
+                          <button className="btn btn-danger">Delete</button>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-info"
+                            onClick={() => {
+                              dispatch(detailsEdit(data));
+                              navigate('/adminClientEdit');
+                            }}
+                          >
+                            More Details
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                : 'No Data found'}
             </tbody>
           </table>
         </div>

@@ -1,10 +1,9 @@
-import {configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 
-import singupdetaila  from './signup'
+import adminReducer from './adminReducer';
 
-export const store= configureStore({
-
-    reducer:{
-        singup:singupdetaila,
-    }
-})
+export const store = configureStore({
+  reducer: {
+    admin: adminReducer,
+  },
+});

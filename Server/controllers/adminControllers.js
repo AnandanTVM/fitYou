@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const adminHelpers = require('../helpers/adminHelpers');
 
 const adminLogin = AsyncHandler(async (req, res) => {
-  console.log(req.body);
   adminHelpers.doadminLogin(req.body).then((response) => {
     if (response.status) {
       const token = jwt.sign(
@@ -13,7 +12,7 @@ const adminLogin = AsyncHandler(async (req, res) => {
           name: response.user.name,
           email: response.user.email,
         },
-        'fityou5055'
+        process.env.JWT_SECRET
       );
       return res.json({ status: 'ok', user: token });
     }
@@ -21,7 +20,21 @@ const adminLogin = AsyncHandler(async (req, res) => {
   });
 });
 
+const userInfo = AsyncHandler((req, res) => {
+  adminHelpers
+    .userdetails()
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', clientDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 // exports
 module.exports = {
   adminLogin,
+  userInfo,
 };

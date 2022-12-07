@@ -7,4 +7,5 @@ export { default as TrainerLogin } from './TrainerLogin/TrainerLogin';
 export { default as ClientNav } from './ClientNav/ClientNav';
 export { default as ALogin } from './AdminLogin/AdminLogin';
 export { default as UserInfo } from './AdminUserInfo/AdminUserInfo';
+export { default as UserEdit } from './AdminClientEdit/AdminClientEdit';
 export { default as Error } from './Error/Error';

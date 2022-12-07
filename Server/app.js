@@ -1,10 +1,19 @@
 const express = require('express');
 const createError = require('http-errors');
 
+const dotenv = require('dotenv');
+
 const app = express();
 const cors = require('cors');
+// .env config
 
-app.use(cors());
+dotenv.config();
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true, // access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 // data base connection
 const db = require('./config/connection');
 
