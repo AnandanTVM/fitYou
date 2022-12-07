@@ -9,16 +9,16 @@ function AdminUserInfo() {
       </div>
       <div className="row">
         <div>
-          <table class="table table-info">
-            <thead>
-              <tr className="table-warning">
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+          <table class="table" >
+            <thead >
+              <tr className="table-warning" style={{backgroundColor:"#ef553b"}}>
+                <th scope="col" style={{backgroundColor:"#ef553b"}}>#</th>
+                <th scope="col" style={{backgroundColor:"#ef553b"}}>First</th>
+                <th scope="col" style={{backgroundColor:"#ef553b"}}>Last</th>
+                <th scope="col" style={{backgroundColor:"#ef553b"}}>Handle</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{color:"#e6e6e6"}} >
               <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
