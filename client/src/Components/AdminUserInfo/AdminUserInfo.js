@@ -70,14 +70,15 @@ function AdminUserInfo() {
                         <td>{data.email}</td>
                         <td>{data.phone}</td>
                         <td>
-                          <button className="btn btn-danger">Delete</button>
+                          <button className="btn btn-danger" >Delete</button>
                         </td>
                         <td>
                           <button
                             className="btn btn-info"
                             onClick={() => {
-                              dispatch(detailsEdit(data));
+                              
                               navigate('/adminClientEdit');
+                              dispatch(detailsEdit(data));
                             }}
                           >
                             More Details

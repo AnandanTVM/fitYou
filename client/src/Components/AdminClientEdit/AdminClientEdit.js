@@ -51,7 +51,7 @@ function AdminClientEdit() {
                 >
                   <div className="card-body p-4 p-md-5">
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">
-                      Registration Form
+                      Client Details
                     </h3>
 
                     <form onSubmit={handleSubmit}>

@@ -8,9 +8,11 @@ function AdminNav(props) {
   const navigate = useNavigate();
   const userName = localStorage.getItem('adminDetails');
   const logout = () => {
+    
     localStorage.removeItem('Admintoken');
     localStorage.removeItem('adminDetails');
     navigate('/adminLogin');
+   
   };
   return (
     <div>
