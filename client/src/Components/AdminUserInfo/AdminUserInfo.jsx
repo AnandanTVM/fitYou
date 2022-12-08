@@ -76,9 +76,10 @@ function AdminUserInfo() {
                           <button
                             className="btn btn-info"
                             onClick={() => {
-                              
                               navigate('/adminClientEdit');
                               dispatch(detailsEdit(data));
+                             
+                              
                             }}
                           >
                             More Details

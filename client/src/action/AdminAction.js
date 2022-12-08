@@ -13,3 +13,19 @@ export const getUserInfo = async (token) => {
     return data;
   }
 };
+export const updateUserInfo = async (token, values) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.post(
+    '/updateUserInfo',
+    values,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};

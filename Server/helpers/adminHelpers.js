@@ -46,4 +46,23 @@ module.exports = {
         reject();
       }
     }),
+  editUser: () =>
+    new Promise((resolve, reject) => {
+      db.get()
+        .collection(collection.User_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data.id),
+          },
+          {
+            $set: {
+              email: data.email,
+              name: data.name,
+            },
+          }
+        )
+        .then((response) => {
+          resolve();
+        });
+    }),
 };

@@ -7,5 +7,9 @@ const router = express.Router();
 // sing up for Client
 router.post('/api/adminLogin', adminControllers.adminLogin);
 router.get('/api/userInfo', auth.adminprotect, adminControllers.userInfo);
-
+router.post(
+  '/api/updateUserInfo',
+  auth.adminprotect,
+  adminControllers.updateUserInfo
+);
 module.exports = router;

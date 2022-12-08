@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 // import * as yup from "yup";
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'
+
 //validation import
-import { userSchema } from '../../validation/homeValidation';
-import { clientRegister } from '../../action/HomeAction';
+import { userUpdateSchema } from '../../validation/homeValidation';
+
+import { updateUserInfo } from '../../action/AdminAction';
 function AdminClientEdit() {
   const navigate = useNavigate();
 
   const [error, setError] = useState('');
   const onSubmit = async (values, actions) => {
-    const status = await clientRegister(values);
+    const token = localStorage.getItem('Admintoken');
+    values.userid=userDetails[0]._id;
+
+    const status = await updateUserInfo(token,values);
     if (status.status === 'error') {
-      setError('Client already existed');
+      setError('Something went wrong please try again.');
     } else if (status.status === 'success') {
       navigate('/login');
     }
@@ -20,24 +26,28 @@ function AdminClientEdit() {
 
     console.log('done');
   };
+  const {userDetails}  = useSelector(state => state.admin)
+  
+
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
-        fname: '',
-        lname: '',
-        dob: '',
-        gender: '',
-        email: '',
-        phone: '',
-        password: '',
-        cpassword: '',
-        weight: '',
-        height: '',
+        fname: `${userDetails[0]?.fname}`,
+        lname:`${userDetails[0]?.lname}` ,
+        dob: `${userDetails[0]?.dob}`,
+        gender: `${userDetails[0]?.gender}`,
+        email: `${userDetails[0]?.email}`,
+        phone:`${userDetails[0]?.phone}` ,
+        weight: `${userDetails[0]?.weight}`,
+        height: `${userDetails[0]?.height}`,
       },
-      validationSchema: userSchema,
+      validationSchema: userUpdateSchema,
       onSubmit,
     });
+
+    
+
   return (
     <div>
       <div className="Csignup-Main">
@@ -120,53 +130,29 @@ function AdminClientEdit() {
                             )}
                           </div>
                         </div>
-                        <div className="col-md-6 mb-4">
-                          <h6 className="mb-2 pb-1">Gender: </h6>
-
-                          <div
-                            className="form-check form-check-inline"
-                            id="clr"
-                          >
+                        
+                        <div className="col-md-6 mb-4 d-flex align-items-center">
+                          <div className="form-outline datepicker w-100">
                             <input
-                              className="form-check-input inputColor"
-                              type="radio"
-                              name="gender"
-                              value="Femail"
+                              type="text"
+                              className={
+                                errors.gender && touched.gender
+                                  ? 'form-control form-control-lg input-error'
+                                  : 'form-control form-control-lg'
+                              }
+                              value={values.gender}
                               onChange={handleChange}
                               onBlur={handleBlur}
+                              id="dob"
                             />
-                            <label className="form-check-label">Female</label>
+                            <label className="form-label">Gender</label>
+                           
                           </div>
-
-                          <div className="form-check form-check-inline">
-                            <input
-                              className="form-check-input inputColor"
-                              type="radio"
-                              name="gender"
-                              value="Male"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                            />
-                            <label className="form-check-label">Male</label>
-                          </div>
-
-                          <div className="form-check form-check-inline">
-                            <input
-                              className="form-check-input inputColor"
-                              type="radio"
-                              name="gender"
-                              value="Other"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                            />
-                            <label className="form-check-label">Other</label>
-                          </div>
-
-                          {errors.gender && touched.gender && (
-                            <p className="red-error">{errors.gender}</p>
-                          )}
                         </div>
-                      </div>
+                                        
+                                           
+                                        </div> 
+                     
 
                       <div className="row">
                         <div className="col-md-6 mb-4 pb-2">
@@ -210,50 +196,7 @@ function AdminClientEdit() {
                           </div>
                         </div>
                       </div>
-                      <div className="row">
-                        <div className="col-md-6 mb-4 pb-2">
-                          <div className="form-outline">
-                            <input
-                              type="Password"
-                              id="password"
-                              value={values.password}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              className={
-                                errors.password && touched.password
-                                  ? 'form-control form-control-lg input-error'
-                                  : 'form-control form-control-lg'
-                              }
-                            />
-                            <label className="form-label">Password</label>
-                            {errors.password && touched.password && (
-                              <p className="red-error">{errors.password}</p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="col-md-6 mb-4 pb-2">
-                          <div className="form-outline">
-                            <input
-                              type="Password"
-                              id="cpassword"
-                              value={values.cpassword}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              className={
-                                errors.cpassword && touched.cpassword
-                                  ? 'form-control form-control-lg input-error'
-                                  : 'form-control form-control-lg'
-                              }
-                            />
-                            <label className="form-label">
-                              Confirm Password
-                            </label>
-                            {errors.cpassword && touched.cpassword && (
-                              <p className="red-error">{errors.cpassword}</p>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+                      
                       <div className="row">
                         <div className="col-md-6 mb-4 pb-2">
                           <div className="form-outline">
@@ -296,26 +239,12 @@ function AdminClientEdit() {
                           </div>
                         </div>
                       </div>
-                      {/* 
-                                        <div className="row">
-                                            <div className="col-12">
-
-                                                <select className="select form-control-lg">
-                                                    <option value="1" disabled>Choose option</option>
-                                                    <option value="2">Subject 1</option>
-                                                    <option value="3">Subject 2</option>
-                                                    <option value="4">Subject 3</option>
-                                                </select>
-                                                <label className="form-label select-label">Choose option</label>
-
-                                            </div>
-                                        </div> */}
 
                       <div className="mt-4 pt-2">
                         <input
                           className="btn btn-primary btn-lg"
                           type="submit"
-                          value="Submit"
+                          value="Update"
                         />
                       </div>
                     </form>
