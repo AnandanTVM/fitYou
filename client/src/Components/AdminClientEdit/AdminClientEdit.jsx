@@ -17,14 +17,11 @@ function AdminClientEdit() {
     values.userid=userDetails[0]._id;
 
     const status = await updateUserInfo(token,values);
-    if (status.status === 'error') {
+    if (!status.status) {
       setError('Something went wrong please try again.');
-    } else if (status.status === 'success') {
-      navigate('/login');
+    } else if (status.status) {
+      navigate('/userInfo');
     }
-    console.log(status);
-
-    console.log('done');
   };
   const {userDetails}  = useSelector(state => state.admin)
   

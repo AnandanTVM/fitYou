@@ -46,23 +46,45 @@ module.exports = {
         reject();
       }
     }),
-  editUser: () =>
+  editUser: (data) =>
     new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.User_COLLECTION)
-        .updateOne(
-          {
-            _id: ObjectId(data.id),
-          },
-          {
-            $set: {
-              email: data.email,
-              name: data.name,
+      try {
+        db.get()
+          .collection(collection.CLIENT_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data.userid),
             },
-          }
-        )
-        .then((response) => {
-          resolve();
-        });
+            {
+              $set: {
+                fname: data.fname,
+                lname: data.lname,
+                dob: data.dob,
+                gender: data.gender,
+                email: data.email,
+                phone: data.phone,
+                weight: data.weight,
+                height: data.height,
+              },
+            }
+          )
+          .then(() => {
+            resolve();
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }),
 };
+
+// fname: data.email,
+// lname: data.lname,
+// dob: data.dob,
+// gender: data.gender,
+// email: data.email,
+// phone: data.phone,
+// weight: data.weight,
+// height: data.height,

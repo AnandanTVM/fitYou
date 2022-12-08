@@ -36,10 +36,10 @@ const userInfo = AsyncHandler((req, res) => {
 const updateUserInfo = AsyncHandler(async (req, res) => {
   console.log('here');
   console.log(req.body);
-  // await adminHelpers
-  //   .editUser(req.body)
-  //   .then(() => res.json({ status: true }))
-  //   .catch(() => res.json({ status: false }));
+  await adminHelpers
+    .editUser(req.body)
+    .then(() => res.json({ status: true }))
+    .catch(() => res.json({ status: false }));
 });
 
 // exports
