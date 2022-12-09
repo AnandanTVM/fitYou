@@ -12,4 +12,5 @@ router.post(
   auth.adminprotect,
   adminControllers.updateUserInfo
 );
+router.get('/api/trainerApprovel', auth.adminprotect, adminControllers.trainerApprovel);
 module.exports = router;

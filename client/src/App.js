@@ -4,6 +4,7 @@ import {
   AdminClientEdit,
   AdminHome,
   AdminLogin,
+  AdminTrainerApprovel,
   AdminUserInfo,
   ClientHome,
   Clogin,
@@ -11,6 +12,7 @@ import {
   Home,
   Signup,
   TLogin,
+  TrainerDetailsView,
   TrSignup,
 } from './Pages';
 
@@ -28,6 +30,8 @@ function App() {
         <Route path="/adminHome" element={<AdminHome />} />
         <Route path="/userInfo" element={<AdminUserInfo />} />
         <Route path="/adminClientEdit" element={<AdminClientEdit />} />
+        <Route path="/trainerApprovel" element={<AdminTrainerApprovel />} />
+        <Route path="/trainerdetailsview" element={<TrainerDetailsView />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

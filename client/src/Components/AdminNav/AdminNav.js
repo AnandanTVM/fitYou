@@ -91,7 +91,7 @@ function AdminNav(props) {
                     </li>
                     <hr className="dropdown-divider" />
                     <li>
-                      <Link className="dropdown-item" to="/adminHome">
+                      <Link className="dropdown-item" to="/trainerApprovel">
                         Pending For Approvel
                       </Link>
                     </li>

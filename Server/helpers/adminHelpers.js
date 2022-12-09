@@ -78,13 +78,19 @@ module.exports = {
         console.log(error);
       }
     }),
-};
 
-// fname: data.email,
-// lname: data.lname,
-// dob: data.dob,
-// gender: data.gender,
-// email: data.email,
-// phone: data.phone,
-// weight: data.weight,
-// height: data.height,
+// give trainer details for approvel so this retuns only penging list
+    trainerApprovel: () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .find({status:'Pending'})
+          .toArray();
+        resolve(details);
+      } catch (error) {
+        reject();
+      }
+    }),
+};

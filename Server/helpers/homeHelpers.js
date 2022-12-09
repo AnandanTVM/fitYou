@@ -46,6 +46,8 @@ module.exports = {
       if (extphone == null) {
         return new Promise(async (resolve, reject) => {
           data.password = await bcrypt.hash(data.password, 10);
+           data.date = new Date();
+           data.status='Pending'
           db.get()
             .collection(collection.TRAINER_COLLECTION)
             .insertOne(data)

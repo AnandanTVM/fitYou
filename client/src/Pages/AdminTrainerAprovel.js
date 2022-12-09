@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { UserEdit,AdminNav } from '../Components';
+import { TrainerApprovel,AdminNav } from '../Components'
 import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
 
-function AdminClientEdit() {
+function AdminTrainerAprovel() {
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('Admintoken');
@@ -24,10 +24,10 @@ function AdminClientEdit() {
   }, [navigate]);
   return (
     <div>
-      <AdminNav authentication />
-      <UserEdit />
+        <AdminNav authentication />
+        <TrainerApprovel/>
     </div>
-  );
+  )
 }
 
-export default AdminClientEdit;
+export default AdminTrainerAprovel

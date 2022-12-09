@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 const INITIAL_STATE = {
-  allUsersDetails: 'achu',
+  allUsersDetails: '',
   userDetails: [],
+  trainerdetails:[],
 };
 
 const singupSlice = createSlice({
@@ -21,9 +22,14 @@ const singupSlice = createSlice({
       state.userDetails.push(action.payload);
       console.log(state.userDetails);
     },
+    trainerDetailsEdit: (state, action) => {
+      state.userDetails = [];
+      state.userDetails.push(action.payload);
+      console.log(state.userDetails);
+    },
   },
 });
 
-export const { detailsEdit, detailsStore } = singupSlice.actions;
+export const { detailsEdit, detailsStore,trainerDetailsEdit } = singupSlice.actions;
 //reducer export to a store
 export default singupSlice.reducer;

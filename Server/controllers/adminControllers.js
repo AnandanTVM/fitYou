@@ -41,10 +41,22 @@ const updateUserInfo = AsyncHandler(async (req, res) => {
     .then(() => res.json({ status: true }))
     .catch(() => res.json({ status: false }));
 });
+const trainerApprovel = AsyncHandler((req, res) => {
+  adminHelpers
+    .trainerApprovel()
+    .then((details) => {
+      console.log(details);
 
+      res.json({ status: 'ok', clientDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // exports
 module.exports = {
   adminLogin,
   userInfo,
   updateUserInfo,
+  trainerApprovel,
 };

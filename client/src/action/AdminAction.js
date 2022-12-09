@@ -29,3 +29,16 @@ export const updateUserInfo = async (token, values) => {
     return data;
   }
 };
+export const getTrainerApprovel = async (token) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get('/trainerApprovel', config);
+  if (data.status) {
+    return data;
+  }
+};

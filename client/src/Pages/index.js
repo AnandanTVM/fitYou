@@ -8,4 +8,6 @@ export { default as AdminLogin } from './AdminLogin';
 export { default as AdminHome } from './AdminHome';
 export { default as AdminUserInfo } from './AdminUserInfo';
 export { default as AdminClientEdit } from './AdminClientEdit';
+export { default as AdminTrainerApprovel } from './AdminTrainerAprovel';
+export { default as TrainerDetailsView } from './TrainerDetailsView';
 export { default as E404 } from './E404';
