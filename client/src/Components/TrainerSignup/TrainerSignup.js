@@ -1,31 +1,25 @@
-import React,{useState} from 'react';
-import { useNavigate }from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Model from '../../images/trainer.png';
 import { useFormik } from 'formik';
-import { trainerRegister } from '../../action/HomeAction';
+import { trainerRegister } from '../../axios/serives/HomeServices';
 import { trainerSchema } from '../../validation/homeValidation';
 import './TrainerSignup.css';
 
 function TrainerSingup() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-    
-    const [error, setError] = useState('')
-    const onSubmit = async (values, actions) => {
-     
-        const status = await trainerRegister(values)
-        if (status.status === "error") {
-            setError("Trainer already existed")
-        } else if (status.status === "success") {
-            navigate('/trainerLogin')
-            
-        }
-     
-
-
+  const [error, setError] = useState('');
+  const onSubmit = async (values, actions) => {
+    const status = await trainerRegister(values);
+    if (status.status === 'error') {
+      setError('Trainer already existed');
+    } else if (status.status === 'success') {
+      navigate('/trainerLogin');
     }
-   
-  const { values, errors, touched,handleBlur, handleChange, handleSubmit } =
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
         fname: '',
@@ -36,20 +30,20 @@ function TrainerSingup() {
         phone: '',
         password: '',
         cpassword: '',
-        link:'',
-        
+        link: '',
       },
       validationSchema: trainerSchema,
-        onSubmit,
-        
-
+      onSubmit,
     });
 
-        
   return (
     <div>
       <div className="TrainerSignup-Main">
-        <img className='TrainerSignup-Main-image' src={Model} alt="modelimage" />
+        <img
+          className="TrainerSignup-Main-image"
+          src={Model}
+          alt="modelimage"
+        />
         <section className=" gradient-custom">
           <div className="container py-5 h-100">
             <div className="row justify-content-center align-items-center h-100">
@@ -62,7 +56,7 @@ function TrainerSingup() {
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">
                       Registration Form
                     </h3>
-                    {error ? <p className='red-error'>{error}</p> : ""}
+                    {error ? <p className="red-error">{error}</p> : ''}
                     <form onSubmit={handleSubmit}>
                       <div className="row">
                         <div className="col-md-6 mb-4">
@@ -80,7 +74,9 @@ function TrainerSingup() {
                               }
                             />
                             <label className="form-label">First Name</label>
-                            {errors.fname && touched.fname && <p className='red-error'>{errors.fname}</p>}
+                            {errors.fname && touched.fname && (
+                              <p className="red-error">{errors.fname}</p>
+                            )}
                           </div>
                         </div>
                         <div className="col-md-6 mb-4">
@@ -98,7 +94,9 @@ function TrainerSingup() {
                               }
                             />
                             <label className="form-label">Last Name</label>
-                            {errors.lname && touched.lname && <p className='red-error'>{errors.lname}</p>}
+                            {errors.lname && touched.lname && (
+                              <p className="red-error">{errors.lname}</p>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -119,35 +117,57 @@ function TrainerSingup() {
                               }
                             />
                             <label className="form-label">Birthday</label>
-                            {errors.dob && touched.dob && <p className='red-error'>{errors.dob}</p>}
+                            {errors.dob && touched.dob && (
+                              <p className="red-error">{errors.dob}</p>
+                            )}
                           </div>
                         </div>
                         <div className="col-md-6 mb-4">
+                          <h6 className="mb-2 pb-1">Gender: </h6>
 
-                                                <h6 className="mb-2 pb-1">Gender: </h6>
+                          <div
+                            className="form-check form-check-inline"
+                            id="clr"
+                          >
+                            <input
+                              className="form-check-input inputColor"
+                              type="radio"
+                              name="gender"
+                              value="Femail"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                            <label className="form-check-label">Female</label>
+                          </div>
 
-                                                <div className="form-check form-check-inline" id='clr'>
-                                                    <input className="form-check-input inputColor" type="radio" name="gender"
-                                                        value="Femail" onChange={handleChange} onBlur={handleBlur} />
-                                                    <label className="form-check-label" >Female</label>
-                                                </div>
+                          <div className="form-check form-check-inline">
+                            <input
+                              className="form-check-input inputColor"
+                              type="radio"
+                              name="gender"
+                              value="Male"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                            <label className="form-check-label">Male</label>
+                          </div>
 
-                                                <div className="form-check form-check-inline">
-                                                    <input className="form-check-input inputColor" type="radio" name="gender"
+                          <div className="form-check form-check-inline">
+                            <input
+                              className="form-check-input inputColor"
+                              type="radio"
+                              name="gender"
+                              value="Other"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                            <label className="form-check-label">Other</label>
+                          </div>
 
-                                                        value="Male" onChange={handleChange} onBlur={handleBlur} />
-                                                    <label className="form-check-label" >Male</label>
-                                                </div>
-
-                                                <div className="form-check form-check-inline">
-                                                    <input className="form-check-input inputColor" type="radio" name="gender"
-                                                        value="Other" onChange={handleChange} onBlur={handleBlur} />
-                                                    <label className="form-check-label" >Other</label>
-                                                </div>
-
-                                                {errors.gender && touched.gender && <p className='red-error'>{errors.gender}</p>}
-
-                                            </div>
+                          {errors.gender && touched.gender && (
+                            <p className="red-error">{errors.gender}</p>
+                          )}
+                        </div>
                       </div>
 
                       <div className="row">
@@ -166,7 +186,9 @@ function TrainerSingup() {
                               }
                             />
                             <label className="form-label">Email</label>
-                            {errors.email && touched.email && <p className='red-error'>{errors.email}</p>}
+                            {errors.email && touched.email && (
+                              <p className="red-error">{errors.email}</p>
+                            )}
                           </div>
                         </div>
                         <div className="col-md-6 mb-4 pb-2">
@@ -184,7 +206,9 @@ function TrainerSingup() {
                               }
                             />
                             <label className="form-label">Phone Number</label>
-                            {errors.phone && touched.phone && <p className='red-error'>{errors.phone}</p>}
+                            {errors.phone && touched.phone && (
+                              <p className="red-error">{errors.phone}</p>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -204,7 +228,9 @@ function TrainerSingup() {
                               }
                             />
                             <label className="form-label">Password</label>
-                            {errors.password && touched.password && <p className='red-error'>{errors.password}</p>}
+                            {errors.password && touched.password && (
+                              <p className="red-error">{errors.password}</p>
+                            )}
                           </div>
                         </div>
                         <div className="col-md-6 mb-4 pb-2">
@@ -224,7 +250,9 @@ function TrainerSingup() {
                             <label className="form-label">
                               Confirm Password
                             </label>
-                            {errors.cpassword && touched.cpassword && <p className='red-error'>{errors.cpassword}</p>}
+                            {errors.cpassword && touched.cpassword && (
+                              <p className="red-error">{errors.cpassword}</p>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -283,17 +311,19 @@ function TrainerSingup() {
                           <input
                             type="text"
                             id="link"
-                              value={values.link}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              className={
-                                errors.link && touched.link
-                                  ? 'form-control form-control-lg input-error'
-                                  : 'form-control form-control-lg'
-                              }
+                            value={values.link}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={
+                              errors.link && touched.link
+                                ? 'form-control form-control-lg input-error'
+                                : 'form-control form-control-lg'
+                            }
                           />
                           <label className="form-label">
-                          {errors.link && touched.link && <p className='red-error'>{errors.link}</p>}
+                            {errors.link && touched.link && (
+                              <p className="red-error">{errors.link}</p>
+                            )}
                             Upload Video Link <br></br>(Paste a link to your
                             YouTube video introducing yourself and training a
                             client.)

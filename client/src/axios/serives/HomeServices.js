@@ -2,7 +2,7 @@ import {
   axiosClientInstance,
   axiosHomeInstance,
   axiosAdminInstance,
-} from '../axios/axios';
+} from '../axios';
 export const clientRegister = async (value) => {
   const config = {
     headers: {

@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 //validation import
 import { userSchema } from '../../validation/homeValidation';
-import { clientRegister } from '../../action/HomeAction';
+import { clientRegister } from '../../axios/serives/HomeServices';
 
 //images
 import Model from '../../images/models.png';

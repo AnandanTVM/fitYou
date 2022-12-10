@@ -53,10 +53,25 @@ const trainerApprovel = AsyncHandler((req, res) => {
       console.log(err);
     });
 });
+const getTrainerDetails = AsyncHandler((req, res) => {
+  const id = req.params.id;
+  adminHelpers
+    .trainerDetails(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', trainerDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 // exports
 module.exports = {
   adminLogin,
   userInfo,
   updateUserInfo,
   trainerApprovel,
+  getTrainerDetails,
 };

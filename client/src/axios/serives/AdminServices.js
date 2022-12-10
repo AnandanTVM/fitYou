@@ -1,4 +1,4 @@
-import { axiosAdminInstance } from '../axios/axios';
+import { axiosAdminInstance } from '../axios';
 
 export const getUserInfo = async (token) => {
   const config = {
@@ -38,6 +38,22 @@ export const getTrainerApprovel = async (token) => {
     },
   };
   const { data } = await axiosAdminInstance.get('/trainerApprovel', config);
+  if (data.status) {
+    return data;
+  }
+};
+export const getTrainerdetails = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get(
+    `/getTrainerDetails/${id}`,
+    config
+  );
   if (data.status) {
     return data;
   }

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 //validation import
 import { userUpdateSchema } from '../../validation/homeValidation';
 
-import { updateUserInfo } from '../../action/AdminAction';
+import { updateUserInfo } from '../../axios/serives/AdminServices';
 function AdminClientEdit() {
   const navigate = useNavigate();
 

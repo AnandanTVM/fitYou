@@ -79,14 +79,27 @@ module.exports = {
       }
     }),
 
-// give trainer details for approvel so this retuns only penging list
-    trainerApprovel: () =>
+  // give trainer details for approvel so this retuns only penging list
+  trainerApprovel: () =>
     new Promise(async (resolve, reject) => {
       try {
         const details = await db
           .get()
           .collection(collection.TRAINER_COLLECTION)
-          .find({status:'Pending'})
+          .find({ status: 'Pending' })
+          .toArray();
+        resolve(details);
+      } catch (error) {
+        reject();
+      }
+    }),
+  trainerDetails: (id) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .find({ _id: ObjectId(id) })
           .toArray();
         resolve(details);
       } catch (error) {

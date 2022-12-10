@@ -1,18 +1,14 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // images
 import logo from '../../images/Logo.png';
 
 function AdminNav(props) {
-  const navigate = useNavigate();
   const userName = localStorage.getItem('adminDetails');
   const logout = () => {
-    
     localStorage.removeItem('Admintoken');
     localStorage.removeItem('adminDetails');
-    navigate('/adminLogin');
-   
   };
   return (
     <div>
@@ -173,7 +169,11 @@ function AdminNav(props) {
                         <Link className="dropdown-item">Profile</Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" onClick={logout}>
+                        <Link
+                          to="/adminLogin"
+                          className="dropdown-item"
+                          onClick={logout}
+                        >
                           LogOut 🚪
                         </Link>
                       </li>

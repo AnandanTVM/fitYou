@@ -31,7 +31,10 @@ function App() {
         <Route path="/userInfo" element={<AdminUserInfo />} />
         <Route path="/adminClientEdit" element={<AdminClientEdit />} />
         <Route path="/trainerApprovel" element={<AdminTrainerApprovel />} />
-        <Route path="/trainerdetailsview" element={<TrainerDetailsView />} />
+        <Route
+          path="/trainerdetailsview/:id"
+          element={<TrainerDetailsView />}
+        />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

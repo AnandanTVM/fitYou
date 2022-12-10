@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { trainerDetailsEdit } from '../../redux/adminReducer';
+// import { trainerDetailsEdit } from '../../redux/adminReducer';
 // import jwt from 'jwt-decode';
-import { getTrainerApprovel } from '../../action/AdminAction';
+import { getTrainerApprovel } from '../../axios/serives/AdminServices';
 
 function AdminTrainerApprovel() {
  
@@ -75,8 +75,8 @@ function AdminTrainerApprovel() {
                           <button
                             className="btn btn-info"
                             onClick={() => {
-                               navigate('/trainerdetailsview');
-                              dispatch(trainerDetailsEdit(data));
+                               navigate(`/trainerdetailsview/${data._id}`);
+                             
                              
                               
                             }}

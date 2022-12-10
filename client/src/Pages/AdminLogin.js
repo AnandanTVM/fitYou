@@ -5,7 +5,7 @@ import jwt from 'jwt-decode';
 function AdminLogin() {
   const navigate = useNavigate('');
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('Admintoken');
     if (token) {
       console.log('here');
       const user = jwt(token);

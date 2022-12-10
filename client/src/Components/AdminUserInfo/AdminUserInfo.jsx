@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { detailsEdit, detailsStore } from '../../redux/adminReducer';
 // import jwt from 'jwt-decode';
-import { getUserInfo } from '../../action/AdminAction';
+import { getUserInfo } from '../../axios/serives/AdminServices';
 
 import './AdminUserInfo';
 

@@ -3,7 +3,7 @@ import './Clogin.css';
 import ModelWoman from '../../images/welcomWoman.png';
 import { Link, useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
-import { clientLogin } from '../../action/HomeAction';
+import { clientLogin } from '../../axios/serives/HomeServices';
 
 function Clogin() {
   const [phone, setPhone] = useState('');

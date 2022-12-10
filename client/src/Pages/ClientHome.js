@@ -8,9 +8,6 @@ function ClientHome() {
     const token = localStorage.getItem('token');
     if (token) {
       const user = jwt(token);
-
-      // setUserName(user.name);
-
       if (!user) {
         localStorage.removeItem('token');
         navigate('/login');

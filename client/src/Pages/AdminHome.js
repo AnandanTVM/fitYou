@@ -8,9 +8,6 @@ function AdminHome() {
     const token = localStorage.getItem('Admintoken');
     if (token) {
       const user = jwt(token);
-
-      // setUserName(user.name);
-
       if (!user) {
         localStorage.removeItem('Admintoken');
         navigate('/adminLogin');

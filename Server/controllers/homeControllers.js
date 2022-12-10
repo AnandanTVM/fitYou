@@ -4,7 +4,6 @@
 const AsyncHandler = require('express-async-handler');
 const homeHelper = require('../helpers/homeHelpers');
 
-
 const clientSignup = AsyncHandler(async (req, res) => {
   const data = req.body;
   // remove unwated feild from object
@@ -27,6 +26,11 @@ const trainerSignup = AsyncHandler(async (req, res) => {
   const data = req.body;
   // remove unwated feild from object
   delete data.cpassword;
+  const ytUrl = data.link;
+  // replace:
+
+  data.link = ytUrl.replace('/watch?v=', '/embed/');
+
   homeHelper
     .dotrainerSignup(data)
     .then((response) => {
@@ -39,7 +43,6 @@ const trainerSignup = AsyncHandler(async (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-  
 });
 
 // exports

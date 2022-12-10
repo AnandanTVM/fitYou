@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import img1 from '../../images/adminLogin.png';
 import { Link, useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
-import { adminLogin } from '../../action/HomeAction';
+import { adminLogin } from '../../axios/serives/HomeServices';
 import './AdminLogin.css';
 
 function AdminLogin() {
