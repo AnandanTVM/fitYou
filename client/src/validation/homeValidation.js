@@ -35,22 +35,12 @@ export const userSchema = yup.object().shape({
   height: yup.number().positive().integer().required('Required'),
 });
 export const userUpdateSchema = yup.object().shape({
-  fname: yup
-    .string()
-    .min(2, 'First name must be at least 2 characters')
-    .max(20)
-    .required('Required'),
-  lname: yup.string().min(1).max(20).required('Required'),
-  dob: yup.date().required('Required'),
-  gender: yup.string().required('Required'),
   email: yup.string().email('Please enter a valid email').required('Required'),
   phone: yup
     .number('Phone number must be a 10 digit number')
     .positive()
     .integer()
     .required('Required'),
-  weight: yup.number().positive().integer().required('Required'),
-  height: yup.number().positive().integer().required('Required'),
 });
 
 export const trainerSchema = yup.object().shape({

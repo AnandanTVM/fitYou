@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataTable from 'react-data-table-component'
 import { useDispatch } from 'react-redux';
-import { detailsEdit, detailsStore } from '../../redux/adminReducer';
+import {  detailsStore } from '../../redux/adminReducer';
 // import jwt from 'jwt-decode';
 import { getUserInfo } from '../../axios/serives/AdminServices';
 
 import './AdminUserInfo';
 
 function AdminUserInfo() {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [details, SetDetails] = useState();
@@ -46,8 +47,8 @@ const columns=[
   selector:(row)=>{return(<div> <button
     className="btn btn-info"
     onClick={() => {
-      navigate('/adminClientEdit');
-      dispatch(detailsEdit(row));
+      navigate(`/adminClientEdit/${row._id}`);
+      
      
       
     }}
@@ -62,7 +63,7 @@ const columns=[
       <div className="row mt-4">
         <h1> User Informations</h1>
       </div>
-      <DataTable columns={columns} data={details} fixedHeader fixedHeaderScrollHeight='400px' selectableRows selectableRowsHighlight highlightOnHover pagination/>
+      <DataTable columns={columns} data={details} fixedHeader fixedHeaderScrollHeight='500px' selectableRows selectableRowsHighlight highlightOnHover pagination/>
      
     </div>
   );

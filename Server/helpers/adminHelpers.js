@@ -57,14 +57,8 @@ module.exports = {
             },
             {
               $set: {
-                fname: data.fname,
-                lname: data.lname,
-                dob: data.dob,
-                gender: data.gender,
                 email: data.email,
                 phone: data.phone,
-                weight: data.weight,
-                height: data.height,
               },
             }
           )
@@ -104,6 +98,44 @@ module.exports = {
         resolve(details);
       } catch (error) {
         reject();
+      }
+    }),
+  userDetails: (id) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.CLIENT_COLLECTION)
+          .find({ _id: ObjectId(id) })
+          .toArray();
+        resolve(details);
+      } catch (error) {
+        reject();
+      }
+    }),
+  rejectTrainer: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.TRAINER_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data),
+            },
+            {
+              $set: {
+                status: 'Reject',
+              },
+            }
+          )
+          .then(() => {
+            resolve();
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
       }
     }),
 };

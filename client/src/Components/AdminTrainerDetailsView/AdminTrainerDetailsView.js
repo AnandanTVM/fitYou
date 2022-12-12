@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTrainerdetails } from '../../axios/serives/AdminServices';
-import { trainerDetailsEdit } from '../../redux/adminReducer';
+import {
+  getTrainerdetails,
+  trainerReject,
+} from '../../axios/serives/AdminServices';
+import {
+  trainerDetailsEdit,
+  trainerDetailReject,
+} from '../../redux/adminReducer';
 function AdminTrainerDetailsView() {
   let { id } = useParams();
 
   const dispatch = useDispatch();
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [dob, setDob] = useState('');
-  const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [link, setLink] = useState('');
-  const [dor, setDor] = useState('');
-  const [status, setStatus] = useState('');
+  const [details, setDetails] = useState('');
+  // const [fname, setFname] = useState('');
+  // const [lname, setLname] = useState('');
+  // const [dob, setDob] = useState('');
+  // const [gender, setGender] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [phone, setPhone] = useState('');
+  // const [link, setLink] = useState('');
+  // const [dor, setDor] = useState('');
+  // const [status, setStatus] = useState('');
 
   const { trainerdetails } = useSelector((state) => state.admin);
   console.log(trainerdetails);
@@ -26,20 +33,18 @@ function AdminTrainerDetailsView() {
 
     async function fetchData() {
       const data = await getTrainerdetails(token, id);
-      console.log(data);
-      setFname(data.trainerDetails[0].fname);
-      setLname(data.trainerDetails[0].lname);
-      setDob(data.trainerDetails[0].dob);
-      setGender(data.trainerDetails[0].gender);
-      setEmail(data.trainerDetails[0].email);
-      setPhone(data.trainerDetails[0].phone);
-      setLink(data.trainerDetails[0].link);
-      setDor(data.trainerDetails[0].date);
-      setStatus(data.trainerDetails[0].status);
-      dispatch(trainerDetailsEdit(data.trainerDetails[0]));
+      console.log('hi');
+      setDetails(data.trainerDetails[0]);
+      dispatch(trainerDetailsEdit(details));
     }
-  }, [dispatch, id]);
-
+  }, [details, dispatch, id]);
+  async function reject() {
+    const token = localStorage.getItem('Admintoken');
+    const rejectdata = await trainerReject(token, id);
+    if (rejectdata.rejected) {
+      dispatch(trainerDetailReject('Reject'));
+    }
+  }
   return (
     <div>
       <div className="container">
@@ -49,7 +54,7 @@ function AdminTrainerDetailsView() {
               <h3>Training Video</h3>
               <div className="ratio ratio-16x9">
                 <iframe
-                  src={link}
+                  src={trainerdetails.link}
                   title="YouTube video"
                   allowfullscreen
                 ></iframe>
@@ -59,6 +64,7 @@ function AdminTrainerDetailsView() {
                   className="btn btn-danger btn-lg"
                   type="submit"
                   value="Reject"
+                  onClick={reject}
                 />
                 <input
                   className="btn btn-primary ms-5 btn-lg"
@@ -88,7 +94,8 @@ function AdminTrainerDetailsView() {
                       <div className="col-md-6 mb-4 pb-2">
                         <div className="form-outline">
                           <label className="form-label">
-                            {fname ? fname : ''} {lname ? lname : ''}
+                            {trainerdetails.fname ? trainerdetails.fname : ''}{' '}
+                            {trainerdetails.lname ? trainerdetails.lname : ''}
                           </label>
                         </div>
                       </div>
@@ -106,7 +113,7 @@ function AdminTrainerDetailsView() {
                             style={{ color: 'yellow' }}
                             className="form-label"
                           >
-                            {status ? status : ''}
+                            {trainerdetails.status ? trainerdetails.status : ''}
                           </label>
                         </div>
                       </div>
@@ -121,7 +128,7 @@ function AdminTrainerDetailsView() {
                       <div className="col-md-6 mb-4 pb-2">
                         <div className="form-outline">
                           <label className="form-label">
-                            {gender ? gender : ''}
+                            {trainerdetails.gender ? trainerdetails.gender : ''}
                           </label>
                         </div>
                       </div>
@@ -140,14 +147,13 @@ function AdminTrainerDetailsView() {
                               style={{
                                 textDecoration: 'none',
                                 textDecorationColor: 'none',
-                                color: 'white',
+                                color: 'green',
                               }}
                               target="_blank"
-                              href={`https://wa.me/+91${phone}`}
+                              href={`https://wa.me/+91${trainerdetails.phone}`}
                               rel="noreferrer"
                             >
-                              {phone ? phone : ''}{' '}
-                              <i class="bi bi-whatsapp"></i>
+                              {trainerdetails.phone ? trainerdetails.phone : ''}
                             </a>
                           </label>
                         </div>
@@ -163,7 +169,7 @@ function AdminTrainerDetailsView() {
                       <div className="col-md-6 mb-4 pb-2">
                         <div className="form-outline">
                           <label className="form-label">
-                            {email ? email : ''}
+                            {trainerdetails.email ? trainerdetails.email : ''}
                           </label>
                         </div>
                       </div>
@@ -178,7 +184,9 @@ function AdminTrainerDetailsView() {
 
                       <div className="col-md-6 mb-4 pb-2">
                         <div className="form-outline">
-                          <label className="form-label">{dob ? dob : ''}</label>
+                          <label className="form-label">
+                            {trainerdetails.dob ? trainerdetails.dob : ''}
+                          </label>
                         </div>
                       </div>
                     </div>
@@ -195,7 +203,7 @@ function AdminTrainerDetailsView() {
                             style={{ color: 'RED' }}
                             className="form-label"
                           >
-                            {dor ? dor : ''}
+                            {trainerdetails.dor ? trainerdetails.dor : ''}
                           </label>
                         </div>
                       </div>

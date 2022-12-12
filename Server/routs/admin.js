@@ -22,4 +22,16 @@ router.get(
   auth.adminprotect,
   adminControllers.getTrainerDetails
 );
+router.get(
+  '/api/getuserDetails/:id',
+  auth.adminprotect,
+  adminControllers.getuserDetails
+);
+
+router.get(
+  '/api/trainerReject/:id',
+  auth.adminprotect,
+  adminControllers.rejectTrainer
+);
+
 module.exports = router;

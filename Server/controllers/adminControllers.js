@@ -34,8 +34,6 @@ const userInfo = AsyncHandler((req, res) => {
 });
 
 const updateUserInfo = AsyncHandler(async (req, res) => {
-  console.log('here');
-  console.log(req.body);
   await adminHelpers
     .editUser(req.body)
     .then(() => res.json({ status: true }))
@@ -66,6 +64,33 @@ const getTrainerDetails = AsyncHandler((req, res) => {
       console.log(err);
     });
 });
+const getuserDetails = AsyncHandler((req, res) => {
+  const id = req.params.id;
+  adminHelpers
+    .userDetails(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', userDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+const rejectTrainer = AsyncHandler((req, res) => {
+  const id = req.params.id;
+
+  adminHelpers
+    .rejectTrainer(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', rejected: true });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // exports
 module.exports = {
@@ -74,4 +99,6 @@ module.exports = {
   updateUserInfo,
   trainerApprovel,
   getTrainerDetails,
+  getuserDetails,
+  rejectTrainer,
 };

@@ -29,7 +29,7 @@ function App() {
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/adminHome" element={<AdminHome />} />
         <Route path="/userInfo" element={<AdminUserInfo />} />
-        <Route path="/adminClientEdit" element={<AdminClientEdit />} />
+        <Route path="/adminClientEdit/:id" element={<AdminClientEdit />} />
         <Route path="/trainerApprovel" element={<AdminTrainerApprovel />} />
         <Route
           path="/trainerdetailsview/:id"

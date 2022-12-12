@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const INITIAL_STATE = {
   allUsersDetails: '',
   userDetails: [],
-  trainerdetails: [],
+  trainerdetails: '',
 };
 
 const singupSlice = createSlice({
@@ -32,10 +32,21 @@ const singupSlice = createSlice({
       console.log(trainerdetails);
       return { ...state, trainerdetails };
     },
+    trainerDetailReject: (state, action) => {
+      let { trainerdetails } = state;
+      console.log(trainerdetails);
+      trainerdetails.status = action.payload;
+      console.log(trainerdetails);
+      return { ...state, trainerdetails };
+    },
   },
 });
 
-export const { detailsEdit, detailsStore, trainerDetailsEdit } =
-  singupSlice.actions;
+export const {
+  detailsEdit,
+  detailsStore,
+  trainerDetailsEdit,
+  trainerDetailReject,
+} = singupSlice.actions;
 //reducer export to a store
 export default singupSlice.reducer;
