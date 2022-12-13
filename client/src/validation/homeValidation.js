@@ -79,8 +79,12 @@ export const uploadVideoSchema = yup.object().shape({
     .min(5, 'First name must be at least 2 characters')
     .max(50)
     .required('Required'),
-  discretion: yup.string().min().max(200).required('Required'),
+  discretion: yup.string().min(4).max(200).required('Required'),
   type: yup.string().required('Required'),
+  thumbnail:yup.mixed().required('Required')
+  // .test("FILE_ SIZE", "Too bigt!", (value)=> value && value < 2024 * 2024)
+  // .test ("FILE_TYPE", "Invalid!", (value) => value && ['Image/png', 'Image/jpeg'].includes(value.type))
+  ,
   link: yup
     .string()
     .matches(link, 'Please paste a valid youtube link here')

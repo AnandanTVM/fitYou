@@ -38,5 +38,8 @@ router.get(
   auth.adminprotect,
   adminControllers.approvelTrainer
 );
-
+router.post('/api/uploadVideo', auth.adminprotect, (req, res) => {
+  console.log(req.body);
+  console.log(req.body.image);
+});
 module.exports = router;

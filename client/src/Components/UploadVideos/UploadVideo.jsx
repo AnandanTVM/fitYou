@@ -2,30 +2,38 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import { trainerRegister } from '../../axios/serives/HomeServices';
+import { uploadVideo } from '../../axios/serives/AdminServices';
 import { uploadVideoSchema } from '../../validation/homeValidation';
 function UploadVideo() {
   const { adminDetails } = useSelector((state) => state.admin);
-  console.log(adminDetails);
-  const navigate = useNavigate();
+  // console.log(adminDetails);
 
+  const navigate = useNavigate();
+ const [image,setImage]=useState();
   const [error, setError] = useState('');
   const onSubmit = async (values, actions) => {
-    const status = await trainerRegister(values);
+    console.log(values,actions);
+     values.creatorId=adminDetails.userId;
+     values.image=image;
+     const token = localStorage.getItem('Admintoken');
+    const status = await uploadVideo(token,values);
     if (status.status === 'error') {
-      setError('Trainer already existed');
+      setError('Please try again after some time.');
     } else if (status.status === 'success') {
-      navigate('/trainerLogin');
+      navigate('/adminHome');
+       // actions.resetForm()
     }
+   
+
   };
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
         title: '',
         discretion: '',
         type: '',
         link: '',
-        thumbnail: [],
+        thumbnail: '',
       },
       validationSchema: uploadVideoSchema,
       onSubmit,
@@ -42,6 +50,7 @@ function UploadVideo() {
         <div>
           <div className="row mt-3">
             <div className="col-md-6 col-sm-12 mt-4 mb-3">
+              <div className='row'>
               <h3>Video Peview</h3>
               <div className="ratio ratio-16x9">
                 <iframe
@@ -49,6 +58,13 @@ function UploadVideo() {
                   title="YouTube video"
                   allowfullscreen
                 ></iframe>
+              </div>
+              </div>
+              <div className='row'>
+              <h3>Thumbnail Peview</h3>
+              <div className="ratio ratio-16x9">
+              {image ? <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : ""}></img> : ""}
+              </div>
               </div>
             </div>
             <div className="col-md-6 col-sm-12">
@@ -190,8 +206,8 @@ function UploadVideo() {
                               <input
                                 type="file"
                                 id="thumbnail"
-                                value={values.thumbnail}
-                                onChange={handleChange}
+                                onChange={(e)=>{setFieldValue("thumbnail",e.target.files[0])
+                                setImage(e.target.files[0])}}
                                 onBlur={handleBlur}
                                 className={
                                   errors.thumbnail && touched.thumbnail

@@ -103,3 +103,20 @@ export const trainerApprovel = async (token, id) => {
     return data;
   }
 };
+export const uploadVideo = async (token, values) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.post(
+    '/uploadVideo',
+    values,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};
