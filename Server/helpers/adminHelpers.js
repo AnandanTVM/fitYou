@@ -128,8 +128,13 @@ module.exports = {
               },
             }
           )
-          .then(() => {
-            resolve();
+          .then(async () => {
+            const details = await db
+            .get()
+            .collection(collection.TRAINER_COLLECTION)
+              .find({ _id: ObjectId(data) })
+            .toArray();
+          resolve(details);
           })
           .catch(() => {
             reject();

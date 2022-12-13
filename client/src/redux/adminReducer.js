@@ -27,16 +27,16 @@ const singupSlice = createSlice({
       // state.trainerdetails.push(action.payload);
       // console.log(state.trainerdetails);
       let { trainerdetails } = state;
-      console.log(trainerdetails);
+      
       trainerdetails = action.payload;
-      console.log(trainerdetails);
+      
       return { ...state, trainerdetails };
     },
     trainerDetailReject: (state, action) => {
       let { trainerdetails } = state;
-      console.log(trainerdetails);
+      
       trainerdetails.status = action.payload;
-      console.log(trainerdetails);
+      
       return { ...state, trainerdetails };
     },
   },

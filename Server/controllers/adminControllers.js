@@ -85,7 +85,7 @@ const rejectTrainer = AsyncHandler((req, res) => {
     .then((details) => {
       console.log(details);
 
-      res.json({ status: 'ok', rejected: true });
+      res.json({ status: 'ok', rejected: true, trainerDetails: details });
     })
     .catch((err) => {
       console.log(err);

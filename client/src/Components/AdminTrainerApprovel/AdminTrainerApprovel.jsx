@@ -37,7 +37,7 @@ function AdminTrainerApprovel() {
       },
       {
         name:"Status",
-        selector:(row)=>{return(<div style={{color:"#E4CD05  "}}>{row.status}</div>)},
+        selector:(row)=>{return(<div style={{color:'#E4CD05'}}>{row.status}</div>)},
       },
     
       {
