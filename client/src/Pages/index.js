@@ -10,4 +10,5 @@ export { default as AdminUserInfo } from './AdminUserInfo';
 export { default as AdminClientEdit } from './AdminClientEdit';
 export { default as AdminTrainerApprovel } from './AdminTrainerAprovel';
 export { default as TrainerDetailsView } from './TrainerDetailsView';
+export { default as AdminVideoUpload } from './AdminVideoUpload';
 export { default as E404 } from './E404';

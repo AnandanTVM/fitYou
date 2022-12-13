@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import {
   getTrainerdetails,
   trainerReject,
+  trainerApprovel
 } from '../../axios/serives/AdminServices';
 
 function AdminTrainerDetailsView() {
@@ -15,32 +16,30 @@ function AdminTrainerDetailsView() {
   useEffect(() => {
     const token = localStorage.getItem('Admintoken');
     fetchData();
-
     async function fetchData() {
       const data = await getTrainerdetails(token, id);
-      
       setDetails(data.trainerDetails[0]);
-      
-      
-     
     }
   }, [id]);
   console.log(details);
- let trainerstatus;
- let rejBtnDisable;
+ 
+ let trainerstatus,rejBtnDisable,appBtnDisable;
   status()
 function status() {
  if( details.status==='Pending')
  {
 trainerstatus={ color: 'yellow'}
 rejBtnDisable=true;
+appBtnDisable=true;
  }else if( details.status==='Reject')
  {
   trainerstatus={ color: 'red'}
   rejBtnDisable=false;
+  appBtnDisable=false;
  }else {
-  trainerstatus= {color: 'green'}
-  rejBtnDisable=true;
+  trainerstatus= {color: '#66ff00'}
+  rejBtnDisable=false;
+  appBtnDisable=false;
  }
   
 }
@@ -55,6 +54,14 @@ rejBtnDisable=true;
     }
   }
 
+  async function approvel() {
+    const token = localStorage.getItem('Admintoken');
+    const Approvel = await trainerApprovel(token, id);
+    if (Approvel.trainerDetails) {
+      setDetails(Approvel.trainerDetails[0])
+      status()
+    }
+  }
 
   return (
     <div>
@@ -77,11 +84,12 @@ rejBtnDisable=true;
                   value="Reject"
                   onClick={reject}
                 />:""}
-                <input
+               {appBtnDisable? <input
                   className="btn btn-primary ms-5 btn-lg"
                   type="submit"
                   value="Approvel"
-                />
+                  onClick={approvel}
+                />:""}
               </div>
             </div>
             <div className="col-md-6 col-sm-12">

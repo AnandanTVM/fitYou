@@ -33,5 +33,10 @@ router.get(
   auth.adminprotect,
   adminControllers.rejectTrainer
 );
+router.get(
+  '/api/trainerApprovel/:id',
+  auth.adminprotect,
+  adminControllers.approvelTrainer
+);
 
 module.exports = router;

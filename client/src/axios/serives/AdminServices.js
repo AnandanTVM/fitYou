@@ -87,3 +87,19 @@ export const trainerReject = async (token, id) => {
     return data;
   }
 };
+export const trainerApprovel = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get(
+    `/trainerApprovel/${id}`,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};

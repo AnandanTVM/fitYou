@@ -11,6 +11,7 @@ const adminLogin = AsyncHandler(async (req, res) => {
           userId: response.user._id,
           name: response.user.name,
           email: response.user.email,
+          Role: 'Admin',
         },
         process.env.JWT_SECRET
       );
@@ -91,6 +92,20 @@ const rejectTrainer = AsyncHandler((req, res) => {
       console.log(err);
     });
 });
+const approvelTrainer = AsyncHandler((req, res) => {
+  const id = req.params.id;
+
+  adminHelpers
+    .approvelTrainer(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', rejected: true, trainerDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // exports
 module.exports = {
@@ -101,4 +116,5 @@ module.exports = {
   getTrainerDetails,
   getuserDetails,
   rejectTrainer,
+  approvelTrainer,
 };

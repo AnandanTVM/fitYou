@@ -93,10 +93,52 @@ function AdminNav(props) {
                     </li>
                   </ul>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/adminHome">
-                    Videos
-                  </Link>
+                <li className="nav-item dropdown">
+                  {props.video ? (
+                    <Link
+                      className="nav-link dropdown-toggle active"
+                      to="/adminHome"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Videos
+                    </Link>
+                  ) : (
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      to="/signup"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Videos
+                    </Link>
+                  )}
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li>
+                      <Link className="dropdown-item" to="/admin/videoUpload">
+                        Upload Videos
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/adminHome">
+                        Videos Management
+                      </Link>
+                    </li>
+
+                    <hr className="dropdown-divider" />
+                    <li>
+                      <Link className="dropdown-item" to="/adminHome">
+                        Pending Videos For Approvel
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
               </ul>
 

@@ -73,3 +73,16 @@ export const trainerSchema = yup.object().shape({
     .matches(link, 'Please paste a valid youtube link here')
     .required('Required'),
 });
+export const uploadVideoSchema = yup.object().shape({
+  title: yup
+    .string()
+    .min(5, 'First name must be at least 2 characters')
+    .max(50)
+    .required('Required'),
+  discretion: yup.string().min().max(200).required('Required'),
+  type: yup.string().required('Required'),
+  link: yup
+    .string()
+    .matches(link, 'Please paste a valid youtube link here')
+    .required('Required'),
+});

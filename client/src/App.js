@@ -6,6 +6,7 @@ import {
   AdminLogin,
   AdminTrainerApprovel,
   AdminUserInfo,
+  AdminVideoUpload,
   ClientHome,
   Clogin,
   E404,
@@ -35,6 +36,7 @@ function App() {
           path="/trainerdetailsview/:id"
           element={<TrainerDetailsView />}
         />
+        <Route path="/admin/videoUpload" element={<AdminVideoUpload />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

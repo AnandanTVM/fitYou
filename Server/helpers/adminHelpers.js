@@ -130,11 +130,41 @@ module.exports = {
           )
           .then(async () => {
             const details = await db
-            .get()
-            .collection(collection.TRAINER_COLLECTION)
+              .get()
+              .collection(collection.TRAINER_COLLECTION)
               .find({ _id: ObjectId(data) })
-            .toArray();
-          resolve(details);
+              .toArray();
+            resolve(details);
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  approvelTrainer: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.TRAINER_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data),
+            },
+            {
+              $set: {
+                status: 'Active PT',
+              },
+            }
+          )
+          .then(async () => {
+            const details = await db
+              .get()
+              .collection(collection.TRAINER_COLLECTION)
+              .find({ _id: ObjectId(data) })
+              .toArray();
+            resolve(details);
           })
           .catch(() => {
             reject();
