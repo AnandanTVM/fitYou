@@ -34,6 +34,19 @@ const userInfo = AsyncHandler((req, res) => {
     });
 });
 
+const activeTrainerInfo = AsyncHandler((req, res) => {
+  adminHelpers
+    .activeTrainerdetails()
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', activetrainerDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 const updateUserInfo = AsyncHandler(async (req, res) => {
   await adminHelpers
     .editUser(req.body)
@@ -98,7 +111,7 @@ const approvelTrainer = AsyncHandler((req, res) => {
   adminHelpers
     .approvelTrainer(id)
     .then((details) => {
-      console.log(details);
+      console.log('done');
 
       res.json({ status: 'ok', rejected: true, trainerDetails: details });
     })
@@ -106,7 +119,42 @@ const approvelTrainer = AsyncHandler((req, res) => {
       console.log(err);
     });
 });
+const unBlockTrainer = AsyncHandler((req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  adminHelpers
+    .unBlockTrainer(id)
+    .then((details) => {
+      console.log(details);
 
+      res.json({
+        status: 'ok',
+        unBlock: true,
+        trainerDetails: details,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+const blockTrainer = AsyncHandler((req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  adminHelpers
+    .blockTrainer(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({
+        status: 'ok',
+        block: true,
+        trainerDetails: details,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // exports
 module.exports = {
   adminLogin,
@@ -117,4 +165,7 @@ module.exports = {
   getuserDetails,
   rejectTrainer,
   approvelTrainer,
+  activeTrainerInfo,
+  unBlockTrainer,
+  blockTrainer,
 };

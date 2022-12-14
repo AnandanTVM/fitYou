@@ -87,6 +87,19 @@ module.exports = {
         reject();
       }
     }),
+  activeTrainerdetails: () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .find({ status: 'Active PT' })
+          .toArray();
+        resolve(details);
+      } catch (error) {
+        reject();
+      }
+    }),
   trainerDetails: (id) =>
     new Promise(async (resolve, reject) => {
       try {
@@ -164,6 +177,66 @@ module.exports = {
               .collection(collection.TRAINER_COLLECTION)
               .find({ _id: ObjectId(data) })
               .toArray();
+            resolve(details);
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+    unBlockTrainer: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.TRAINER_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data),
+            },
+            {
+              $set: {
+                block: false,
+              },
+            }
+          )
+          .then(async () => {
+            const details = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .find({ status: 'Active PT' })
+          .toArray();
+            resolve(details);
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+    blockTrainer: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.TRAINER_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data),
+            },
+            {
+              $set: {
+                block: true,
+              },
+            }
+          )
+          .then(async () => {
+            const details = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .find({ status: 'Active PT' })
+          .toArray();
             resolve(details);
           })
           .catch(() => {

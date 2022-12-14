@@ -7,6 +7,11 @@ const router = express.Router();
 // sing up for Client
 router.post('/api/adminLogin', adminControllers.adminLogin);
 router.get('/api/userInfo', auth.adminprotect, adminControllers.userInfo);
+router.get(
+  '/api/activeTrainerInfo',
+  auth.adminprotect,
+  adminControllers.activeTrainerInfo
+);
 router.post(
   '/api/updateUserInfo',
   auth.adminprotect,
@@ -38,8 +43,18 @@ router.get(
   auth.adminprotect,
   adminControllers.approvelTrainer
 );
-router.post('/api/uploadVideo', auth.adminprotect, (req, res) => {
+router.get(
+  '/api/unBlockTrainer/:id',
+  auth.adminprotect,
+  adminControllers.unBlockTrainer
+);
+router.get(
+  '/api/blockTrainer/:id',
+  auth.adminprotect,
+  adminControllers.blockTrainer
+);
+router.post('/api/uploadVideo', (req, res) => {
+  console.log(req.files);
   console.log(req.body);
-  console.log(req.body.image);
 });
 module.exports = router;

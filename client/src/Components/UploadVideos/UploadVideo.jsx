@@ -14,7 +14,7 @@ function UploadVideo() {
   const onSubmit = async (values, actions) => {
     console.log(values,actions);
      values.creatorId=adminDetails.userId;
-     values.image=image;
+     
      const token = localStorage.getItem('Admintoken');
     const status = await uploadVideo(token,values);
     if (status.status === 'error') {

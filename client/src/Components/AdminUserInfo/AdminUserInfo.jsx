@@ -6,7 +6,6 @@ import {  detailsStore } from '../../redux/adminReducer';
 // import jwt from 'jwt-decode';
 import { getUserInfo } from '../../axios/serives/AdminServices';
 
-import './AdminUserInfo';
 
 function AdminUserInfo() {
   

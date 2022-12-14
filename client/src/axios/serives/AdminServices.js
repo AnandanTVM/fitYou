@@ -108,12 +108,58 @@ export const uploadVideo = async (token, values) => {
     headers: {
       Accept: 'application/json',
       Authorization: 'Bearer ' + token,
-      'Content-Type': 'application/json',
+      
+       
     },
   };
   const { data } = await axiosAdminInstance.post(
     '/uploadVideo',
     values,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};
+export const getActiveTrainerInfo = async (token) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get('/activeTrainerInfo', config);
+  if (data.status) {
+    return data;
+  }
+};
+export const unBlockTrainer = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get(
+    `/unBlockTrainer/${id}`,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};
+export const blockTrainer = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get(
+    `/blockTrainer/${id}`,
     config
   );
   if (data.status) {

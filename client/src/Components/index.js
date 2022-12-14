@@ -12,4 +12,5 @@ export { default as UserEdit } from './AdminClientEdit/AdminClientEdit';
 export { default as TrainerApprovel } from './AdminTrainerApprovel/AdminTrainerApprovel';
 export { default as AdminTrainerDetailsView } from './AdminTrainerDetailsView/AdminTrainerDetailsView';
 export { default as UploadVideo } from './UploadVideos/UploadVideo';
+export { default as Trainerinfo } from './AdminTrainerinfo/AdminTrainerinfo';
 export { default as Error } from './Error/Error';
