@@ -323,4 +323,18 @@ module.exports = {
         console.log(error);
       }
     }),
+  getallPlans: () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.PACKAGE_COLLECTION)
+          .find()
+          .toArray();
+        console.log(details);
+        resolve(details);
+      } catch (error) {
+        reject();
+      }
+    }),
 };

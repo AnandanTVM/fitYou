@@ -205,3 +205,16 @@ export const addPlan = async (token, values) => {
     return data;
   }
 };
+export const getallPlans = async (token) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get('/getallPlans', config);
+  if (data.status) {
+    return data;
+  }
+};

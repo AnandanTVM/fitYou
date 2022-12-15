@@ -176,7 +176,7 @@ function AdminNav(props) {
                     </li>
 
                     <li>
-                      <Link className="dropdown-item" to="/adminHome">
+                      <Link className="dropdown-item" to="/admin/managePackage">
                         Manage Packages
                       </Link>
                     </li>

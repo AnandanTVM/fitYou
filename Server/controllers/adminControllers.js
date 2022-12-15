@@ -203,6 +203,18 @@ const addPlan = AsyncHandler((req, res) => {
       res.json({ status: 'error' });
     });
 });
+const getallPlans = AsyncHandler((req, res) => {
+  adminHelpers
+    .getallPlans()
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', planDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // exports
 module.exports = {
   adminLogin,
@@ -219,4 +231,5 @@ module.exports = {
   addPlan,
   blockUser,
   unBlockUser,
+  getallPlans,
 };

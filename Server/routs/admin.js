@@ -68,4 +68,5 @@ router.get(
   auth.adminprotect,
   adminControllers.blockUser
 );
+router.get('/api/getallPlans', auth.adminprotect, adminControllers.getallPlans);
 module.exports = router;

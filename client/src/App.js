@@ -4,6 +4,7 @@ import {
   AdminClientEdit,
   AdminHome,
   AdminLogin,
+  AdminManagePackage,
   AdminNewPackages,
   AdminTrainerApprovel,
   AdminTrainerInfo,
@@ -41,6 +42,7 @@ function App() {
         <Route path="/admin/videoUpload" element={<AdminVideoUpload />} />
         <Route path="/trainerInfo" element={<AdminTrainerInfo />} />
         <Route path="/admin/newPackages" element={<AdminNewPackages />} />
+        <Route path="/admin/managePackage" element={<AdminManagePackage />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>
