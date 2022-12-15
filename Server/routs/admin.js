@@ -57,4 +57,15 @@ router.post('/api/uploadVideo', (req, res) => {
   console.log(req.files);
   console.log(req.body);
 });
+router.post('/api/addPlan', auth.adminprotect, adminControllers.addPlan);
+router.get(
+  '/api/unBlockuserinfo/:id',
+  auth.adminprotect,
+  adminControllers.unBlockUser
+);
+router.get(
+  '/api/blockUserinfo/:id',
+  auth.adminprotect,
+  adminControllers.blockUser
+);
 module.exports = router;

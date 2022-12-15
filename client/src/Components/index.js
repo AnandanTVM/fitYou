@@ -13,4 +13,5 @@ export { default as TrainerApprovel } from './AdminTrainerApprovel/AdminTrainerA
 export { default as AdminTrainerDetailsView } from './AdminTrainerDetailsView/AdminTrainerDetailsView';
 export { default as UploadVideo } from './UploadVideos/UploadVideo';
 export { default as Trainerinfo } from './AdminTrainerinfo/AdminTrainerinfo';
+export { default as AdminAddPlan } from './AdminAddPlan/AdminAddPlan';
 export { default as Error } from './Error/Error';

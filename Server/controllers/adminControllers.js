@@ -155,6 +155,54 @@ const blockTrainer = AsyncHandler((req, res) => {
       console.log(err);
     });
 });
+const unBlockUser = AsyncHandler((req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  adminHelpers
+    .unBlockUser(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({
+        status: 'ok',
+        unBlock: true,
+        userDetails: details,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+const blockUser = AsyncHandler((req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  adminHelpers
+    .blockUser(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({
+        status: 'ok',
+        block: true,
+        userDetails: details,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+const addPlan = AsyncHandler((req, res) => {
+  console.log(req.body);
+  adminHelpers
+    .addPlan(req.body)
+    .then(() => {
+      res.json({ status: 'success' });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({ status: 'error' });
+    });
+});
 // exports
 module.exports = {
   adminLogin,
@@ -168,4 +216,7 @@ module.exports = {
   activeTrainerInfo,
   unBlockTrainer,
   blockTrainer,
+  addPlan,
+  blockUser,
+  unBlockUser,
 };

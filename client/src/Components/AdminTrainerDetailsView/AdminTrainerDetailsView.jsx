@@ -3,15 +3,13 @@ import { useParams } from 'react-router-dom';
 import {
   getTrainerdetails,
   trainerReject,
-  trainerApprovel
+  trainerApprovel,
 } from '../../axios/serives/AdminServices';
 
 function AdminTrainerDetailsView() {
   let { id } = useParams();
 
-  
   const [details, setDetails] = useState('');
-  
 
   useEffect(() => {
     const token = localStorage.getItem('Admintoken');
@@ -22,35 +20,31 @@ function AdminTrainerDetailsView() {
     }
   }, [id]);
   console.log(details);
- 
- let trainerstatus,rejBtnDisable,appBtnDisable;
-  status()
-function status() {
- if( details.status==='Pending')
- {
-trainerstatus={ color: 'yellow'}
-rejBtnDisable=true;
-appBtnDisable=true;
- }else if( details.status==='Reject')
- {
-  trainerstatus={ color: 'red'}
-  rejBtnDisable=false;
-  appBtnDisable=false;
- }else {
-  trainerstatus= {color: '#66ff00'}
-  rejBtnDisable=false;
-  appBtnDisable=false;
- }
-  
-}
 
+  let trainerstatus, rejBtnDisable, appBtnDisable;
+  status();
+  function status() {
+    if (details.status === 'Pending') {
+      trainerstatus = { color: 'yellow' };
+      rejBtnDisable = true;
+      appBtnDisable = true;
+    } else if (details.status === 'Reject') {
+      trainerstatus = { color: 'red' };
+      rejBtnDisable = false;
+      appBtnDisable = false;
+    } else {
+      trainerstatus = { color: '#66ff00' };
+      rejBtnDisable = false;
+      appBtnDisable = false;
+    }
+  }
 
   async function reject() {
     const token = localStorage.getItem('Admintoken');
     const rejectdata = await trainerReject(token, id);
     if (rejectdata.trainerDetails) {
-      setDetails(rejectdata.trainerDetails[0])
-      status()
+      setDetails(rejectdata.trainerDetails[0]);
+      status();
     }
   }
 
@@ -58,8 +52,8 @@ appBtnDisable=true;
     const token = localStorage.getItem('Admintoken');
     const Approvel = await trainerApprovel(token, id);
     if (Approvel.trainerDetails) {
-      setDetails(Approvel.trainerDetails[0])
-      status()
+      setDetails(Approvel.trainerDetails[0]);
+      status();
     }
   }
 
@@ -78,18 +72,26 @@ appBtnDisable=true;
                 ></iframe>
               </div>
               <div className="mt-4 pt-2">
-               {rejBtnDisable? <input
-                  className="btn btn-danger btn-lg"
-                  type="submit"
-                  value="Reject"
-                  onClick={reject}
-                />:""}
-               {appBtnDisable? <input
-                  className="btn btn-primary ms-5 btn-lg"
-                  type="submit"
-                  value="Approvel"
-                  onClick={approvel}
-                />:""}
+                {rejBtnDisable ? (
+                  <input
+                    className="btn btn-danger btn-lg"
+                    type="submit"
+                    value="Reject"
+                    onClick={reject}
+                  />
+                ) : (
+                  ''
+                )}
+                {appBtnDisable ? (
+                  <input
+                    className="btn btn-primary ms-5 btn-lg"
+                    type="submit"
+                    value="Approvel"
+                    onClick={approvel}
+                  />
+                ) : (
+                  ''
+                )}
               </div>
             </div>
             <div className="col-md-6 col-sm-12">
@@ -128,10 +130,7 @@ appBtnDisable=true;
 
                       <div className="col-md-6 mb-4 pb-2">
                         <div className="form-outline">
-                          <label
-                            style={trainerstatus}
-                            className="form-label"
-                          >
+                          <label style={trainerstatus} className="form-label">
                             {details.status ? details.status : ''}
                           </label>
                         </div>

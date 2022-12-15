@@ -186,7 +186,7 @@ module.exports = {
         console.log(error);
       }
     }),
-    unBlockTrainer: (data) =>
+  unBlockTrainer: (data) =>
     new Promise((resolve, reject) => {
       try {
         db.get()
@@ -203,10 +203,10 @@ module.exports = {
           )
           .then(async () => {
             const details = await db
-          .get()
-          .collection(collection.TRAINER_COLLECTION)
-          .find({ status: 'Active PT' })
-          .toArray();
+              .get()
+              .collection(collection.TRAINER_COLLECTION)
+              .find({ status: 'Active PT' })
+              .toArray();
             resolve(details);
           })
           .catch(() => {
@@ -216,7 +216,7 @@ module.exports = {
         console.log(error);
       }
     }),
-    blockTrainer: (data) =>
+  blockTrainer: (data) =>
     new Promise((resolve, reject) => {
       try {
         db.get()
@@ -233,14 +233,91 @@ module.exports = {
           )
           .then(async () => {
             const details = await db
-          .get()
-          .collection(collection.TRAINER_COLLECTION)
-          .find({ status: 'Active PT' })
-          .toArray();
+              .get()
+              .collection(collection.TRAINER_COLLECTION)
+              .find({ status: 'Active PT' })
+              .toArray();
             resolve(details);
           })
           .catch(() => {
             reject();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  unBlockUser: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.CLIENT_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data),
+            },
+            {
+              $set: {
+                block: false,
+              },
+            }
+          )
+          .then(async () => {
+            const details = await db
+              .get()
+              .collection(collection.CLIENT_COLLECTION)
+              .find()
+              .toArray();
+            resolve(details);
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  blockUser: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.CLIENT_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data),
+            },
+            {
+              $set: {
+                block: true,
+              },
+            }
+          )
+          .then(async () => {
+            const details = await db
+              .get()
+              .collection(collection.CLIENT_COLLECTION)
+              .find()
+              .toArray();
+            resolve(details);
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  addPlan: (data) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.PACKAGE_COLLECTION)
+          .insertOne(data)
+          .then((res) => {
+            console.log(res);
+            resolve();
+          })
+          .catch((error) => {
+            reject(error);
           });
       } catch (error) {
         console.log(error);

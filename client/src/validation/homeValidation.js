@@ -81,12 +81,31 @@ export const uploadVideoSchema = yup.object().shape({
     .required('Required'),
   discretion: yup.string().min(4).max(200).required('Required'),
   type: yup.string().required('Required'),
-  thumbnail:yup.mixed().required('Required')
+  thumbnail: yup.mixed().required('Required'),
   // .test("FILE_ SIZE", "Too bigt!", (value)=> value && value < 2024 * 2024)
   // .test ("FILE_TYPE", "Invalid!", (value) => value && ['Image/png', 'Image/jpeg'].includes(value.type))
-  ,
   link: yup
     .string()
     .matches(link, 'Please paste a valid youtube link here')
     .required('Required'),
+});
+export const newPlanSchema = yup.object().shape({
+  PackageName: yup
+    .string()
+    .min(2, 'Enter a valid package name.')
+    .max(20)
+    .required('Required'),
+
+  packageType: yup.string().required('Required'),
+  discretion: yup
+    .string()
+    .min(2, 'Enter a valid discretion name.')
+    .max(200)
+    .required('Required'),
+  proGymsTips: yup.string().required('Required'),
+  groupWorkouts: yup.string().required('Required'),
+  perstionalTrainer: yup.string().required('Required'),
+  smartWorkoutPlan: yup.string().required('Required'),
+  mrp: yup.number().positive().integer().required('Required'),
+  offerRate: yup.number().positive().integer().required('Required'),
 });

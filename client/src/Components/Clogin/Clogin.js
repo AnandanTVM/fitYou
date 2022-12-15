@@ -12,17 +12,12 @@ function Clogin() {
   const navigate = useNavigate();
   async function dologin(event) {
     event.preventDefault();
-    console.log('started verifing');
-
-    // const data = await responce.json()
     const values = { Phone: phone, password: password };
     const data = await clientLogin(values);
     console.log(data);
     if (data.user) {
-      console.log(data.user);
       localStorage.setItem('token', data.user);
       const user = jwt(data.user);
-      console.log(user);
       localStorage.setItem('userDetails', user.name);
 
       navigate('/clientHome');

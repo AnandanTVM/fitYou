@@ -143,6 +143,53 @@ function AdminNav(props) {
               </ul>
 
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
+                <li className="nav-item dropdown">
+                  {props.packages ? (
+                    <Link
+                      className="nav-link dropdown-toggle active"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Packages
+                    </Link>
+                  ) : (
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Packages
+                    </Link>
+                  )}
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li>
+                      <Link className="dropdown-item" to="/admin/newPackages">
+                        New Packages
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link className="dropdown-item" to="/adminHome">
+                        Manage Packages
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/adminHome">
+                        Manage Course
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/adminHome">
                     Chats

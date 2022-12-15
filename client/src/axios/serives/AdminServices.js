@@ -108,8 +108,6 @@ export const uploadVideo = async (token, values) => {
     headers: {
       Accept: 'application/json',
       Authorization: 'Bearer ' + token,
-      
-       
     },
   };
   const { data } = await axiosAdminInstance.post(
@@ -158,10 +156,51 @@ export const blockTrainer = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
+
+  const { data } = await axiosAdminInstance.get(`/blockTrainer/${id}`, config);
+  if (data.status) {
+    return data;
+  }
+};
+export const unBlockuserinfo = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
   const { data } = await axiosAdminInstance.get(
-    `/blockTrainer/${id}`,
+    `/unBlockuserinfo/${id}`,
     config
   );
+  if (data.status) {
+    return data;
+  }
+};
+export const blockunsrinfo = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const { data } = await axiosAdminInstance.get(`/blockUserinfo/${id}`, config);
+  if (data.status) {
+    return data;
+  }
+};
+
+export const addPlan = async (token, values) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.post('/addPlan', values, config);
   if (data.status) {
     return data;
   }
