@@ -32,15 +32,15 @@ function Banner() {
             aria-label="Slide 3"
           ></button>
         </div>
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src={banner2} className="d-block w-100" alt="banner1" />
+        <div className="carousel-inner  ">
+          <div className="carousel-item  active">
+            <img src={banner2} className="d-block w-100 banner-bannerheight" alt="banner1"  />
           </div>
           <div className="carousel-item">
-            <img src={banner1} className="d-block w-100" alt="banner2" />
+            <img src={banner1} className="d-block w-100 banner-bannerheight" alt="banner2" />
           </div>
           <div className="carousel-item">
-            <img src={banner1} className="d-block w-100" alt="banner3" />
+            <img src={banner1} className="d-block w-100 banner-bannerheight" alt="banner3" />
           </div>
         </div>
         <button
