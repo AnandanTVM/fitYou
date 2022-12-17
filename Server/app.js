@@ -18,7 +18,7 @@ app.use(cors(corsOptions));
 const db = require('./config/connection');
 
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 // routs
 const homeRouter = require('./routs/home');
 const clientRouter = require('./routs/client');

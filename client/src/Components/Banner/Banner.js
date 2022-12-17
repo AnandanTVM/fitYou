@@ -1,6 +1,8 @@
 import React from 'react';
 import banner1 from '../../images/banner1.jpg';
 import banner2 from '../../images/banner2.jpg';
+import banner3 from '../../images/banner 3.jpg';
+import banner4 from '../../images/banner4.jpg';
 import './Banner.css';
 function Banner() {
   return (
@@ -31,16 +33,41 @@ function Banner() {
             data-bs-slide-to="2"
             aria-label="Slide 3"
           ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="3"
+            aria-label="Slide 4"
+          ></button>
         </div>
         <div className="carousel-inner  ">
           <div className="carousel-item  active">
-            <img src={banner2} className="d-block w-100 banner-bannerheight" alt="banner1"  />
+            <img
+              src={banner2}
+              className="d-block w-100 banner-bannerheight"
+              alt="banner1"
+            />
           </div>
           <div className="carousel-item">
-            <img src={banner1} className="d-block w-100 banner-bannerheight" alt="banner2" />
+            <img
+              src={banner1}
+              className="d-block w-100 banner-bannerheight"
+              alt="banner2"
+            />
           </div>
           <div className="carousel-item">
-            <img src={banner1} className="d-block w-100 banner-bannerheight" alt="banner3" />
+            <img
+              src={banner3}
+              className="d-block w-100 banner-bannerheight"
+              alt="banner3"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src={banner4}
+              className="d-block w-100 banner-bannerheight"
+              alt="banner4"
+            />
           </div>
         </div>
         <button

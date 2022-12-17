@@ -9,35 +9,40 @@ function UploadVideo() {
   // console.log(adminDetails);
 
   const navigate = useNavigate();
- const [image,setImage]=useState();
+  const [image, setImage] = useState();
   const [error, setError] = useState('');
   const onSubmit = async (values, actions) => {
-    console.log(values,actions);
-     values.creatorId=adminDetails.userId;
-     
-     const token = localStorage.getItem('Admintoken');
-    const status = await uploadVideo(token,values);
+    console.log(values, actions);
+    values.creatorId = adminDetails.userId;
+
+    const token = localStorage.getItem('Admintoken');
+    const status = await uploadVideo(token, values);
     if (status.status === 'error') {
       setError('Please try again after some time.');
     } else if (status.status === 'success') {
       navigate('/adminHome');
-       // actions.resetForm()
+      // actions.resetForm()
     }
-   
-
   };
-  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        title: '',
-        discretion: '',
-        type: '',
-        link: '',
-        thumbnail: '',
-      },
-      validationSchema: uploadVideoSchema,
-      onSubmit,
-    });
+  const {
+    values,
+    errors,
+    setFieldValue,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      title: '',
+      discretion: '',
+      type: '',
+      link: '',
+      thumbnail: '',
+    },
+    validationSchema: uploadVideoSchema,
+    onSubmit,
+  });
   //   console.log(errors);
   let ytlink;
   if (values.link) {
@@ -50,21 +55,30 @@ function UploadVideo() {
         <div>
           <div className="row mt-3">
             <div className="col-md-6 col-sm-12 mt-4 mb-3">
-              <div className='row'>
-              <h3>Video Peview</h3>
-              <div className="ratio ratio-16x9">
-                <iframe
-                  src={ytlink}
-                  title="YouTube video"
-                  allowfullscreen
-                ></iframe>
+              <div className="row">
+                <h3>Video Peview</h3>
+                <div className="ratio ratio-16x9">
+                  <iframe
+                    src={ytlink}
+                    title="YouTube video"
+                    allowfullscreen
+                  ></iframe>
+                </div>
               </div>
-              </div>
-              <div className='row'>
-              <h3>Thumbnail Peview</h3>
-              <div className="ratio ratio-16x9">
-              {image ? <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : ""}></img> : ""}
-              </div>
+              <div className="row">
+                <h3>Thumbnail Peview</h3>
+                <div className="ratio ratio-16x9">
+                  {image ? (
+                    <img
+                      alt="Posts"
+                      width="200px"
+                      height="200px"
+                      src={image ? URL.createObjectURL(image) : ''}
+                    ></img>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-md-6 col-sm-12">
@@ -206,8 +220,10 @@ function UploadVideo() {
                               <input
                                 type="file"
                                 id="thumbnail"
-                                onChange={(e)=>{setFieldValue("thumbnail",e.target.files[0])
-                                setImage(e.target.files[0])}}
+                                onChange={(e) => {
+                                  setFieldValue('thumbnail', e.target.files[0]);
+                                  setImage(e.target.files[0]);
+                                }}
                                 onBlur={handleBlur}
                                 className={
                                   errors.thumbnail && touched.thumbnail

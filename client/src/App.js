@@ -16,13 +16,14 @@ import {
   Home,
   Signup,
   TLogin,
+  Trainer,
   TrainerDetailsView,
   TrSignup,
 } from './Pages';
 
 function App() {
   return (
-    <div className="App">
+    <div className=" App">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
@@ -43,6 +44,7 @@ function App() {
         <Route path="/trainerInfo" element={<AdminTrainerInfo />} />
         <Route path="/admin/newPackages" element={<AdminNewPackages />} />
         <Route path="/admin/managePackage" element={<AdminManagePackage />} />
+        <Route path="/trainer" element={<Trainer />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

@@ -14,4 +14,5 @@ export { default as AdminVideoUpload } from './AdminVideoUpload';
 export { default as AdminTrainerInfo } from './AdminTrainerInfo';
 export { default as AdminNewPackages } from './AdminNewPackages';
 export { default as AdminManagePackage } from './AdminManagePackage';
+export { default as Trainer } from './TrainerHome';
 export { default as E404 } from './E404';

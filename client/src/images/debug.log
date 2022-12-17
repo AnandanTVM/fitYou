@@ -3,3 +3,4 @@
 [1130/194332.166:WARNING:dns_config_service_win.cc(668)] Failed to read DnsConfig.
 [1130/200310.332:WARNING:dns_config_service_win.cc(668)] Failed to read DnsConfig.
 [1130/201012.976:ERROR:media_internals.cc(112)] Cannot get RenderProcessHost
+[1216/113935.860:ERROR:browser_gpu_channel_host_factory.cc(139)] Failed to launch GPU process.
