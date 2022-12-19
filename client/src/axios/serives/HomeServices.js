@@ -2,6 +2,7 @@ import {
   axiosClientInstance,
   axiosHomeInstance,
   axiosAdminInstance,
+  axiosTrainerInstance,
 } from '../axios';
 export const clientRegister = async (value) => {
   const config = {
@@ -63,6 +64,24 @@ export const adminLogin = async (value) => {
     },
   };
   const { data } = await axiosAdminInstance.post('/adminLogin', value, config);
+  if (data) {
+    return data;
+  }
+};
+// Trainer Login action
+
+export const trainerLogin = async (value) => {
+  console.log(value);
+  const config = {
+    headers: {
+      'content-type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(
+    '/trainerLogin',
+    value,
+    config
+  );
   if (data) {
     return data;
   }

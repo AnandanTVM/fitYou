@@ -40,7 +40,7 @@ function Banner() {
             aria-label="Slide 4"
           ></button>
         </div>
-        <div className="carousel-inner  ">
+        <div className="carousel-inner">
           <div className="carousel-item  active">
             <img
               src={banner2}

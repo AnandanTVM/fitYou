@@ -1,10 +1,34 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import jwt from 'jwt-decode';
+import { trainerLogin } from '../../axios/serives/HomeServices';
 //images
 import Modelman from '../../images/LoginTrainer.png'
 //css
 import './TrainerLogin.css'
 function TrainerLogin() {
+    const [phone, setPhone] = useState('');
+    const [password, setpassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    async function dologin(event) {
+      event.preventDefault();
+      const values = { Phone: phone, password: password };
+      const data = await trainerLogin(values);
+      console.log(data);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        const trainer = jwt(data.token);
+        localStorage.setItem('trainerDetails', trainer.name);
+  debugger;
+        navigate('/trainer');
+      } else {
+        setError('Invalid Phone Number/Password..');
+      }
+    }
+
+
+
     return (
         <div>
 
@@ -17,14 +41,29 @@ function TrainerLogin() {
                             <div className="col-12 col-lg-9 col-xl-7">
                                 <div className="card shadow-2-strong card-registration" style={{ borderRadius: "15px" }}>
                                     <div className="card-body p-4 p-md-5">
-                                        <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Client Login</h3>
-                                        <form>
+                                        <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Trainer Point</h3>
+                                        {error ? (
+                      <p style={{ color: 'red' }} className="red-error">
+                        {error}
+                      </p>
+                    ) : (
+                      ' '
+                    )}
+                                        <form onSubmit={dologin}>
 
                                             <div className="row">
                                                 <div className="col-md-12 mb-4 pb-2">
 
                                                     <div className="form-outline">
-                                                        <input type="text" id="firstName" className="form-control form-control-lg" />
+                                                    <input
+                              type="text"
+                              id="phone"
+                              value={phone}
+                              onChange={(e) => {
+                                setPhone(e.target.value);
+                              }}
+                              className="form-control form-control-lg"
+                            />
                                                         <label className="form-label" >Phone Number</label>
                                                     </div>
 
@@ -36,7 +75,14 @@ function TrainerLogin() {
                                                 <div className="col-md-12 mb-4 pb-2">
 
                                                     <div className="form-outline">
-                                                        <input type="Password" className="form-control form-control-lg" />
+                                                    <input
+                              type="Password"
+                              value={password}
+                              onChange={(e) => {
+                                setpassword(e.target.value);
+                              }}
+                              className="form-control form-control-lg"
+                            />
                                                         <label className="form-label" >Password</label><label className="d-flex justify-content-end" >Forgot Password ?</label>
                                                     </div>
 

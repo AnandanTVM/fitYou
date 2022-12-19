@@ -15,4 +15,5 @@ export { default as UploadVideo } from './UploadVideos/UploadVideo';
 export { default as Trainerinfo } from './AdminTrainerinfo/AdminTrainerinfo';
 export { default as AdminAddPlan } from './AdminAddPlan/AdminAddPlan';
 export { default as AdminManagePlan } from './AdminManagePlan/AdminManagePlan';
+export { default as TrainerNav } from './TrainerNav/TrainerNav';
 export { default as Error } from './Error/Error';

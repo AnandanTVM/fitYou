@@ -14,7 +14,9 @@ function UploadVideo() {
   const onSubmit = async (values, actions) => {
     console.log(values, actions);
     values.creatorId = adminDetails.userId;
+    values.file = image;
 
+ console.log(image);
     const token = localStorage.getItem('Admintoken');
     const status = await uploadVideo(token, values);
     if (status.status === 'error') {
@@ -39,11 +41,13 @@ function UploadVideo() {
       type: '',
       link: '',
       thumbnail: '',
+      
     },
     validationSchema: uploadVideoSchema,
     onSubmit,
   });
-  //   console.log(errors);
+
+ 
   let ytlink;
   if (values.link) {
     ytlink = values.link.replace('/watch?v=', '/embed/');
@@ -93,7 +97,7 @@ function UploadVideo() {
                         Upload Videos
                       </h3>
                       {error ? <p className="red-error">{error}</p> : ''}
-                      <form onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit}  enctype="multipart/form-data">
                         <div className="row">
                           <div className="">
                             <div className="form-outline mb-3">

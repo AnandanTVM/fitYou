@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './Clogin.css';
+
 import ModelWoman from '../../images/welcomWoman.png';
 import { Link, useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
 import { clientLogin } from '../../axios/serives/HomeServices';
-
+import './Clogin.css';
 function Clogin() {
   const [phone, setPhone] = useState('');
   const [password, setpassword] = useState('');
@@ -89,7 +89,7 @@ function Clogin() {
                         Login With OTP?
                       </label>
                       <Link to="/signup">
-                        {' '}
+                       
                         <label className="d-flex justify-content-center CreatSingup-textcolour">
                           Create an account Sign Up
                         </label>

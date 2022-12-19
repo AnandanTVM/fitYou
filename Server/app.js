@@ -23,11 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 const homeRouter = require('./routs/home');
 const clientRouter = require('./routs/client');
 const adminRouter = require('./routs/admin');
+const trainerRouter = require('./routs/trainer');
 
 // redirects to roughts
 app.use('/', homeRouter);
 app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
+app.use('/trainer', trainerRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
