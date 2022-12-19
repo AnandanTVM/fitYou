@@ -44,9 +44,24 @@ const trainerSignup = AsyncHandler(async (req, res) => {
       console.log(err);
     });
 });
-
+const viewAllPlan = AsyncHandler(async (req, res) => {
+  homeHelper
+    .viewAllPlan()
+    .then((response) => {
+      if (response) {
+        console.log(response);
+        res.json({ status: 'success',plan:response });
+      } else {
+        res.json({ Plan: 'error', error: 'Duplicate Phone number' });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // exports
 module.exports = {
   clientSignup,
   trainerSignup,
+  viewAllPlan,
 };

@@ -20,7 +20,7 @@ function TrainerLogin() {
         localStorage.setItem('token', data.token);
         const trainer = jwt(data.token);
         localStorage.setItem('trainerDetails', trainer.name);
-  debugger;
+
         navigate('/trainer');
       } else {
         setError('Invalid Phone Number/Password..');

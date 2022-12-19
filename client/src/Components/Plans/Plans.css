@@ -1,12 +1,16 @@
- .pricing {
-  
-  }
+ 
   
   .pricing .card {
     border: none;
     border-radius: 1rem;
-    transition: all 0.2s;
+    transform-origin: 65% 75%;
+    transition: transform .4s, filter .1s ease-in-out;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+   
+  }
+
+  .pricing .card:hover{
+    transform: scale(1.04);
   }
   
   .pricing hr {
@@ -46,6 +50,23 @@
     opacity: 0.7;
     transition: all 0.2s;
   }
+
+  .planOrangeColor{
+    color: #ed533bc5;
+  }
+  .planDisappear{
+    display: none;
+  }
+
+  .card:hover  .planDisappear{
+    display: block;
+  }
+
+  .card:hover .packageDisappear{
+    display: none;
+  }
+
+
   
   /* Hover Effects on Card */
   
@@ -53,7 +74,7 @@
     .pricing .card:hover {
       margin-top: -.25rem;
       margin-bottom: .25rem;
-      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0.5rem 1rem 0 #ed533bc5;
     }
   
     .pricing .card:hover .btn {

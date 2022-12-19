@@ -46,8 +46,8 @@ module.exports = {
       if (extphone == null) {
         return new Promise(async (resolve, reject) => {
           data.password = await bcrypt.hash(data.password, 10);
-           data.date = new Date();
-           data.status='Pending'
+          data.date = new Date();
+          data.status = 'Pending';
           db.get()
             .collection(collection.TRAINER_COLLECTION)
             .insertOne(data)
@@ -66,6 +66,20 @@ module.exports = {
           });
       } else {
         resolve({ phoneFound: true });
+      }
+    }),
+
+  viewAllPlan: async () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.PACKAGE_COLLECTION)
+          .find()
+          .toArray();
+        resolve(details);
+      } catch (error) {
+        reject();
       }
     }),
 };
