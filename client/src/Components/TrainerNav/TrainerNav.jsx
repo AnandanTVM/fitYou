@@ -5,128 +5,125 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/Logo.png';
 
 function TrainerNav(props) {
-    const navigate = useNavigate('');
+  const navigate = useNavigate('');
   const userName = localStorage.getItem('trainerDetails');
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('trainerDetails');
-    navigate('/login');
+    navigate('/trainerLogin');
   };
   return (
     <div>
-
-<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div className="container-fluid">
-            <Link className="navbar-brand" to="/clientHome">
-              <img src={logo} alt="not avalable" height="50" width="140" />
-            </Link>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0 mal">
-                <li className="nav-item">
-                  {props.home ? (
-                    <Link className="nav-link active" to="/clientHome">
-                      Home
-                    </Link>
-                  ) : (
-                    <Link className="nav-link " to="/clientHome">
-                      Home
-                    </Link>
-                  )}
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/clientHome">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/clientHome">
+            <img src={logo} alt="not avalable" height="50" width="140" />
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 mal">
+              <li className="nav-item">
+                {props.home ? (
+                  <Link className="nav-link active" to="/clientHome">
+                    Home
+                  </Link>
+                ) : (
+                  <Link className="nav-link " to="/clientHome">
+                    Home
+                  </Link>
+                )}
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/clientHome">
                   Client Info
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/clientHome">
-                    Manage Videos
-                  </Link>
-                </li>
-              </ul>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/clientHome">
+                  Manage Videos
+                </Link>
+              </li>
+            </ul>
 
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/clientHome">
-                    chat
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
+              <li className="nav-item">
+                <Link className="nav-link" to="/clientHome">
+                  Upload Video
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/clientHome">
+                  chat
+                </Link>
+              </li>
+              <li className="nav-item dropdown">
+                {props.profile ? (
+                  <Link
+                    className="nav-link dropdown-toggle active"
+                    to="/clientHome"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Profile
                   </Link>
-                </li>
-                <li className="nav-item dropdown">
-                  {props.profile ? (
-                    <Link
-                      className="nav-link dropdown-toggle active"
-                      to="/clientHome"
-                      id="navbarDropdown"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Upload Video
-                    </Link>
-                  ) : (
-                    <Link
-                      className="nav-link dropdown-toggle"
-                      to="/signup"
-                      id="navbarDropdown"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {userName ? userName : 'Profile'}
-                    </Link>
-                  )}
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
+                ) : (
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    to="/signup"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
-                    <li>
-                      <Link className="dropdown-item" to="/signup">
-                        Personal Info
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>{' '}
-                    <li>
-                      <Link className="dropdown-item" to="/trainerSignup">
-                        Payments
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className="nav-item">
-                  <button
-                    className="navbtn btn btn-primary btn-md"
-                    onClick={logout}
-                  >
-                    LogOut
-                  </button>
-                </li>
-              </ul>
-              {/* <form className="d-flex">
+                    {userName ? userName : 'Profile'}
+                  </Link>
+                )}
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link className="dropdown-item" to="/signup">
+                      Personal Info
+                    </Link>
+                  </li>
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>{' '}
+                  <li>
+                    <Link className="dropdown-item" to="/trainerSignup">
+                      Payments
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="navbtn btn btn-primary btn-md"
+                  onClick={logout}
+                >
+                  LogOut
+                </button>
+              </li>
+            </ul>
+            {/* <form className="d-flex">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form> */}
-            </div>
           </div>
-        </nav>
-
+        </div>
+      </nav>
     </div>
-  )
+  );
 }
 
-export default TrainerNav
+export default TrainerNav;

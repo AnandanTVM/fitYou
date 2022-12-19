@@ -9,7 +9,7 @@ const trainerLogin = AsyncHandler(async (req, res) => {
     .trainerdoLogin(req.body)
     .then((response) => {
       if (response.status) {
-        console.log("response",response);
+        console.log('response', response);
         const token = jwt.sign(
           {
             trainerId: response.trainer._id,
@@ -20,6 +20,7 @@ const trainerLogin = AsyncHandler(async (req, res) => {
         console.log(token);
         return res.json({ status: 'ok', token: token });
       }
+      return res.json({ status: 'error', user: false });
     })
     .catch((err) => res.json({ status: 'error', user: false }));
 });

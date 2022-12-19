@@ -19,18 +19,21 @@ module.exports = {
             status: 'Active PT',
           });
         console.log(user);
-        if (user !== 'null') {
-          bcrypt.compare(data.password, user.password).then((status) => {
-            if (status) {
-              response.trainer = user;
-              response.status = true;
-              resolve(response);
-            } else {
-              resolve({ status: false });
-            }
-          });
+        if (user !== null) {
+          bcrypt
+            .compare(data.password, user.password)
+            .then((status) => {
+              if (status) {
+                response.trainer = user;
+                response.status = true;
+                resolve(response);
+              } else {
+                resolve({ status: false });
+              }
+            })
+            .catch((err) => resolve({ status: false }));
         } else {
-          console.log("error");
+          console.log('error');
           resolve({ status: false });
         }
       } catch (error) {
