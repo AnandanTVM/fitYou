@@ -4,26 +4,48 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { uploadVideo } from '../../axios/serives/AdminServices';
 import { uploadVideoSchema } from '../../validation/homeValidation';
+import axios from 'axios';
+
 function UploadVideo() {
   const { adminDetails } = useSelector((state) => state.admin);
   // console.log(adminDetails);
 
   const navigate = useNavigate();
+
   const [image, setImage] = useState();
   const [error, setError] = useState('');
-  const onSubmit = async (values, actions) => {
-    console.log(values, actions);
-    values.creatorId = adminDetails.userId;
-    values.file = image;
+  let imageLink = false;
 
- console.log(image);
+  const onSubmit = async (values, actions) => {
+    const formdata = new FormData();
+    formdata.append('file', image);
+    formdata.append('upload_preset', 'wnpsatvh');
+    formdata.append('cloud_name', 'drh9n6s0b');
+
+    const { data } = await axios.post(
+      'https://api.cloudinary.com/v1_1/drh9n6s0b/image/upload',
+      formdata
+    );
+
+    if (data.url) {
+      imageLink = data.url;
+      console.log(data.url);
+      console.log('image', imageLink);
+    }
+
     const token = localStorage.getItem('Admintoken');
-    const status = await uploadVideo(token, values);
-    if (status.status === 'error') {
-      setError('Please try again after some time.');
-    } else if (status.status === 'success') {
-      navigate('/adminHome');
-      // actions.resetForm()
+    if (imageLink) {
+      values.thumbnail = imageLink;
+      values.creatorId = adminDetails.userId;
+      console.log(imageLink);
+      console.log(values);
+      const status = await uploadVideo(token, values);
+      if (status.status === 'error') {
+        setError('Please try again after some time.');
+      } else if (status.status === 'success') {
+        navigate('/adminHome');
+        // actions.resetForm()
+      }
     }
   };
   const {
@@ -41,13 +63,15 @@ function UploadVideo() {
       type: '',
       link: '',
       thumbnail: '',
-      
     },
     validationSchema: uploadVideoSchema,
     onSubmit,
   });
 
- 
+  const uploadImage = (e) => {
+    setFieldValue('thumbnail', e.target.files[0]);
+    setImage(e.target.files[0]);
+  };
   let ytlink;
   if (values.link) {
     ytlink = values.link.replace('/watch?v=', '/embed/');
@@ -65,7 +89,7 @@ function UploadVideo() {
                   <iframe
                     src={ytlink}
                     title="YouTube video"
-                    allowfullscreen
+                    allowFullScreen
                   ></iframe>
                 </div>
               </div>
@@ -97,7 +121,7 @@ function UploadVideo() {
                         Upload Videos
                       </h3>
                       {error ? <p className="red-error">{error}</p> : ''}
-                      <form onSubmit={handleSubmit}  enctype="multipart/form-data">
+                      <form onSubmit={handleSubmit}>
                         <div className="row">
                           <div className="">
                             <div className="form-outline mb-3">
@@ -224,10 +248,8 @@ function UploadVideo() {
                               <input
                                 type="file"
                                 id="thumbnail"
-                                onChange={(e) => {
-                                  setFieldValue('thumbnail', e.target.files[0]);
-                                  setImage(e.target.files[0]);
-                                }}
+                                name="thumbnail"
+                                onChange={uploadImage}
                                 onBlur={handleBlur}
                                 className={
                                   errors.thumbnail && touched.thumbnail
@@ -242,20 +264,6 @@ function UploadVideo() {
                             </div>
                           </div>
                         </div>
-                        {/* 
-                                        <div className="row">
-                                            <div className="col-12">
-
-                                                <select className="select form-control-lg">
-                                                    <option value="1" disabled>Choose option</option>
-                                                    <option value="2">Subject 1</option>
-                                                    <option value="3">Subject 2</option>
-                                                    <option value="4">Subject 3</option>
-                                                </select>
-                                                <label className="form-label select-label">Choose option</label>
-
-                                            </div>
-                                        </div> */}
 
                         <div className="mt-4 pt-2">
                           <input

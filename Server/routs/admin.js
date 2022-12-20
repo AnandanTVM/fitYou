@@ -64,14 +64,6 @@ router.get(
   adminControllers.blockTrainer
 );
 
-//
-
-//
-router.post('/api/uploadVideo', (req, res) => {
-  console.log(req.files);
-  console.log(req.body);
-});
-
 router.post('/api/addPlan', auth.adminprotect, adminControllers.addPlan);
 router.get(
   '/api/unBlockuserinfo/:id',
@@ -86,5 +78,12 @@ router.get(
 );
 
 router.get('/api/getallPlans', auth.adminprotect, adminControllers.getallPlans);
+//
 
+//
+router.post(
+  '/api/uploadVideo',
+  auth.adminprotect,
+  adminControllers.uploadVideo
+);
 module.exports = router;

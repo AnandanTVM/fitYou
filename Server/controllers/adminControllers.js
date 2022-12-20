@@ -215,6 +215,21 @@ const getallPlans = AsyncHandler((req, res) => {
       console.log(err);
     });
 });
+const uploadVideo = AsyncHandler((req, res) => {
+  const data = req.body;
+  const ytUrl = data.link;
+  // replace:
+
+  data.link = ytUrl.replace('/watch?v=', '/embed/');
+  adminHelpers
+    .uploadVideo(req.body)
+    .then(() => {
+      res.json({ status: 'success' });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // exports
 module.exports = {
   adminLogin,
@@ -232,4 +247,5 @@ module.exports = {
   blockUser,
   unBlockUser,
   getallPlans,
+  uploadVideo,
 };

@@ -24,13 +24,8 @@ const clientSignup = AsyncHandler(async (req, res) => {
 
 const trainerSignup = AsyncHandler(async (req, res) => {
   const data = req.body;
-  // remove unwated feild from object
-  delete data.cpassword;
   const ytUrl = data.link;
-  // replace:
-
   data.link = ytUrl.replace('/watch?v=', '/embed/');
-
   homeHelper
     .dotrainerSignup(data)
     .then((response) => {
@@ -50,7 +45,7 @@ const viewAllPlan = AsyncHandler(async (req, res) => {
     .then((response) => {
       if (response) {
         console.log(response);
-        res.json({ status: 'success',plan:response });
+        res.json({ status: 'success', plan: response });
       } else {
         res.json({ Plan: 'error', error: 'Duplicate Phone number' });
       }

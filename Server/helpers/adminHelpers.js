@@ -337,4 +337,13 @@ module.exports = {
         reject();
       }
     }),
+  uploadVideo: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get().collection(collection.VIDEO_COLLECTION).insertOne(data);
+        resolve();
+      } catch (error) {
+        reject();
+      }
+    }),
 };

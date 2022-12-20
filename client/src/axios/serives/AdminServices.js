@@ -107,13 +107,10 @@ export const uploadVideo = async (token, values) => {
   const config = {
     headers: {
       Accept: 'application/json',
-
+      'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     },
   };
-
-  // const postData = { ...values, thumbnail: JSON.stringify(values.thumbnail) };
-  // console.log('on pi', postData);
   const { data } = await axiosAdminInstance.post(
     '/uploadVideo',
     values,
