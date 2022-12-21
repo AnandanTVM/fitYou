@@ -78,12 +78,15 @@ router.get(
 );
 
 router.get('/api/getallPlans', auth.adminprotect, adminControllers.getallPlans);
-//
 
-//
 router.post(
   '/api/uploadVideo',
   auth.adminprotect,
   adminControllers.uploadVideo
+);
+router.get(
+  '/api/removePackage/:id',
+  auth.adminprotect,
+  adminControllers.removePackage
 );
 module.exports = router;

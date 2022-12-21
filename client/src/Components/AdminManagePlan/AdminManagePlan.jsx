@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { trainerDetailsEdit } from '../../redux/adminReducer';
-// import jwt from 'jwt-decode';
-import { getallPlans } from '../../axios/serives/AdminServices';
+
+import { getallPlans, removePackage } from '../../axios/serives/AdminServices';
 import DataTable from 'react-data-table-component';
 
 function AdminManagePlan() {
@@ -47,7 +46,7 @@ function AdminManagePlan() {
             <button
               className="btn "
               onClick={() => {
-                navigate(`/trainerdetailsview/${row._id}`);
+                remove(row._id);
               }}
             >
               🗑️
@@ -75,6 +74,11 @@ function AdminManagePlan() {
       },
     },
   ];
+  async function remove(id) {
+    const token = localStorage.getItem('Admintoken');
+    const data = await removePackage(token, id);
+    SetDetails(data.Plans);
+  }
   return (
     <div>
       <div>

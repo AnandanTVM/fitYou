@@ -28,4 +28,17 @@ module.exports = {
         reject();
       }
     }),
+  viewAllPlan: async () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.PACKAGE_COLLECTION)
+          .find({ remove: false })
+          .toArray();
+        resolve(details);
+      } catch (error) {
+        reject();
+      }
+    }),
 };

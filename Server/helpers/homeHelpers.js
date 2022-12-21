@@ -75,7 +75,7 @@ module.exports = {
         const details = await db
           .get()
           .collection(collection.PACKAGE_COLLECTION)
-          .find()
+          .find({ remove: false })
           .toArray();
         resolve(details);
       } catch (error) {

@@ -2,6 +2,7 @@ const AsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 
 const adminHelpers = require('../helpers/adminHelpers');
+const commenHelpers = require('../helpers/CommenHelpers');
 
 const adminLogin = AsyncHandler(async (req, res) => {
   adminHelpers.doadminLogin(req.body).then((response) => {
@@ -204,8 +205,8 @@ const addPlan = AsyncHandler((req, res) => {
     });
 });
 const getallPlans = AsyncHandler((req, res) => {
-  adminHelpers
-    .getallPlans()
+  commenHelpers
+    .viewAllPlan()
     .then((details) => {
       console.log(details);
 
@@ -230,6 +231,29 @@ const uploadVideo = AsyncHandler((req, res) => {
       console.log(err);
     });
 });
+
+const removePackage = AsyncHandler((req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  adminHelpers
+    .removePackage(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({
+        status: 'ok',
+        block: true,
+        Plans: details,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        status: 'error',
+      });
+    });
+});
+
 // exports
 module.exports = {
   adminLogin,
@@ -248,4 +272,5 @@ module.exports = {
   unBlockUser,
   getallPlans,
   uploadVideo,
+  removePackage,
 };

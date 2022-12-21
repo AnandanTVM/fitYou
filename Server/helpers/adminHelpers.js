@@ -296,9 +296,11 @@ module.exports = {
   addPlan: (data) =>
     new Promise(async (resolve, reject) => {
       try {
+        const d = data;
+        d.remove = false;
         db.get()
           .collection(collection.PACKAGE_COLLECTION)
-          .insertOne(data)
+          .insertOne(d)
           .then((res) => {
             console.log(res);
             resolve();
@@ -310,20 +312,6 @@ module.exports = {
         console.log(error);
       }
     }),
-  getallPlans: () =>
-    new Promise(async (resolve, reject) => {
-      try {
-        const details = await db
-          .get()
-          .collection(collection.PACKAGE_COLLECTION)
-          .find()
-          .toArray();
-        console.log(details);
-        resolve(details);
-      } catch (error) {
-        reject();
-      }
-    }),
   uploadVideo: (data) =>
     new Promise((resolve, reject) => {
       try {
@@ -331,6 +319,36 @@ module.exports = {
         resolve();
       } catch (error) {
         reject();
+      }
+    }),
+  removePackage: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.PACKAGE_COLLECTION)
+          .updateOne(
+            {
+              _id: ObjectId(data),
+            },
+            {
+              $set: {
+                remove: true,
+              },
+            }
+          )
+          .then(async () => {
+            const details = await db
+              .get()
+              .collection(collection.PACKAGE_COLLECTION)
+              .find({ remove: false })
+              .toArray();
+            resolve(details);
+          })
+          .catch(() => {
+            reject();
+          });
+      } catch (error) {
+        console.log(error);
       }
     }),
 };

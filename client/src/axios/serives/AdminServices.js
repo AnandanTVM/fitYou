@@ -219,3 +219,17 @@ export const getallPlans = async (token) => {
     return data;
   }
 };
+export const removePackage = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const { data } = await axiosAdminInstance.get(`/removePackage/${id}`, config);
+  if (data.status) {
+    return data;
+  }
+};
