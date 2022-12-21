@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { clearTrainerLoginDetails } from '../../redux/adminReducer';
 // images
 import logo from '../../images/Logo.png';
 
 function TrainerNav(props) {
+  const dispatch = useDispatch();
   const navigate = useNavigate('');
   const userName = localStorage.getItem('trainerDetails');
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('trainertoken');
     localStorage.removeItem('trainerDetails');
+    dispatch(clearTrainerLoginDetails());
     navigate('/trainerLogin');
   };
   return (

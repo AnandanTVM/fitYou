@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
-import { useDispatch } from 'react-redux';
-import { detailsStore } from '../../redux/adminReducer';
 
 import {
   getUserInfo,
@@ -11,7 +9,6 @@ import {
 } from '../../axios/serives/AdminServices';
 
 function AdminUserInfo() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [details, SetDetails] = useState();
 
@@ -22,9 +19,8 @@ function AdminUserInfo() {
     async function fetchData() {
       const data = await getUserInfo(token);
       SetDetails(data.clientDetails);
-      dispatch(detailsStore(data.clientDetails));
     }
-  }, [dispatch]);
+  }, []);
   console.log(details);
   async function unBlock(id) {
     const token = localStorage.getItem('Admintoken');

@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 // import * as yup from "yup";
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
 
 //validation import
 import { userUpdateSchema } from '../../validation/homeValidation';
 
-import { updateUserInfo,getuserdetails } from '../../axios/serives/AdminServices';
+import {
+  updateUserInfo,
+  getuserdetails,
+} from '../../axios/serives/AdminServices';
 import { useEffect } from 'react';
-import { detailsEdit } from '../../redux/adminReducer';
 
 function AdminClientEdit() {
-  const dispatch=useDispatch();
   let { id } = useParams();
   const [user, setUser] = useState('');
- 
- const navigate = useNavigate();
+
+  const navigate = useNavigate();
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -25,18 +25,15 @@ function AdminClientEdit() {
 
     async function fetchData() {
       const data = await getuserdetails(token, id);
-      
-      setUser(data.userDetails[0]);
-      
-         dispatch(detailsEdit(data.userDetails[0]));
-    }
-  }, [dispatch, id]);
 
+      setUser(data.userDetails[0]);
+    }
+  }, [id]);
 
   const onSubmit = async (values, actions) => {
     const token = localStorage.getItem('Admintoken');
-    values.userid=userDetails[0]._id;
-    const status = await updateUserInfo(token,values);
+    values.userid = user._id;
+    const status = await updateUserInfo(token, values);
     if (!status.status) {
       setError('Something went wrong please try again.');
     } else if (status.status) {
@@ -44,27 +41,19 @@ function AdminClientEdit() {
     }
   };
 
-   const {userDetails}  = useSelector(state => state.admin)
- 
-
-
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
-       
-        email:"",
-        phone:"",
-        
+        email: '',
+        phone: '',
       },
       validationSchema: userUpdateSchema,
       onSubmit,
     });
 
-    
-
   return (
     <div>
-       <div className="Csignup-Main">
+      <div className="Csignup-Main">
         <section className=" gradient-custom">
           <div className="container py-5 h-100">
             <div className="row justify-content-center align-items-center h-100">
@@ -81,58 +70,64 @@ function AdminClientEdit() {
                     <form onSubmit={handleSubmit}>
                       {error ? <p className="red-error">{error}</p> : ''}
                       <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="d-flex ">Full Name</label>
+                        <div className="col-md-6 mb-4 pb-2">
+                          <div className="form-outline">
+                            <label className="d-flex ">Full Name</label>
+                          </div>
+                        </div>
+
+                        <div className="col-md-6 mb-4 pb-2">
+                          <div className="form-outline">
+                            <label className="form-label">
+                              {user.fname ? user.fname : ''}{' '}
+                              {user.lname ? user.lname : ''}
+                            </label>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="form-label">
-                            {user.fname ? user.fname : ''} {user.lname ? user.lname : ''}
-                          </label>
+                      <div className="row">
+                        <div className="col-md-6 mb-4 pb-2">
+                          <div className="form-outline">
+                            <label className="d-flex ">Gender</label>
+                          </div>
                         </div>
-                      </div>
-                    </div>
 
-                    <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="d-flex ">Gender</label>
+                        <div className="col-md-6 mb-4 pb-2">
+                          <div className="form-outline">
+                            <label className="form-label">
+                              {user.gender ? user.gender : ''}
+                            </label>
+                          </div>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-md-6 mb-4 pb-2">
+                          <div className="form-outline">
+                            <label className="d-flex ">Date Of Brath</label>
+                          </div>
+                        </div>
 
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="form-label">
-                            {user.gender ? user.gender : ''}
-                          </label>
+                        <div className="col-md-6 mb-4 pb-2">
+                          <div className="form-outline">
+                            <label className="form-label">
+                              {user.dob ? user.dob : ''}
+                            </label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="d-flex ">Date Of Brath</label>
-                        </div>
+                      <div className="row ">
+                        {' '}
+                        <h3 className="mb-3 pb-2 pb-md-0 mb-md-">
+                          Update Details
+                        </h3>
                       </div>
-
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="form-label">{user.dob ? user.dob : ''}</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row "> <h3 className="mb-3 pb-2 pb-md-0 mb-md-">
-                     Update Details 
-                    </h3></div>
                       <div className="row">
                         <div className="col-md-6 mb-4 pb-2">
                           <div className="form-outline">
                             <input
                               type="email"
-                              placeholder= {user.email ? user.email : ''}
+                              placeholder={user.email ? user.email : ''}
                               value={values.email}
                               onChange={handleChange}
                               onBlur={handleBlur}
@@ -154,7 +149,7 @@ function AdminClientEdit() {
                             <input
                               type="tel"
                               id="phone"
-                              placeholder= {user.phone ? user.phone : ''}
+                              placeholder={user.phone ? user.phone : ''}
                               value={values.phone}
                               onChange={handleChange}
                               onBlur={handleBlur}
@@ -171,8 +166,6 @@ function AdminClientEdit() {
                           </div>
                         </div>
                       </div>
-                      
-                      
 
                       <div className="mt-4 pt-2">
                         <input
@@ -188,7 +181,7 @@ function AdminClientEdit() {
             </div>
           </div>
         </section>
-      </div> 
+      </div>
     </div>
   );
 }

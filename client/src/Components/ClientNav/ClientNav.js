@@ -1,15 +1,20 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { clearClientLoginDetails } from '../../redux/adminReducer';
+//icon
 
 // images
 import logo from '../../images/Logo.png';
 
 function ClientNav(props) {
+  const dispatch = useDispatch();
   const navigate = useNavigate('');
   const userName = localStorage.getItem('userDetails');
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userDetails');
+    dispatch(clearClientLoginDetails());
     navigate('/login');
   };
   return (
@@ -62,7 +67,7 @@ function ClientNav(props) {
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
                 <li className="nav-item">
                   <Link className="nav-link" to="/clientHome">
-                    chat
+                    Chat
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
@@ -94,7 +99,7 @@ function ClientNav(props) {
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <Link className="dropdown-item" to="/signup">
+                      <Link className="dropdown-item" to="/profile">
                         Personal Info
                       </Link>
                     </li>
@@ -102,7 +107,7 @@ function ClientNav(props) {
                       <hr className="dropdown-divider" />
                     </li>{' '}
                     <li>
-                      <Link className="dropdown-item" to="/trainerSignup">
+                      <Link className="dropdown-item" to="/plan">
                         Plans
                       </Link>
                     </li>
@@ -117,10 +122,6 @@ function ClientNav(props) {
                   </button>
                 </li>
               </ul>
-              {/* <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form> */}
             </div>
           </div>
         </nav>

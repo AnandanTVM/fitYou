@@ -1,13 +1,12 @@
-import React from 'react'
-import { NavHome, Error } from '../Components'
+import React from 'react';
+import { Error } from '../Components';
 
 function E404() {
-    return (
-        <div>
-            <NavHome />
-            <Error />
-        </div>
-    )
+  return (
+    <div>
+      <Error />
+    </div>
+  );
 }
 
-export default E404
+export default E404;

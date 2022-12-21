@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { clearAdminLoginDetails } from '../../redux/adminReducer';
 
 // images
 import logo from '../../images/Logo.png';
 
 function AdminNav(props) {
+  const dispatch = useDispatch();
   const userName = localStorage.getItem('adminDetails');
   const logout = () => {
     localStorage.removeItem('Admintoken');
     localStorage.removeItem('adminDetails');
+    dispatch(clearAdminLoginDetails());
   };
   return (
     <div>

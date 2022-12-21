@@ -2,6 +2,7 @@ const AsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 
 const clientHelpers = require('../helpers/clientHelpers');
+const CommenHelpers = require('../helpers/CommenHelpers');
 
 const clientLogin = AsyncHandler(async (req, res) => {
   clientHelpers.douserLogin(req.body).then((response) => {
@@ -20,7 +21,21 @@ const clientLogin = AsyncHandler(async (req, res) => {
   });
 });
 
+const ClientDetails = AsyncHandler(async (req, res) => {
+  const id = req.params.id;
+  CommenHelpers.findClientById(id)
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: 'ok', userDetails: details });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 // exports
 module.exports = {
   clientLogin,
+  ClientDetails,
 };

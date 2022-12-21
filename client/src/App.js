@@ -11,9 +11,11 @@ import {
   AdminUserInfo,
   AdminVideoUpload,
   ClientHome,
+  ClientPlan,
   Clogin,
   E404,
   Home,
+  Profile,
   Signup,
   TLogin,
   Trainer,
@@ -44,7 +46,9 @@ function App() {
         <Route path="/trainerInfo" element={<AdminTrainerInfo />} />
         <Route path="/admin/newPackages" element={<AdminNewPackages />} />
         <Route path="/admin/managePackage" element={<AdminManagePackage />} />
+        <Route path="/plan" element={<ClientPlan />} />
         <Route path="/trainer" element={<Trainer />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

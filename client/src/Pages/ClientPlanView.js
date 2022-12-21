@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react';
-import { ClientNav } from '../Components';
+import { ClientNav, Plans } from '../Components';
 import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
-import { useDispatch } from 'react-redux';
-import { ClientLoginInfo } from '../redux/adminReducer';
-function ClientHome() {
+function ClientPlanView() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       const user = jwt(token);
-      console.log(user);
-      dispatch(ClientLoginInfo(user));
       if (!user) {
         localStorage.removeItem('token');
         navigate('/login');
@@ -22,13 +17,13 @@ function ClientHome() {
     } else {
       navigate('/login');
     }
-  }, [dispatch, navigate]);
-
+  }, [navigate]);
   return (
     <div>
-      <ClientNav home />
+      <ClientNav />
+      <Plans />
     </div>
   );
 }
 
-export default ClientHome;
+export default ClientPlanView;

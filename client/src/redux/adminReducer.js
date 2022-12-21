@@ -1,45 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 const INITIAL_STATE = {
   adminDetails: '',
-  // allUsersDetails: '',
-  // userDetails: [],
-  // trainerdetails: '',
+  clientDetails: '',
+  trainerDetails: '',
 };
 
 const singupSlice = createSlice({
   name: 'admindetails',
   initialState: INITIAL_STATE,
   reducers: {
-    detailsStore: (state, action) => {
-      // console.log(action.payload);
-      let { allUsersDetails } = state;
-      console.log(allUsersDetails);
-      allUsersDetails = action.payload;
-      console.log(allUsersDetails);
-      return { ...state, allUsersDetails };
-    },
-    detailsEdit: (state, action) => {
-      state.userDetails = [];
-      state.userDetails.push(action.payload);
-      console.log(state.userDetails);
-    },
-    trainerDetailsEdit: (state, action) => {
-      // state.trainerdetails = [];
-      // state.trainerdetails.push(action.payload);
-      // console.log(state.trainerdetails);
-      let { trainerdetails } = state;
-
-      trainerdetails = action.payload;
-
-      return { ...state, trainerdetails };
-    },
-    trainerDetailReject: (state, action) => {
-      let { trainerdetails } = state;
-
-      trainerdetails.status = action.payload;
-
-      return { ...state, trainerdetails };
-    },
     loginInfo: (state, action) => {
       let { adminDetails } = state;
 
@@ -47,15 +16,51 @@ const singupSlice = createSlice({
 
       return { ...state, adminDetails };
     },
+    ClientLoginInfo: (state, action) => {
+      let { clientDetails } = state;
+
+      clientDetails = action.payload;
+
+      return { ...state, clientDetails };
+    },
+    trainerLoginInfo: (state, action) => {
+      let { trainerDetails } = state;
+
+      trainerDetails = action.payload;
+
+      return { ...state, trainerDetails };
+    },
+    clearClientLoginDetails: (state, action) => {
+      let { clientDetails } = state;
+
+      clientDetails = false;
+
+      return { ...state, clientDetails };
+    },
+    clearAdminLoginDetails: (state, action) => {
+      let { adminDetails } = state;
+
+      adminDetails = false;
+
+      return { ...state, adminDetails };
+    },
+    clearTrainerLoginDetails: (state, action) => {
+      let { trainerDetails } = state;
+
+      trainerDetails = false;
+
+      return { ...state, trainerDetails };
+    },
   },
 });
 
 export const {
-  detailsEdit,
-  detailsStore,
-  trainerDetailsEdit,
-  trainerDetailReject,
   loginInfo,
+  trainerLoginInfo,
+  ClientLoginInfo,
+  clearClientLoginDetails,
+  clearAdminLoginDetails,
+  clearTrainerLoginDetails,
 } = singupSlice.actions;
 //reducer export to a store
 export default singupSlice.reducer;

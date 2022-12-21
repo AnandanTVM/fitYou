@@ -20,19 +20,6 @@ module.exports = {
         resolve({ status: false });
       }
     }),
-  findById: (userId) =>
-    new Promise(async (resolve, reject) => {
-      try {
-        const user = await db
-          .get()
-          .collection(collection.ADMIN_COLLECTION)
-          .findOne({ _id: ObjectId(userId) });
-
-        resolve(user);
-      } catch (err) {
-        reject();
-      }
-    }),
   userdetails: () =>
     new Promise(async (resolve, reject) => {
       try {

@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { viewAllPlan } from '../../axios/serives/HomeServices';
+import { useSelector } from 'react-redux';
 
 import './Plans.css';
 function Plans() {
   const [plan, setPlan] = useState('');
+  let buynow = false;
+  const { clientDetails } = useSelector((state) => state.admin);
+  console.log('redex', clientDetails);
+  if (clientDetails === false) {
+    buynow = true;
+  }
   useEffect(() => {
     fatch();
     async function fatch() {
@@ -87,9 +95,16 @@ function Plans() {
                               </li>
                             </ul>
                             <div className="d-grid">
-                              <button className="btn btn-primary text-uppercase">
-                                Buy Now
-                              </button>
+                              {buynow ? (
+                                <Link
+                                  to="/login"
+                                  className="btn btn-primary text-uppercase"
+                                >
+                                  Buy Now
+                                </Link>
+                              ) : (
+                                ' '
+                              )}
                             </div>
                           </div>
                         </div>

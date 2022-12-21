@@ -6,7 +6,7 @@ function TLogin() {
   console.log('onLogin');
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('trainertoken');
     if (token) {
       const user = jwt(token);
       console.log('iam here');
