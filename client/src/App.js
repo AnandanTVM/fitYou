@@ -20,6 +20,7 @@ import {
   TLogin,
   Trainer,
   TrainerDetailsView,
+  TrainerVideoUpload,
   TrSignup,
 } from './Pages';
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/plan" element={<ClientPlan />} />
         <Route path="/trainer" element={<Trainer />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/trainer/upload" element={<TrainerVideoUpload />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

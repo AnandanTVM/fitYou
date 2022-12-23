@@ -7,6 +7,13 @@ const router = express.Router();
 
 // sing up for Client
 router.post('/api/trainerLogin', trainerControllers.trainerLogin);
-router.get('/api/getuserDetails/:id', auth.Trainerprotect);
+
+// router.get('/api/getuserDetails/:id', auth.Trainerprotect);
+
+router.post(
+  '/api/uploadVideo',
+  auth.Trainerprotect,
+  trainerControllers.uploadVideo
+);
 
 module.exports = router;

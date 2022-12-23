@@ -3,6 +3,7 @@ const AsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 
 const trainerHelpers = require('../helpers/trainerHelpers');
+const commenHelpers = require('../helpers/CommenHelpers');
 
 const trainerLogin = AsyncHandler(async (req, res) => {
   trainerHelpers
@@ -24,8 +25,24 @@ const trainerLogin = AsyncHandler(async (req, res) => {
     })
     .catch((err) => res.json({ status: 'error', user: false }));
 });
+const uploadVideo = AsyncHandler((req, res) => {
+  const data = req.body;
+  const ytUrl = data.link;
+  // replace:
+
+  data.link = ytUrl.replace('/watch?v=', '/embed/');
+  commenHelpers
+    .uploadVideo(req.body)
+    .then(() => {
+      res.json({ status: 'success' });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // exports
 module.exports = {
   trainerLogin,
+  uploadVideo,
 };

@@ -24,7 +24,7 @@ export default function AdminVideoUpload() {
   return (
     <div>
       <AdminNav video />
-      <UploadVideo />
+      <UploadVideo admin />
     </div>
   );
 }

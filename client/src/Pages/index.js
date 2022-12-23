@@ -17,4 +17,5 @@ export { default as AdminManagePackage } from './AdminManagePackage';
 export { default as Trainer } from './TrainerHome';
 export { default as ClientPlan } from './ClientPlanView';
 export { default as Profile } from './Profile';
+export { default as TrainerVideoUpload } from './TrainerVideoUpload';
 export { default as E404 } from './E404';

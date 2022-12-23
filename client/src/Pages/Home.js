@@ -1,13 +1,29 @@
-import React from 'react';
-import { Banner, NavHome, Plans } from '../Components';
+import React, { useEffect, useState } from 'react';
+import { Banner, Loading, NavHome, Plans } from '../Components';
 // import { useNavigate } from 'react-router-dom';
 // import jwt from 'jwt-decode';
+
 function Home() {
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
   return (
     <div>
-      <NavHome home />
-      <Banner />
-      <Plans />
+      {loading ? (
+        <div>
+          <Loading />
+        </div>
+      ) : (
+        <div>
+          <NavHome home />
+          <Banner />
+          <Plans />
+        </div>
+      )}
     </div>
   );
 }

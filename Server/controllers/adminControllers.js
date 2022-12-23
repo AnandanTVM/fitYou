@@ -222,7 +222,7 @@ const uploadVideo = AsyncHandler((req, res) => {
   // replace:
 
   data.link = ytUrl.replace('/watch?v=', '/embed/');
-  adminHelpers
+  commenHelpers
     .uploadVideo(req.body)
     .then(() => {
       res.json({ status: 'success' });

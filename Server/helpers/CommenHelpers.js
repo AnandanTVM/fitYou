@@ -28,6 +28,19 @@ module.exports = {
         reject();
       }
     }),
+  findTrainerById: (userId) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const user = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .findOne({ _id: ObjectId(userId) });
+
+        resolve(user);
+      } catch (err) {
+        reject();
+      }
+    }),
   viewAllPlan: async () =>
     new Promise(async (resolve, reject) => {
       try {
@@ -37,6 +50,15 @@ module.exports = {
           .find({ remove: false })
           .toArray();
         resolve(details);
+      } catch (error) {
+        reject();
+      }
+    }),
+  uploadVideo: (data) =>
+    new Promise((resolve, reject) => {
+      try {
+        db.get().collection(collection.VIDEO_COLLECTION).insertOne(data);
+        resolve();
       } catch (error) {
         reject();
       }

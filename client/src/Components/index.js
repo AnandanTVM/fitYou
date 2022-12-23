@@ -18,4 +18,5 @@ export { default as AdminManagePlan } from './AdminManagePlan/AdminManagePlan';
 export { default as TrainerNav } from './TrainerNav/TrainerNav';
 export { default as Plans } from './Plans/Plans';
 export { default as ClientProfile } from './ClientProfile/ClientProfile';
+export { default as Loading } from './loading/loading';
 export { default as Error } from './Error/Error';

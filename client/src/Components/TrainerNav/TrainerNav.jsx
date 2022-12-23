@@ -19,7 +19,7 @@ function TrainerNav(props) {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/clientHome">
+          <Link className="navbar-brand" to="/trainer">
             <img src={logo} alt="not avalable" height="50" width="140" />
           </Link>
           <button
@@ -37,22 +37,22 @@ function TrainerNav(props) {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 mal">
               <li className="nav-item">
                 {props.home ? (
-                  <Link className="nav-link active" to="/clientHome">
+                  <Link className="nav-link active" to="/trainer">
                     Home
                   </Link>
                 ) : (
-                  <Link className="nav-link " to="/clientHome">
+                  <Link className="nav-link " to="/trainer">
                     Home
                   </Link>
                 )}
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/clientHome">
+                <Link className="nav-link" to="/trainer">
                   Client Info
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/clientHome">
+                <Link className="nav-link" to="/trainer">
                   Manage Videos
                 </Link>
               </li>
@@ -60,12 +60,18 @@ function TrainerNav(props) {
 
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
               <li className="nav-item">
-                <Link className="nav-link" to="/clientHome">
-                  Upload Video
-                </Link>
+                {props.upload ? (
+                  <Link className="nav-link active" to="/trainer/upload">
+                    Upload Video
+                  </Link>
+                ) : (
+                  <Link className="nav-link" to="/trainer/upload">
+                    Upload Video
+                  </Link>
+                )}
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/clientHome">
+                <Link className="nav-link" to="/trainer">
                   chat
                 </Link>
               </li>
@@ -73,7 +79,7 @@ function TrainerNav(props) {
                 {props.profile ? (
                   <Link
                     className="nav-link dropdown-toggle active"
-                    to="/clientHome"
+                    to="/trainer"
                     id="navbarDropdown"
                     role="button"
                     data-bs-toggle="dropdown"
