@@ -27,4 +27,16 @@ module.exports = {
         resolve({ status: false });
       }
     }),
+  freeVideo: () =>
+    new Promise(async (resolve, reject) => {
+      const video = await db
+        .get()
+        .collection(collection.VIDEO_COLLECTION)
+        .find({ type: 'Free' }).toArray();
+      if (video) {
+        resolve(video);
+      } else {
+        reject();
+      }
+    }),
 };

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ClientNav } from '../Components';
+import { ClientNav, FreeVideos } from '../Components';
 import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
 import { useDispatch } from 'react-redux';
@@ -27,6 +27,7 @@ function ClientHome() {
   return (
     <div>
       <ClientNav home />
+      <FreeVideos/>
     </div>
   );
 }

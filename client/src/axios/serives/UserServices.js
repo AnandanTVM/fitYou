@@ -16,3 +16,19 @@ export const getuserdetails = async (token, id) => {
     return data;
   }
 };
+export const getFreeVideo = async (token) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(
+    '/freeVideos',
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};

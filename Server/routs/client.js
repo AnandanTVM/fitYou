@@ -11,5 +11,5 @@ router.get(
   auth.Clientprotect,
   clientControllers.ClientDetails
 );
-
+router.get('/api/freeVideos', auth.Clientprotect, clientControllers.freeVideo);
 module.exports = router;

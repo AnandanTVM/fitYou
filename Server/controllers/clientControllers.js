@@ -33,9 +33,22 @@ const ClientDetails = AsyncHandler(async (req, res) => {
       console.log(err);
     });
 });
+const freeVideo = AsyncHandler(async (req, res) => {
+  console.log('here');
+  clientHelpers.freeVideo()
+    .then((details) => {
+      console.log(details);
 
+      res.json({ status: 'ok', allvideo: details });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({ error: err });
+    });
+});
 // exports
 module.exports = {
   clientLogin,
   ClientDetails,
+  freeVideo,
 };
