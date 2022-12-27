@@ -58,9 +58,15 @@ function ClientNav(props) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/clientHome">
-                    Videos
-                  </Link>
+                  {props.video ? (
+                    <Link className="nav-link active" to="/Client/Video">
+                      Videos
+                    </Link>
+                  ) : (
+                    <Link className="nav-link" to="/Client/Video">
+                      Videos
+                    </Link>
+                  )}
                 </li>
               </ul>
 

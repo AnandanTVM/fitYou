@@ -35,7 +35,8 @@ const ClientDetails = AsyncHandler(async (req, res) => {
 });
 const freeVideo = AsyncHandler(async (req, res) => {
   console.log('here');
-  clientHelpers.freeVideo()
+  clientHelpers
+    .freeVideo()
     .then((details) => {
       console.log(details);
 
@@ -46,9 +47,16 @@ const freeVideo = AsyncHandler(async (req, res) => {
       res.json({ error: err });
     });
 });
+const clientSendOtp = AsyncHandler(async (req, res) => {
+  console.log(req.body);
+  res.json({ status: true });
+
+  CommenHelpers.sendOTPVerificationEmail(req.body);
+});
 // exports
 module.exports = {
   clientLogin,
   ClientDetails,
+  clientSendOtp,
   freeVideo,
 };

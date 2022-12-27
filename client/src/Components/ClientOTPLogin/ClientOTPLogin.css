@@ -1,0 +1,17 @@
+
+.COTPlogin-Main {
+    color: white;
+    position: relative;
+}
+
+.COTPlogin-Main img {
+    width: 50%;
+    height: 520px;
+    position: absolute;
+
+}
+
+.COTPlogin-img1 {
+    right: 10px;
+    bottom: 15px;
+}

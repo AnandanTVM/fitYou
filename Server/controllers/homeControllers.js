@@ -54,6 +54,7 @@ const viewAllPlan = AsyncHandler(async (req, res) => {
       console.log(err);
     });
 });
+
 // exports
 module.exports = {
   clientSignup,

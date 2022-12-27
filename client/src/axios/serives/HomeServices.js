@@ -88,14 +88,29 @@ export const trainerLogin = async (value) => {
 };
 // view all package to home page...
 export const viewAllPlan = async () => {
- console.log("here");
+  console.log('here');
   const config = {
     headers: {
       'content-type': 'application/json',
     },
   };
-  const { data } = await axiosHomeInstance.get(
-    '/viewAllPlan',
+  const { data } = await axiosHomeInstance.get('/viewAllPlan', config);
+  if (data) {
+    return data;
+  }
+};
+// Client Otp Login
+
+export const clientSendOtp = async (value) => {
+  console.log(value);
+  const config = {
+    headers: {
+      'content-type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.post(
+    '/ClientSendOtp',
+    value,
     config
   );
   if (data) {

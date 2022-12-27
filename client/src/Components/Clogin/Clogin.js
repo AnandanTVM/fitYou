@@ -84,12 +84,12 @@ function Clogin() {
                           </div>
                         </div>
                       </div>
-
-                      <label className="d-flex justify-content-center">
-                        Login With OTP?
-                      </label>
+                      <Link to="/login/ClientOTP">
+                        <label className="d-flex justify-content-center OTP-textcolour">
+                          Login With OTP?
+                        </label>
+                      </Link>
                       <Link to="/signup">
-                       
                         <label className="d-flex justify-content-center CreatSingup-textcolour">
                           Create an account Sign Up
                         </label>

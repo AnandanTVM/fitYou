@@ -1,6 +1,10 @@
 const { ObjectId } = require('mongodb');
+const nodemailer = require('nodemailer');
 const db = require('../config/connection');
 const collection = require('../config/collection');
+
+// node mailer confige
+
 module.exports = {
   findAdminById: (userId) =>
     new Promise(async (resolve, reject) => {
@@ -63,4 +67,43 @@ module.exports = {
         reject();
       }
     }),
+  sendOTPVerificationEmail: (email) => {
+    try {
+      const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        secure: false,
+        auth: {
+          user: 'anandan1999n@gmail.com',
+          pass: process.env.AUTH_EMAIL_TEST_PAS,
+        },
+        tls: { rejectUnauthorized: false },
+      });
+
+      const mailOptions = {
+        from: 'anandan1999n@gmail.com',
+        to: 'anandan2016@gmail.com',
+        subject: 'Hello world this is a test',
+        text: 'this is a test',
+        html: `<p> Your 4 digit One Time Password is <b>${otp} </b></p>.<p>This code <b> expires in 1 houre</b>.</p> `,
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('here');
+          console.log(error);
+        } else {
+          console.log(`Email sent: ${info.response}`);
+        }
+      });
+      // const mailOptions = {
+      //   from: process.env.AUTH_EMAIL,
+      //   to: email,
+      //   html: `<p> Your 4 digit One Time Password is <b>${otp} </b></p>.<p>This code <b> expires in 1 houre</b>.</p> `,
+      // };
+    } catch (error) {
+      console.log('email not sent!');
+      console.log(error);
+    }
+  },
 };
