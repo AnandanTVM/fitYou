@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavHome, TrainerLogin } from '../Components';
+import { NavHome, TLoginOTP } from '../Components';
 import jwt from 'jwt-decode';
-function TLogin() {
+
+function TrainerOtpLogin() {
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('trainertoken');
@@ -15,15 +16,15 @@ function TLogin() {
         navigate('/trainer');
       }
     } else {
-      navigate('/trainerLogin');
+      navigate('/login/trainerOTP');
     }
   }, [navigate]);
   return (
     <div>
       <NavHome login />
-      <TrainerLogin />
+      <TLoginOTP />
     </div>
   );
 }
 
-export default TLogin;
+export default TrainerOtpLogin;

@@ -20,6 +20,7 @@ import {
   Profile,
   Signup,
   TLogin,
+  TOTPLogin,
   Trainer,
   TrainerDetailsView,
   TrainerVideoUpload,
@@ -55,6 +56,7 @@ function App() {
         <Route path="/trainer/upload" element={<TrainerVideoUpload />} />
         <Route path="/Client/Video" element={<ClientVideo />} />
         <Route path="/login/ClientOTP" element={<COTPLogin />} />
+        <Route path="/login/trainerOTP" element={<TOTPLogin />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

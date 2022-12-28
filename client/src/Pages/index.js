@@ -20,4 +20,5 @@ export { default as Profile } from './Profile';
 export { default as TrainerVideoUpload } from './TrainerVideoUpload';
 export { default as ClientVideo } from './ClientVideo';
 export { default as COTPLogin } from './ClientOTPLogin';
+export { default as TOTPLogin } from './TrainerOtpLogin';
 export { default as E404 } from './E404';

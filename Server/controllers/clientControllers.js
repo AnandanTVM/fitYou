@@ -48,10 +48,29 @@ const freeVideo = AsyncHandler(async (req, res) => {
     });
 });
 const clientSendOtp = AsyncHandler(async (req, res) => {
-  console.log(req.body);
-  res.json({ status: true });
+  // console.log(req.body);
+  // res.json({ status: true });
 
-  CommenHelpers.sendOTPVerificationEmail(req.body);
+  clientHelpers
+    .sendOTPVerificationEmail(req.body)
+    .then((data) => res.json({ status: true }))
+    .catch((error) => res.json({ status: false, message: error }));
+});
+const verifiyOtp = AsyncHandler(async (req, res) => {
+  clientHelpers.otpLogin(req.body).then((response) => {
+    if (response.status) {
+      const token = jwt.sign(
+        {
+          userId: response.user._id,
+          name: response.user.fname,
+          email: response.user.email,
+        },
+        'fityou5055'
+      );
+      return res.json({ status: 'ok', user: token });
+    }
+    res.json({ status: 'error', user: false });
+  });
 });
 // exports
 module.exports = {
@@ -59,4 +78,5 @@ module.exports = {
   ClientDetails,
   clientSendOtp,
   freeVideo,
+  verifiyOtp,
 };

@@ -4,13 +4,12 @@ import ModelWoman from '../../images/login.png';
 import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
 import {
-  clientSendOtp,
-  clientVerifyOtp,
+  trainerSendOtp,
+  trainerVerifyOtp,
 } from '../../axios/serives/HomeServices';
-// css
-import './ClientOTPLogin.css';
 import { Loading } from '..';
-function ClientOtpLogin() {
+import './TrainerOtpLogin.css';
+function TrainerOtpLogin() {
   const [loader, setLoader] = useState(false);
   const [phone, setPhone] = useState('');
   const [OTP, setOTP] = useState('');
@@ -21,11 +20,10 @@ function ClientOtpLogin() {
     event.preventDefault();
     setLoader(true);
     const values = { Phone: phone };
-    const data = await clientSendOtp(values);
+    const data = await trainerSendOtp(values);
     console.log(data);
     setLoader(false);
     if (data.status) {
-      setError('');
       setOtpSend('OTP Send successfully. Please, Check your Email.');
     } else {
       setError(data.message);
@@ -36,17 +34,17 @@ function ClientOtpLogin() {
     setLoader(true);
     const values = { Phone: phone, otp: OTP };
 
-    const data = await clientVerifyOtp(values);
+    const data = await trainerVerifyOtp(values);
     console.log(data);
     setLoader(false);
-    if (data.status) {
-      localStorage.setItem('token', data.user);
-      const user = jwt(data.user);
-      localStorage.setItem('userDetails', user.name);
+    if (data.token) {
+      localStorage.setItem('trainertoken', data.token);
+      const trainer = jwt(data.token);
+      localStorage.setItem('trainerDetails', trainer.name);
 
-      navigate('/clientHome');
+      navigate('/trainer');
     } else {
-      setError('Invalid Phone Number/Password..');
+      setError('Invalid OTP Please try again...');
     }
   }
 
@@ -70,7 +68,7 @@ function ClientOtpLogin() {
                   >
                     <div className="card-body p-4 p-md-5">
                       <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">
-                        Client OTP Login
+                        Trainer OTP Login
                       </h3>
                       {error ? (
                         <p style={{ color: 'red' }} className="red-error">
@@ -150,4 +148,4 @@ function ClientOtpLogin() {
   );
 }
 
-export default ClientOtpLogin;
+export default TrainerOtpLogin;

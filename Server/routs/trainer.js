@@ -7,6 +7,8 @@ const router = express.Router();
 
 // sing up for Client
 router.post('/api/trainerLogin', trainerControllers.trainerLogin);
+router.post('/api/trainerSendOtp', trainerControllers.SendOtp);
+router.post('/api/trainerVerifyOtp', trainerControllers.verifiyOtp);
 
 // router.get('/api/getuserDetails/:id', auth.Trainerprotect);
 
