@@ -72,6 +72,27 @@ const verifiyOtp = AsyncHandler(async (req, res) => {
     res.json({ status: 'error', user: false });
   });
 });
+const allTrainerDetails = AsyncHandler(async (req, res) => {
+  CommenHelpers.allTrainerDetails()
+    .then((details) => {
+      console.log(details);
+
+      res.json({ status: true, trainerDetails: details });
+    })
+    .catch((err) => {
+      res.json({ status: false, message: err });
+    });
+});
+const planDetails = AsyncHandler(async (req, res) => {
+  const id = req.params.id;
+  CommenHelpers.planDetailsById(id)
+    .then((details) => {
+      res.json({ status: true, package: details });
+    })
+    .catch((err) => {
+      res.json({ status: false, message: err });
+    });
+});
 // exports
 module.exports = {
   clientLogin,
@@ -79,4 +100,6 @@ module.exports = {
   clientSendOtp,
   freeVideo,
   verifiyOtp,
+  planDetails,
+  allTrainerDetails,
 };

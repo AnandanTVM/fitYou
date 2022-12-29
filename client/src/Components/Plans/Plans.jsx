@@ -103,7 +103,12 @@ function Plans() {
                                   Buy Now
                                 </Link>
                               ) : (
-                                ' '
+                                <Link
+                                  to={`/plan/buynow/${data._id}`}
+                                  className="btn btn-primary text-uppercase"
+                                >
+                                  Buy Now
+                                </Link>
                               )}
                             </div>
                           </div>

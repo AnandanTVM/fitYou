@@ -22,4 +22,6 @@ export { default as Loading } from './loading/loading';
 export { default as FreeVideos } from './FreeVideos/FreeVideos';
 export { default as CLoginOTP } from './ClientOTPLogin/ClientOtpLogin';
 export { default as TLoginOTP } from './TrainerOtpLogin/TrainerOtpLogin';
+export { default as ClientPlanPayment } from './ClientPlanPayment/ClientPlanPayment';
+export { default as ClientSelectTrainer } from './ClientSelectTrainer/ClientSelectTrainer';
 export { default as Error } from './Error/Error';

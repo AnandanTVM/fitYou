@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
-import { combineReducers } from 'redux';
 import {
   persistReducer,
   FLUSH,
@@ -11,12 +10,10 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import adminReducer from './adminReducer';
-const persistConfig = {
-  key: 'admin',
-  storage,
-};
-const reducers = combineReducers({ admin: adminReducer });
+import reducers from './index';
+
+const persistConfig = { key: 'root', storage, version: 1 };
+
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({

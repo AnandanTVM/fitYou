@@ -1,0 +1,45 @@
+
+
+.card-blue{
+
+    background-color: #492bc4;
+}
+
+.hightlight{
+
+    background-color: #5737d9;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.yellow{
+
+    color: #fdcc49; 
+}
+
+.decoration{
+
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #492bc4;
+    border-color:#492bc4;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color:#492bc4;
+    border-color: #492bc4;
+}
+
+
+.decoration:hover{
+
+    text-decoration: none;
+    color: #fdcc49; 
+}

@@ -67,4 +67,31 @@ module.exports = {
         reject();
       }
     }),
+  allTrainerDetails: () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .find({ status: 'Active PT' })
+          .toArray();
+        console.log(details);
+        resolve(details);
+      } catch (err) {
+        reject();
+      }
+    }),
+  planDetailsById: (Id) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const plan = await db
+          .get()
+          .collection(collection.PACKAGE_COLLECTION)
+          .findOne({ _id: ObjectId(Id) });
+
+        resolve(plan);
+      } catch (err) {
+        reject();
+      }
+    }),
 };

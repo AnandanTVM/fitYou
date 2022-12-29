@@ -12,6 +12,7 @@ import {
   AdminVideoUpload,
   ClientHome,
   ClientPlan,
+  ClientPlanConformation,
   ClientVideo,
   Clogin,
   COTPLogin,
@@ -57,6 +58,7 @@ function App() {
         <Route path="/Client/Video" element={<ClientVideo />} />
         <Route path="/login/ClientOTP" element={<COTPLogin />} />
         <Route path="/login/trainerOTP" element={<TOTPLogin />} />
+        <Route path="/plan/buynow/:id" element={<ClientPlanConformation />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>
