@@ -2,6 +2,7 @@ const CLIENT_COLLECTION = 'client';
 const TRAINER_COLLECTION = 'trainer';
 const ADMIN_COLLECTION = 'admin';
 const PACKAGE_COLLECTION = 'package';
+const PURCHASE_COLLECTION = 'purchase';
 const VIDEO_COLLECTION = 'videos';
 
 module.exports = {
@@ -10,4 +11,5 @@ module.exports = {
   ADMIN_COLLECTION,
   PACKAGE_COLLECTION,
   VIDEO_COLLECTION,
+  PURCHASE_COLLECTION,
 };

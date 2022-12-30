@@ -93,6 +93,82 @@ const planDetails = AsyncHandler(async (req, res) => {
       res.json({ status: false, message: err });
     });
 });
+const placeOdder = AsyncHandler(async (req, res) => {
+  const data = req.body;
+  switch (data.validfor) {
+    case '1 Month':
+      data.validfor = 1;
+      break;
+    case '2 Month':
+      data.validfor = 2;
+      break;
+    case '3 Month':
+      data.validfor = 3;
+      break;
+    case '4 Month':
+      data.validfor = 4;
+      break;
+    case '5 Month':
+      data.validfor = 5;
+      break;
+    case '6 Month':
+      data.validfor = 6;
+      break;
+    case '7 Month':
+      data.validfor = 7;
+      break;
+    case '8 Month':
+      data.validfor = 8;
+      break;
+    case '9 Month':
+      data.validfor = 9;
+      break;
+    case '10 Month':
+      data.validfor = 10;
+      break;
+    case '11 Month':
+      data.validfor = 11;
+      break;
+    case '12 Month':
+      data.validfor = 12;
+      break;
+
+    default:
+      res.json({ status: false, message: 'ERROR' });
+      break;
+  }
+
+  clientHelpers
+    .placeOdder(data)
+    .then((id) => {
+      clientHelpers
+        .generateRazorpay(id, data.amount)
+        .then((order) => {
+          res.json({ status: true, order: order });
+        })
+        .catch((err) => res.json({ status: false, error: err }));
+    })
+    .catch((err) => {
+      res.json({ status: false, error: err });
+    });
+});
+const verifiyPayment = AsyncHandler(async (req, res) => {
+  clientHelpers
+    .verifiyPayment(req.body)
+    .then(() => {
+      clientHelpers
+        .changePaymentStatus(req.body.order)
+        .then(() => {
+          res.json({ status: true, Message: 'payment Sucessfull... ' });
+        })
+        .catch(() => {
+          res.json({ status: false, err: 'Payment Failed' });
+        });
+    })
+    .catch(() => {
+      res.json({ status: false, err: 'Payment Failed' });
+    });
+});
 // exports
 module.exports = {
   clientLogin,
@@ -102,4 +178,6 @@ module.exports = {
   verifiyOtp,
   planDetails,
   allTrainerDetails,
+  placeOdder,
+  verifiyPayment,
 };

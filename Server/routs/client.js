@@ -8,6 +8,16 @@ const router = express.Router();
 router.post('/api/clientLogin', clientControllers.clientLogin);
 router.post('/api/ClientSendOtp', clientControllers.clientSendOtp);
 router.post('/api/clientVerifyOtp', clientControllers.verifiyOtp);
+router.post(
+  '/api/placeOdder',
+  auth.Clientprotect,
+  clientControllers.placeOdder
+);
+router.post(
+  '/api/verifiyPayment',
+  auth.Clientprotect,
+  clientControllers.verifiyPayment
+);
 router.get(
   '/api/getuserDetails/:id',
   auth.Clientprotect,

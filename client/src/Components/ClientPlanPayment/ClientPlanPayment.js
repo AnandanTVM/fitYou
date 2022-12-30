@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getPlanDetails } from '../../axios/serives/UserServices';
+import {
+  getPlanDetails,
+  orderVerifiyPayment,
+  placeOdder,
+} from '../../axios/serives/UserServices';
 import { getSelectedTrainerDetails } from '../../redux/clientReducers';
+import { useCallback } from 'react';
+import useRazorpay from 'react-razorpay';
 import './ClientPlanPayment.css';
 function ClientPlanPayment() {
   const dispatch = useDispatch();
@@ -22,6 +28,57 @@ function ClientPlanPayment() {
       setPlanDetails(data.package);
     }
   }, [id]);
+
+  const Razorpay = useRazorpay();
+
+  const odderPayment = useCallback(async () => {
+    const token = localStorage.getItem('token');
+
+    const value = {};
+    value.trainerId = selectedTrainerdetails._id;
+    value.planId = planDetails._id;
+    value.amount = planDetails.offerRate;
+    value.validfor = planDetails.validfor;
+    const data = await placeOdder(token, value);
+    console.log(data);
+
+    const options = {
+      key: 'rzp_test_V6c4v4ekLUGUMI',
+      amount: data.order.amount,
+      currency: 'INR',
+      name: 'fitYou',
+      description: 'Test Transaction',
+      image: 'https://example.com/your_logo',
+      order_id: data.order.id,
+      handler: (res) => {
+        verifiyPayment(res, data.order);
+      },
+      prefill: {
+        name: 'Piyush Garg',
+        email: 'youremail@example.com',
+        contact: '9999999999',
+      },
+      notes: {
+        address: 'Razorpay Corporate Office',
+      },
+      theme: {
+        color: '#ED533B',
+      },
+    };
+    const rzpay = new Razorpay(options);
+    rzpay.open();
+    async function verifiyPayment(res, order) {
+      const token = localStorage.getItem('token');
+      const verification = await orderVerifiyPayment(token, res, order);
+      console.log(verification);
+    }
+  }, [
+    Razorpay,
+    planDetails._id,
+    planDetails.offerRate,
+    planDetails.validfor,
+    selectedTrainerdetails._id,
+  ]);
 
   return (
     <div>
@@ -252,7 +309,7 @@ function ClientPlanPayment() {
                 Cancel Payment
               </button>
 
-              <button className="btn btn-success px-3">
+              <button className="btn btn-success px-3" onClick={odderPayment}>
                 Pay ₹{planDetails?.offerRate} /-
               </button>
             </div>
