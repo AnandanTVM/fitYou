@@ -34,4 +34,9 @@ router.get(
   clientControllers.allTrainerDetails
 );
 router.get('/api/freeVideos', auth.Clientprotect, clientControllers.freeVideo);
+router.get(
+  '/api/getClientPlan/:id',
+  auth.Clientprotect,
+  clientControllers.getClientPlan
+);
 module.exports = router;

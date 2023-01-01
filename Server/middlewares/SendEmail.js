@@ -36,4 +36,30 @@ module.exports = {
         reject(error);
       }
     }),
+  SendPackagePlasedMessage: (tomail, name) =>
+    new Promise((resolve, reject) => {
+      try {
+        const mailOptions = {
+          from: process.env.AUTH_EMAIL,
+          to: tomail,
+          subject: 'fitYou Package Placed',
+          html: `<h2>Dear ${name} ,<h2/> 
+           <p><h3>Greetings from fitYou</h3> 
+          <p>We are pleased to inform you that your plan has been successfully placed.</p>
+          <p>Thank you for choosing us. We hope that you have a great experience with our service.For More vist www.fityou.tk</p>
+          
+          <p>Sincerely,</p>
+          <p>The Casamer Team</p>`,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(info.response);
+          }
+        });
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };

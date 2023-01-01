@@ -4,7 +4,10 @@ const crypto = require('crypto');
 const { ObjectId } = require('mongodb');
 const db = require('../config/connection');
 const collection = require('../config/collection');
-const { SendOTP } = require('../middlewares/SendEmail');
+const {
+  SendOTP,
+  SendPackagePlasedMessage,
+} = require('../middlewares/SendEmail');
 
 // const { response, json } = require('express')
 
@@ -127,6 +130,9 @@ module.exports = {
       details.validtill = validtill;
       details.paymentStatus = 'Pending';
       delete details.validfor;
+      details.trainerId = ObjectId(details.trainerId);
+      details.userId = ObjectId(details.userId);
+      details.planId = ObjectId(details.planId);
       db.get()
         .collection(collection.PURCHASE_COLLECTION)
         .insertOne(details)
@@ -172,19 +178,111 @@ module.exports = {
       }
     }),
   changePaymentStatus: (details) =>
-    new Promise((resolve, reject) => {
-      console.log(details.receipt);
-      db.get()
-        .collection(collection.PURCHASE_COLLECTION)
-        .updateOne(
-          { _id: ObjectId(details.receipt) },
-          {
-            $set: { paymentStatus: 'Completed' },
-          }
-        )
-        .then(() => {
+    new Promise(async (resolve, reject) => {
+      try {
+        const purchase = await db
+          .get()
+          .collection(collection.PURCHASE_COLLECTION)
+          .findOneAndUpdate(
+            { _id: ObjectId(details.receipt) },
+            {
+              $set: { paymentStatus: 'Completed' },
+            }
+          );
+
+        const userdetails = await db
+          .get()
+          .collection(collection.CLIENT_COLLECTION)
+          .findOne({ _id: purchase.value.userId });
+
+        const name = `${userdetails.fname} ${userdetails.lname}`;
+        SendPackagePlasedMessage(userdetails.email, name).then(() => {
           resolve();
-        })
-        .catch(() => reject());
+        });
+        resolve();
+      } catch (error) {
+        reject();
+      }
+    }),
+  getClientPlan: (id) =>
+    new Promise(async (resolve, reject) => {
+      console.log(id);
+      const details = await db
+        .get()
+        .collection(collection.PURCHASE_COLLECTION)
+        .aggregate([
+          {
+            $match: { userId: ObjectId(id) },
+          },
+          {
+            // to join anothtre table fields to current table
+            $lookup: {
+              from: collection.TRAINER_COLLECTION,
+              localField: 'trainerId',
+              foreignField: '_id',
+              as: 'trainer',
+            },
+          },
+          {
+            $lookup: {
+              from: collection.PACKAGE_COLLECTION,
+              localField: 'planId',
+              foreignField: '_id',
+              as: 'plan',
+            },
+          },
+          {
+            $project: {
+              validtill: 1,
+              validfrom: 1,
+              paymentStatus: 1,
+              trainer: { $arrayElemAt: ['$trainer', 0] },
+              plan: { $arrayElemAt: ['$plan', 0] },
+              // arrayElemAt userd to convert array to object
+            },
+          },
+          {
+            $project: {
+              trainer: {
+                dob: 0,
+                password: 0,
+                link: 0,
+                block: 0,
+                date: 0,
+                phone: 0,
+              },
+              plan: {
+                remove: 0,
+                offerRate: 0,
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      if (details[0]) {
+        const timestamp = details[0].validtill;
+        const timefor = details[0].validfrom;
+        const vaild = new Date(Date.parse(timestamp));
+        const from = new Date(Date.parse(timefor));
+        // date converting part
+        const options = {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          timeZone: 'UTC',
+        };
+        const formatter = new Intl.DateTimeFormat('en-US', options);
+
+        // outputs "12/31/2022, 6:46 PM"
+        details[0].validtill = formatter.format(vaild);
+        details[0].validfrom = formatter.format(from);
+
+        resolve(details);
+      } else {
+        reject();
+      }
     }),
 };

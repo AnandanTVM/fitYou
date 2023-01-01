@@ -6,6 +6,7 @@ import { clearClientLoginDetails } from '../../redux/adminReducer';
 
 // images
 import logo from '../../images/Logo.png';
+import { getSelectedTrainerDetails } from '../../redux/clientReducers';
 
 function ClientNav(props) {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function ClientNav(props) {
     localStorage.removeItem('token');
     localStorage.removeItem('userDetails');
     dispatch(clearClientLoginDetails());
+    dispatch(getSelectedTrainerDetails(false))
     navigate('/login');
   };
   return (

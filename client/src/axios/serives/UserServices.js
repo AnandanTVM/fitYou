@@ -94,3 +94,20 @@ export const orderVerifiyPayment = async (token, res, order) => {
     return data;
   }
 };
+export const getClientPlan = async (token, id) => {
+  console.log("here in Api");
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(
+    `/getClientPlan/${id}`,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};

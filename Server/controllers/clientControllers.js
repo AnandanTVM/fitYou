@@ -169,6 +169,18 @@ const verifiyPayment = AsyncHandler(async (req, res) => {
       res.json({ status: false, err: 'Payment Failed' });
     });
 });
+const getClientPlan = AsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  console.log('here');
+  clientHelpers
+    .getClientPlan(id)
+    .then((details) => {
+      res.json({ status: true, package: details });
+    })
+    .catch((err) => {
+      res.json({ status: false, message: err });
+    });
+});
 // exports
 module.exports = {
   clientLogin,
@@ -180,4 +192,5 @@ module.exports = {
   allTrainerDetails,
   placeOdder,
   verifiyPayment,
+  getClientPlan,
 };
