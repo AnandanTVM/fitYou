@@ -15,6 +15,7 @@ const trainerLogin = AsyncHandler(async (req, res) => {
           {
             trainerId: response.trainer._id,
             name: response.trainer.fname + response.trainer.lname,
+            status: response.trainer.status,
           },
           'fityou5055'
         );

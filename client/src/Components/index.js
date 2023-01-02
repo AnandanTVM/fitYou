@@ -25,4 +25,5 @@ export { default as TLoginOTP } from './TrainerOtpLogin/TrainerOtpLogin';
 export { default as ClientPlanPayment } from './ClientPlanPayment/ClientPlanPayment';
 export { default as ClientSelectTrainer } from './ClientSelectTrainer/ClientSelectTrainer';
 export { default as ClientCurrentPlan } from './ClientCurrentPlan/ClientCurrentPlan';
+export { default as TrainerVefUpload } from './TrainerVerificationUpload/TrainerVerificationUpload';
 export { default as Error } from './Error/Error';

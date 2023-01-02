@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
-import { TrainerNav } from '../Components';
+import { TrainerNav, TrainerVefUpload } from '../Components';
 import { useDispatch } from 'react-redux';
 import { trainerLoginInfo } from '../redux/adminReducer';
 function TrainerHome() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [verified,setVerified]=useState(false)
   useEffect(() => {
     const token = localStorage.getItem('trainertoken');
     if (token) {
@@ -16,8 +17,8 @@ function TrainerHome() {
       if (!user) {
         localStorage.removeItem('trainertoken');
         navigate('/trainerLogin');
-      } else {
-        // populateQuote()
+      } else if(user.status==='Veifiyed'){
+        setVerified(true)
       }
     } else {
       navigate('/trainerLogin');
@@ -25,7 +26,7 @@ function TrainerHome() {
   }, [dispatch, navigate]);
   return (
     <div>
-      <TrainerNav home />
+     {verified?<TrainerVefUpload/>: <TrainerNav home />}
     </div>
   );
 }

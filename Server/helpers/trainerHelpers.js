@@ -17,7 +17,7 @@ module.exports = {
           .collection(collection.TRAINER_COLLECTION)
           .findOne({
             phone: data.Phone,
-            status: 'Active PT',
+            $or: [{ status: 'Active PT' }, { status: 'Veifiyed' }],
           });
         console.log(user);
         if (user !== null) {
@@ -48,7 +48,7 @@ module.exports = {
         .collection(collection.TRAINER_COLLECTION)
         .findOne({
           phone: data.Phone,
-          status: 'Active PT',
+          $or: [{ status: 'Active PT' }, { status: 'Veifiyed' }],
         });
       if (user) {
         if (user.block) {
