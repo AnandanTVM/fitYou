@@ -29,7 +29,7 @@ const trainerRouter = require('./routs/trainer');
 app.use('/', homeRouter);
 app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
-app.use('/trainer', trainerRouter);
+app.use('/trainer/api', trainerRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

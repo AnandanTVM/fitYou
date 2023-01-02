@@ -42,7 +42,7 @@ function ClientSelectTrainer() {
                             <div className="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                               <div className="bg-image hover-zoom ripple rounded ripple-surface">
                                 <img
-                                  src={data.profilepic}
+                                  src={data.profilePic}
                                   className="w-100"
                                   alt="not found"
                                 />

@@ -6,16 +6,21 @@ const auth = require('../middlewares/tokenAuth');
 const router = express.Router();
 
 // sing up for Client
-router.post('/api/trainerLogin', trainerControllers.trainerLogin);
-router.post('/api/trainerSendOtp', trainerControllers.SendOtp);
-router.post('/api/trainerVerifyOtp', trainerControllers.verifiyOtp);
+router.post('/trainerLogin', trainerControllers.trainerLogin);
+router.post('/trainerSendOtp', trainerControllers.SendOtp);
+router.post('/trainerVerifyOtp', trainerControllers.verifiyOtp);
 
-// router.get('/api/getuserDetails/:id', auth.Trainerprotect);
+// router.get('/getuserDetails/:id', auth.Trainerprotect);
 
 router.post(
-  '/api/uploadVideo',
+  '/uploadVideo',
   auth.Trainerprotect,
   trainerControllers.uploadVideo
+);
+router.post(
+  '/trainerDetailsUpdate',
+  auth.Trainerprotect,
+  trainerControllers.trainerDetailsUpdate
 );
 
 module.exports = router;

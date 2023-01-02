@@ -12,7 +12,7 @@ import useRazorpay from 'react-razorpay';
 import './ClientPlanPayment.css';
 function ClientPlanPayment() {
   const { clientDetails } = useSelector((state) => state.admin);
-  console.log("ClientDetails",clientDetails);
+  console.log('ClientDetails', clientDetails);
   const dispatch = useDispatch();
   const { selectedTrainerdetails } = useSelector((state) => state.client);
   console.log(selectedTrainerdetails);
@@ -41,7 +41,7 @@ function ClientPlanPayment() {
     value.planId = planDetails._id;
     value.amount = planDetails.offerRate;
     value.validfor = planDetails.validfor;
-    value.userId=clientDetails.userId;
+    value.userId = clientDetails.userId;
     const data = await placeOdder(token, value);
     console.log(data);
 
@@ -74,13 +74,20 @@ function ClientPlanPayment() {
       const token = localStorage.getItem('token');
       const verification = await orderVerifiyPayment(token, res, order);
       if (verification.status) {
-        navigate('/plan')
-        
+        navigate('/plan');
       } else {
-        alert("error Pls try agine...")
+        alert('error Pls try agine...');
       }
     }
-  }, [selectedTrainerdetails._id, planDetails._id, planDetails.offerRate, planDetails.validfor, clientDetails.userId, Razorpay, navigate]);
+  }, [
+    selectedTrainerdetails._id,
+    planDetails._id,
+    planDetails.offerRate,
+    planDetails.validfor,
+    clientDetails.userId,
+    Razorpay,
+    navigate,
+  ]);
 
   return (
     <div>

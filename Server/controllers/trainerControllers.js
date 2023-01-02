@@ -58,6 +58,7 @@ const verifiyOtp = AsyncHandler(async (req, res) => {
         console.log('response', response);
         const token = jwt.sign(
           {
+            // eslint-disable-next-line no-underscore-dangle
             trainerId: response.trainer._id,
             name: response.trainer.fname + response.trainer.lname,
           },
@@ -70,6 +71,13 @@ const verifiyOtp = AsyncHandler(async (req, res) => {
     })
     .catch((err) => res.json({ status: 'error', user: false }));
 });
+const trainerDetailsUpdate = AsyncHandler((req, res) => {
+  trainerHelpers
+    // eslint-disable-next-line no-underscore-dangle
+    .trainerDetailsUpdate(req.body, req.user._id)
+    .then(() => res.json({ status: true }))
+    .catch(() => res.json({ status: false, error: 'error to upload..' }));
+});
 
 // exports
 module.exports = {
@@ -77,4 +85,5 @@ module.exports = {
   uploadVideo,
   verifiyOtp,
   SendOtp,
+  trainerDetailsUpdate,
 };

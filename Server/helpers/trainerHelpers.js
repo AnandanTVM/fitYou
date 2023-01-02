@@ -113,4 +113,24 @@ module.exports = {
         resolve({ status: false });
       }
     }),
+  trainerDetailsUpdate: (details, id) =>
+    new Promise((resolve, reject) => {
+      db.get()
+        .collection(collection.TRAINER_COLLECTION)
+        .updateOne(
+          { _id: id },
+          {
+            $set: {
+              status: 'Active PT',
+              profilePic: details.profilePic,
+              address: details.address,
+              aadharNumber: details.aadharNumber,
+              aadharFront: details.aadharFront,
+              aadharBack: details.aadharBack,
+            },
+          }
+        )
+        .then(() => resolve())
+        .catch(() => reject());
+    }),
 };

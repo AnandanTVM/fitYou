@@ -14,18 +14,23 @@ export const getUserInfo = async (token) => {
   }
 };
 export const updateUserInfo = async (token, values) => {
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + token,
-      'Content-Type': 'application/json',
-    },
-  };
-  const { data } = await axiosAdminInstance.post(
-    '/updateUserInfo',
-    values,
-    config
-  );
-  if (data.status) {
+  try {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axiosAdminInstance.post(
+      '/updateUserInfo',
+      values,
+      config
+    );
+    if (data.status) {
+      return data;
+    }
+  } catch (error) {
+    const data = 'error';
     return data;
   }
 };

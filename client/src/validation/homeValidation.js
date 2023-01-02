@@ -89,6 +89,14 @@ export const uploadVideoSchema = yup.object().shape({
     .matches(link, 'Please paste a valid youtube link here')
     .required('Required'),
 });
+export const trainerBaseSchema = yup.object().shape({
+  aadharNumber: yup.number().positive().integer().required('Required'),
+  address: yup.string().min(4).max(500).required('Required'),
+
+  profilePic: yup.mixed().required('Required'),
+  aadharBack: yup.mixed().required('Required'),
+  aadharFront: yup.mixed().required('Required'),
+});
 export const newPlanSchema = yup.object().shape({
   PackageName: yup
     .string()
