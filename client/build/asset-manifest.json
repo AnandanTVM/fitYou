@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4b72b894.css",
+    "main.js": "/static/js/main.820ee256.js",
+    "static/media/LoginTrainer.png": "/static/media/LoginTrainer.d8dd3b65c28e95167610.png",
+    "static/media/models.png": "/static/media/models.10b56620b86b98dd52c2.png",
+    "static/media/banner1.jpg": "/static/media/banner1.ada72245d2e904cfbf8a.jpg",
+    "static/media/welcomWoman.png": "/static/media/welcomWoman.f733afe7ec5a3970b584.png",
+    "static/media/trainer.png": "/static/media/trainer.1e3ed4f991942a97e3d7.png",
+    "static/media/adminLogin.png": "/static/media/adminLogin.9c1be1655f5fd43e19a5.png",
+    "static/media/banner4.jpg": "/static/media/banner4.fc444841c00de4696677.jpg",
+    "static/media/banner2.jpg": "/static/media/banner2.09bc1797c6fed69e1319.jpg",
+    "static/media/login.png": "/static/media/login.6b74e2867fdc265b3fa1.png",
+    "static/media/banner 3.jpg": "/static/media/banner 3.46bd478711a5abb5a0a7.jpg",
+    "static/media/workout-gym.gif": "/static/media/workout-gym.f3d70d4010bacb7db31b.gif",
+    "static/media/Logo.png": "/static/media/Logo.6092d14f99083052ea0e.png",
+    "index.html": "/index.html",
+    "main.4b72b894.css.map": "/static/css/main.4b72b894.css.map",
+    "main.820ee256.js.map": "/static/js/main.820ee256.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b72b894.css",
+    "static/js/main.820ee256.js"
+  ]
+}
