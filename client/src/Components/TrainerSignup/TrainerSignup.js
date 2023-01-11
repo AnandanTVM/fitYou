@@ -116,7 +116,7 @@ function TrainerSingup() {
                                   : 'form-control form-control-lg'
                               }
                             />
-                            <label className="form-label">Birthday</label>
+                            <label className="form-label">Birth Date</label>
                             {errors.dob && touched.dob && (
                               <p className="red-error">{errors.dob}</p>
                             )}
@@ -133,7 +133,7 @@ function TrainerSingup() {
                               className="form-check-input inputColor"
                               type="radio"
                               name="gender"
-                              value="Femail"
+                              value="Female"
                               onChange={handleChange}
                               onBlur={handleBlur}
                             />

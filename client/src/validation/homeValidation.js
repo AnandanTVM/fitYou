@@ -23,9 +23,9 @@ export const userSchema = yup.object().shape({
     .required('Required'),
   password: yup
     .string()
-    .min(5)
-    .max(16)
-    .matches(passwordRule, 'please Create a stronger password')
+    .min(5, 'password should contain 5-16 characters')
+    .max(16, 'password should contain 5-16 characters')
+    .matches(passwordRule, 'Please create a stronger password')
     .required('Required'),
   cpassword: yup
     .string()

@@ -1,7 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getuserdetails } from '../../axios/serives/UserServices';
 // css
 import './ClientProfile.css';
@@ -41,13 +41,15 @@ function ClientProfile() {
                 <h5>
                   {userDetails?.fname} {userDetails?.lname}
                 </h5>
-                <h6>Package Details</h6>
+                <Link to="/plan">
+                  <h6>Package Details</h6>
+                </Link>
                 <p className="proile-rating">
                   {/* RANKINGS : <span>8/10</span> */}
                 </p>
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                   <li className="nav-item">
-                    <a
+                    <span
                       className="nav-link active"
                       id="home-tab"
                       data-toggle="tab"
@@ -56,8 +58,8 @@ function ClientProfile() {
                       aria-controls="home"
                       aria-selected="true"
                     >
-                      Deatils
-                    </a>
+                      Details
+                    </span>
                   </li>
                   <li className="nav-item"></li>
                 </ul>
@@ -65,9 +67,8 @@ function ClientProfile() {
             </div>
             <div className="col-md-2">
               <input
-                type="submit"
+                type="button"
                 className="profile-edit-btn"
-                name="btnAddMore"
                 value="Edit Profile"
               />
             </div>

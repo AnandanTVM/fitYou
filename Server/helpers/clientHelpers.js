@@ -285,4 +285,18 @@ module.exports = {
         reject();
       }
     }),
+  allTrainerDetails: () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const details = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .find({ $and: [{ status: 'Active PT' }, { block: false }] })
+          .toArray();
+        console.log(details);
+        resolve(details);
+      } catch (err) {
+        reject();
+      }
+    }),
 };

@@ -51,7 +51,7 @@ function NavHome(props) {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
               <li className="nav-item">
                 <Link className="nav-link" to="/">
-                  About as
+                  About us
                 </Link>
               </li>
               <li className="nav-item dropdown">
@@ -81,7 +81,7 @@ function NavHome(props) {
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
                     <Link className="dropdown-item" to="/signup">
-                      Clent Signup
+                      Client Signup
                     </Link>
                   </li>
                   <li>

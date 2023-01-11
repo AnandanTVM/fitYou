@@ -73,7 +73,8 @@ const verifiyOtp = AsyncHandler(async (req, res) => {
   });
 });
 const allTrainerDetails = AsyncHandler(async (req, res) => {
-  CommenHelpers.allTrainerDetails()
+  clientHelpers
+    .allTrainerDetails()
     .then((details) => {
       console.log(details);
 

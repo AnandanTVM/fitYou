@@ -20,7 +20,7 @@ module.exports = {
           subject: 'fitYou login alert -OTP',
           html: `<h2>Dear ${name} ,<h2/>  <p><h3>Greetings from fitYou</h3> </p><h4><p>
                  Your 4 digit One Time Password is<h2> <b>${otp} </b></h2>.This code <b> expires in 1 houre</b>.. Never share this OTP with anyone. 
-                 For any assistance, please contact www.fityou.tk</p> </h4>`,
+                 For any assistance, please contact www.fityou.life</p> </h4>`,
         };
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
@@ -46,10 +46,10 @@ module.exports = {
           html: `<h2>Dear ${name} ,<h2/> 
            <p><h3>Greetings from fitYou</h3> 
           <p>We are pleased to inform you that your plan has been successfully placed.</p>
-          <p>Thank you for choosing us. We hope that you have a great experience with our service.For More vist www.fityou.tk</p>
+          <p>Thank you for choosing us. We hope that you have a great experience with our service.For More vist www.fityou.life</p>
           
           <p>Sincerely,</p>
-          <p>The Casamer Team</p>`,
+          <p>The customer Team</p>`,
         };
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {

@@ -1,6 +1,6 @@
 const express = require('express');
 const createError = require('http-errors');
-
+const path = require('path');
 const dotenv = require('dotenv');
 
 const app = express();
@@ -17,6 +17,11 @@ app.use(cors(corsOptions));
 // data base connection
 const db = require('./config/connection');
 
+// for sever
+
+app.use(express.static('../client/build'));
+
+//
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // routs
@@ -30,6 +35,11 @@ app.use('/', homeRouter);
 app.use('/admin', adminRouter);
 app.use('/client', clientRouter);
 app.use('/trainer/api', trainerRouter);
+
+// for sever
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
