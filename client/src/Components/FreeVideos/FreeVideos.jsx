@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Loading } from '..';
 import { getFreeVideo } from '../../axios/serives/UserServices';
 
@@ -9,6 +10,7 @@ function FreeVideos() {
   const [video, setVideo] = useState('');
   const [error, setError] = useState('');
   const [loder, setLoder] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     feach();
 
@@ -51,7 +53,12 @@ function FreeVideos() {
                           key={index}
                           class="col-md-12 col-lg-4 mt-3 mb-4 mb-lg-0"
                         >
-                          <div class="card">
+                          <div
+                            class="card"
+                            onClick={(e) =>
+                              navigate(`/Client/Video/view/${data._id}`)
+                            }
+                          >
                             <div
                               class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
                               style={{ width: '35px', height: '35px' }}

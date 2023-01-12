@@ -14,6 +14,7 @@ import {
   ClientPlan,
   ClientPlanConformation,
   ClientVideo,
+  ClientViewVideo,
   Clogin,
   COTPLogin,
   E404,
@@ -56,6 +57,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/trainer/upload" element={<TrainerVideoUpload />} />
         <Route path="/Client/Video" element={<ClientVideo />} />
+        <Route path="/Client/Video/view/:id" element={<ClientViewVideo />} />
         <Route path="/login/ClientOTP" element={<COTPLogin />} />
         <Route path="/login/trainerOTP" element={<TOTPLogin />} />
         <Route path="/plan/buynow/:id" element={<ClientPlanConformation />} />

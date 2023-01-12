@@ -22,4 +22,5 @@ export { default as ClientVideo } from './ClientVideo';
 export { default as COTPLogin } from './ClientOTPLogin';
 export { default as TOTPLogin } from './TrainerOtpLogin';
 export { default as ClientPlanConformation } from './ClientPlanConformation';
+export { default as ClientViewVideo } from './ClientViewVideo';
 export { default as E404 } from './E404';

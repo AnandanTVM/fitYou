@@ -26,4 +26,5 @@ export { default as ClientPlanPayment } from './ClientPlanPayment/ClientPlanPaym
 export { default as ClientSelectTrainer } from './ClientSelectTrainer/ClientSelectTrainer';
 export { default as ClientCurrentPlan } from './ClientCurrentPlan/ClientCurrentPlan';
 export { default as TrainerVefUpload } from './TrainerVerificationUpload/TrainerVerificationUpload';
+export { default as ViewVideo } from './ViewVideo/ViewVideo';
 export { default as Error } from './Error/Error';
