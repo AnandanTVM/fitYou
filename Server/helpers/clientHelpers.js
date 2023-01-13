@@ -148,7 +148,7 @@ module.exports = {
     new Promise((resolve, reject) => {
       instance.orders.create(
         {
-          amount: amount,
+          amount: amount * 100,
           currency: 'INR',
           receipt: `${id}`,
           notes: {

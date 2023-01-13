@@ -18,8 +18,7 @@ app.use(cors(corsOptions));
 const db = require('./config/connection');
 
 // for sever
-
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../client/build/')));
 
 //
 app.use(express.json());
@@ -37,10 +36,10 @@ app.use('/client', clientRouter);
 app.use('/trainer/api', trainerRouter);
 
 // for sever
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build/index.html'));
-});
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
