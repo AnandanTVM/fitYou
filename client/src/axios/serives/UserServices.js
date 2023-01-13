@@ -27,6 +27,9 @@ export const getFreeVideo = async (token) => {
   const { data } = await axiosClientInstance.get('/freeVideos', config);
   if (data.status) {
     return data;
+  }else{
+    let error=true;
+    return error
   }
 };
 export const getallTrainerDetails = async (token) => {
