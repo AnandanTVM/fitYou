@@ -34,7 +34,6 @@ const ClientDetails = AsyncHandler(async (req, res) => {
     });
 });
 const freeVideo = AsyncHandler(async (req, res) => {
-  console.log('here');
   clientHelpers
     .freeVideo()
     .then((details) => {
@@ -172,11 +171,23 @@ const verifiyPayment = AsyncHandler(async (req, res) => {
 });
 const getClientPlan = AsyncHandler(async (req, res) => {
   const { id } = req.params;
-  console.log('here');
+
   clientHelpers
     .getClientPlan(id)
     .then((details) => {
       res.json({ status: true, package: details });
+    })
+    .catch((err) => {
+      res.json({ status: false, message: err });
+    });
+});
+const getVideo = AsyncHandler(async (req, res) => {
+  const vid = req.params.id;
+  console.log(vid);
+
+  CommenHelpers.getVideoById(vid)
+    .then((details) => {
+      res.json({ status: true, video: details });
     })
     .catch((err) => {
       res.json({ status: false, message: err });
@@ -194,4 +205,5 @@ module.exports = {
   placeOdder,
   verifiyPayment,
   getClientPlan,
+  getVideo,
 };

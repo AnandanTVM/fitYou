@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 // import * as yup from "yup";
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ import {
   updateUserInfo,
   getuserdetails,
 } from '../../axios/serives/AdminServices';
-import { useEffect } from 'react';
+
 
 function AdminClientEdit() {
   let { id } = useParams();

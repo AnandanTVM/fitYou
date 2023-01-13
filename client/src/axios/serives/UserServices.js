@@ -95,7 +95,7 @@ export const orderVerifiyPayment = async (token, res, order) => {
   }
 };
 export const getClientPlan = async (token, id) => {
-  console.log("here in Api");
+  console.log(id);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -105,6 +105,24 @@ export const getClientPlan = async (token, id) => {
   };
   const { data } = await axiosClientInstance.get(
     `/getClientPlan/${id}`,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};
+export const getVideo = async (token, id) => {
+  console.log('in api');
+  console.log(id);
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(
+    `/getVideo/${id}`,
     config
   );
   if (data.status) {

@@ -39,4 +39,5 @@ router.get(
   auth.Clientprotect,
   clientControllers.getClientPlan
 );
+router.get('/api/getVideo/:id', auth.Clientprotect, clientControllers.getVideo);
 module.exports = router;

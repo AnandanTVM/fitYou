@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useParams } from 'react-router-dom';
+import { getVideo } from '../../axios/serives/UserServices';
 
 function ViewVideo() {
   let videoId = useParams();
+  const [video, setVideo] = useState();
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    feachData();
+    async function feachData() {
+      const data = await getVideo(token, videoId.id);
+    setVideo(data.video)
+
+    }
+  }, [videoId])
   return (
     <div>
-      <div className="Csignup-Main">
+      {video?<div className="Csignup-Main">
         <section className=" gradient-custom">
           <div className="container py-5 h-100">
             <div className="row justify-content-center align-items-center h-100">
@@ -13,91 +25,43 @@ function ViewVideo() {
                 <div className="card shadow-2-strong card-registration">
                   <div class="ratio ratio-16x9 ">
                     <iframe
-                      src="https://www.youtube.com/embed/JKEJizRiBgQ"
+                      src={video.link}
                       title="YouTube video"
-                      allowfullscreen
+                      allowFullScreen
                     ></iframe>
                   </div>
                   <div className="card-body p-4 p-md-5">
-                    <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">
-                      Client Details
-                    </h3>
+                    <h4 className="mb-4 pb-2 pb-md-0 mb-md-5">
+                     {video.title}
+                    </h4>
 
                     <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="d-flex ">Full Name</label>
-                        </div>
-                      </div>
-
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="form-label"></label>
-                        </div>
-                      </div>
+                      
+                          <label className="d-flex ">{video.type}</label>
+                       
                     </div>
 
                     <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
+                      <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
-                          <label className="d-flex ">Gender</label>
+                          <label className="d-flex ">{video.discretion}</label>
                         </div>
                       </div>
 
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="form-label"></label>
-                        </div>
-                      </div>
+                     
                     </div>
-                    <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="d-flex ">Date Of Brath</label>
-                        </div>
-                      </div>
+                   
+                    
+                   
 
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <label className="form-label"></label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row ">
-                      {' '}
-                      <h3 className="mb-3 pb-2 pb-md-0 mb-md-">
-                        Update Details
-                      </h3>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <input type="email" />
-                          <label className="form-label">Email</label>
-                        </div>
-                      </div>
-                      <div className="col-md-6 mb-4 pb-2">
-                        <div className="form-outline">
-                          <input type="tel" id="phone" />
-                          <label className="form-label">Phone Number</label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 pt-2">
-                      <input
-                        className="btn btn-primary btn-lg"
-                        type="submit"
-                        value="Update"
-                      />
-                    </div>
+                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-      </div>
+      </div>:''}
     </div>
   );
 }

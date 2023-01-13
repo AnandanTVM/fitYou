@@ -46,6 +46,7 @@ module.exports = {
       }
     }),
   viewAllPlan: async () =>
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
       try {
         const details = await db
@@ -68,6 +69,7 @@ module.exports = {
       }
     }),
   allTrainerDetails: () =>
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
       try {
         const details = await db
@@ -82,6 +84,7 @@ module.exports = {
       }
     }),
   planDetailsById: (Id) =>
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
       try {
         const plan = await db
@@ -92,6 +95,20 @@ module.exports = {
         resolve(plan);
       } catch (err) {
         reject();
+      }
+    }),
+  getVideoById: (Id) =>
+    // eslint-disable-next-line no-async-promise-executor
+    new Promise(async (resolve, reject) => {
+      try {
+        const video = await db
+          .get()
+          .collection(collection.VIDEO_COLLECTION)
+          .findOne({ _id: ObjectId(Id) });
+        console.log(video);
+        resolve(video);
+      } catch (err) {
+        reject(err);
       }
     }),
 };
