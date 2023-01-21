@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 const db = require('../config/connection');
 const collection = require('../config/collection');
 const { SendOTP } = require('../middlewares/SendEmail');
-// const { ObjectId, Db } = require('mongodb')
 // const { response, json } = require('express')
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
           .collection(collection.TRAINER_COLLECTION)
           .findOne({
             phone: data.Phone,
-            $or: [{ status: 'Active PT' }, { status: 'Veifiyed' }],
+            $or: [{ status: 'Active PT' }, { status: 'Verified' }],
           });
         console.log(user);
         if (user !== null) {
@@ -48,7 +48,7 @@ module.exports = {
         .collection(collection.TRAINER_COLLECTION)
         .findOne({
           phone: data.Phone,
-          $or: [{ status: 'Active PT' }, { status: 'Veifiyed' }],
+          $or: [{ status: 'Active PT' }, { status: 'Verified' }],
         });
       if (user) {
         if (user.block) {
@@ -132,5 +132,56 @@ module.exports = {
         )
         .then(() => resolve())
         .catch(() => reject());
+    }),
+  allotedClientDetails: (id) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const Clients = await db
+          .get()
+          .collection(collection.PURCHASE_COLLECTION)
+          .aggregate([
+            {
+              $match: { trainerId: ObjectId(id) },
+            },
+            {
+              $lookup: {
+                from: collection.CLIENT_COLLECTION,
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'Clientdetails',
+              },
+            },
+            {
+              $project: {
+                time: 1,
+                validtill: 1,
+                validfrom: 1,
+                paymentStatus: 1,
+                amount: 1,
+                Clientdetails: { $arrayElemAt: ['$Clientdetails', 0] },
+                // arrayElemAt userd to convert array to object
+              },
+            },
+            {
+              $project: {
+                time: 1,
+                validtill: 1,
+                paymentStatus: 1,
+
+                Clientdetails: {
+                  fname: 1,
+                  lname: 1,
+                  dob: 1,
+                  gender: 1,
+                },
+              },
+            },
+          ])
+          .toArray();
+
+        resolve(Clients);
+      } catch (error) {
+        reject(error);
+      }
     }),
 };

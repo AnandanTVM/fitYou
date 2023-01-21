@@ -80,7 +80,7 @@ module.exports = {
         const details = await db
           .get()
           .collection(collection.TRAINER_COLLECTION)
-          .find({ $or: [{ status: 'Active PT' }, { status: 'Veifiyed' }] })
+          .find({ $or: [{ status: 'Active PT' }, { status: 'Verified' }] })
           .toArray();
         resolve(details);
       } catch (error) {
@@ -154,7 +154,7 @@ module.exports = {
             },
             {
               $set: {
-                status: 'Veifiyed',
+                status: 'Verified',
               },
             }
           )
@@ -192,7 +192,7 @@ module.exports = {
             const details = await db
               .get()
               .collection(collection.TRAINER_COLLECTION)
-              .find({ $or: [{ status: 'Active PT' }, { status: 'Veifiyed' }] })
+              .find({ $or: [{ status: 'Active PT' }, { status: 'Verified' }] })
               .toArray();
             resolve(details);
           })
@@ -222,7 +222,7 @@ module.exports = {
             const details = await db
               .get()
               .collection(collection.TRAINER_COLLECTION)
-              .find({ $or: [{ status: 'Active PT' }, { status: 'Veifiyed' }] })
+              .find({ $or: [{ status: 'Active PT' }, { status: 'Verified' }] })
               .toArray();
             resolve(details);
           })

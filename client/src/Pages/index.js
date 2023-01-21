@@ -23,4 +23,6 @@ export { default as COTPLogin } from './ClientOTPLogin';
 export { default as TOTPLogin } from './TrainerOtpLogin';
 export { default as ClientPlanConformation } from './ClientPlanConformation';
 export { default as ClientViewVideo } from './ClientViewVideo';
+export { default as TrainerClientDetails } from './TrainerClientDetails';
+export { default as chat } from './Chat';
 export { default as E404 } from './E404';

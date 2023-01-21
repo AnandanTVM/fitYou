@@ -78,6 +78,15 @@ const trainerDetailsUpdate = AsyncHandler((req, res) => {
     .then(() => res.json({ status: true }))
     .catch(() => res.json({ status: false, error: 'error to upload..' }));
 });
+const allotedClientDetails = AsyncHandler((req, res) => {
+  trainerHelpers
+    // eslint-disable-next-line no-underscore-dangle
+    .allotedClientDetails(req.user._id)
+    .then((clientDetails) =>
+      res.json({ status: true, clientDetails: clientDetails })
+    )
+    .catch((err) => res.json({ status: false, error: err }));
+});
 
 // exports
 module.exports = {
@@ -86,4 +95,5 @@ module.exports = {
   verifiyOtp,
   SendOtp,
   trainerDetailsUpdate,
+  allotedClientDetails,
 };

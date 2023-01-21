@@ -74,9 +74,11 @@ function ClientNav(props) {
 
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/clientHome">
+                {props.chat ? (<Link className="nav-link active" to="/client/chat">
                     Chat
-                  </Link>
+                  </Link>):<Link className="nav-link" to="/client/chat">
+                    Chat
+                  </Link>}
                 </li>
                 <li className="nav-item dropdown">
                   {props.profile ? (

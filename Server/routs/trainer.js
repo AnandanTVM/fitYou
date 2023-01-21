@@ -22,5 +22,9 @@ router.post(
   auth.Trainerprotect,
   trainerControllers.trainerDetailsUpdate
 );
-
+router.get(
+  '/getAllAllotedClientDetails',
+  auth.Trainerprotect,
+  trainerControllers.allotedClientDetails
+);
 module.exports = router;

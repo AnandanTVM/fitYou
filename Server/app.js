@@ -31,9 +31,9 @@ const trainerRouter = require('./routs/trainer');
 
 // redirects to roughts
 app.use('/', homeRouter);
-app.use('/admin', adminRouter);
-app.use('/client', clientRouter);
-app.use('/trainer/api', trainerRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/client', clientRouter);
+app.use('/api/trainer', trainerRouter);
 
 // for sever
 

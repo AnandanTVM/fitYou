@@ -6,86 +6,86 @@ const router = express.Router();
 
 // sing up for Client
 
-router.post('/api/adminLogin', adminControllers.adminLogin);
+router.post('/adminLogin', adminControllers.adminLogin);
 
-router.get('/api/userInfo', auth.adminprotect, adminControllers.userInfo);
+router.get('/userInfo', auth.adminprotect, adminControllers.userInfo);
 
 router.get(
-  '/api/activeTrainerInfo',
+  '/activeTrainerInfo',
   auth.adminprotect,
   adminControllers.activeTrainerInfo
 );
 
 router.post(
-  '/api/updateUserInfo',
+  '/updateUserInfo',
   auth.adminprotect,
   adminControllers.updateUserInfo
 );
 
 router.get(
-  '/api/trainerApprovel',
+  '/trainerApprovel',
   auth.adminprotect,
   adminControllers.trainerApprovel
 );
 
 router.get(
-  '/api/getTrainerDetails/:id',
+  '/getTrainerDetails/:id',
   auth.adminprotect,
   adminControllers.getTrainerDetails
 );
 
 router.get(
-  '/api/getuserDetails/:id',
+  '/getuserDetails/:id',
   auth.adminprotect,
   adminControllers.getuserDetails
 );
 
 router.get(
-  '/api/trainerReject/:id',
+  '/trainerReject/:id',
   auth.adminprotect,
   adminControllers.rejectTrainer
 );
 
 router.get(
-  '/api/trainerApprovel/:id',
+  '/trainerApprovel/:id',
   auth.adminprotect,
   adminControllers.approvelTrainer
 );
 
 router.get(
-  '/api/unBlockTrainer/:id',
+  '/unBlockTrainer/:id',
   auth.adminprotect,
   adminControllers.unBlockTrainer
 );
 
 router.get(
-  '/api/blockTrainer/:id',
+  '/blockTrainer/:id',
   auth.adminprotect,
   adminControllers.blockTrainer
 );
 
-router.post('/api/addPlan', auth.adminprotect, adminControllers.addPlan);
+router.post('/addPlan', auth.adminprotect, adminControllers.addPlan);
 router.get(
-  '/api/unBlockuserinfo/:id',
+  '/unBlockuserinfo/:id',
   auth.adminprotect,
   adminControllers.unBlockUser
 );
 
 router.get(
-  '/api/blockUserinfo/:id',
+  '/blockUserinfo/:id',
   auth.adminprotect,
   adminControllers.blockUser
 );
 
-router.get('/api/getallPlans', auth.adminprotect, adminControllers.getallPlans);
+router.get('/getallPlans', auth.adminprotect, adminControllers.getallPlans);
 
 router.post(
-  '/api/uploadVideo',
+  '/uploadVideo',
   auth.adminprotect,
   adminControllers.uploadVideo
 );
 router.get(
-  '/api/removePackage/:id',
+  '/removePackage/:id',
   auth.adminprotect,
   adminControllers.removePackage
 );

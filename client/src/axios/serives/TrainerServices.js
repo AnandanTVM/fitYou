@@ -21,6 +21,7 @@ export const uploadVideo = async (token, values) => {
     return data;
   }
 };
+
 export const trainerDetailsUpdate = async (token, values) => {
   try {
     const config = {
@@ -40,5 +41,23 @@ export const trainerDetailsUpdate = async (token, values) => {
   } catch (error) {
     const data = error;
     return data;
+  }
+};
+export const getAllClientInfo = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axiosTrainerInstance.get(
+      '/getAllAllotedClientDetails',
+      config
+    );
+
+    return data;
+  } catch (err) {
+    return err;
   }
 };

@@ -47,9 +47,11 @@ function TrainerNav(props) {
                 )}
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/trainer">
+               {props.clientinfo?( <Link className="nav-link active" to="/trainer/clientDetails">
                   Client Info
-                </Link>
+                </Link>):( <Link className="nav-link" to="/trainer/clientDetails">
+                  Client Info
+                </Link>)}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/trainer">
