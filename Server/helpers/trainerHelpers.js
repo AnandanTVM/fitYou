@@ -184,4 +184,76 @@ module.exports = {
         reject(error);
       }
     }),
+  ClientDetails: (id) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const Clients = await db
+          .get()
+          .collection(collection.PURCHASE_COLLECTION)
+          .aggregate([
+            {
+              $match: { _id: ObjectId(id) },
+            },
+            {
+              $lookup: {
+                from: collection.CLIENT_COLLECTION,
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'Clientdetails',
+              },
+            },
+            {
+              $lookup: {
+                from: collection.PACKAGE_COLLECTION,
+                localField: 'planId',
+                foreignField: '_id',
+                as: 'plan',
+              },
+            },
+            {
+              $project: {
+                time: 1,
+                validtill: 1,
+                validfrom: 1,
+                paymentStatus: 1,
+                amount: 1,
+                plan: { $arrayElemAt: ['$plan', 0] },
+                Clientdetails: { $arrayElemAt: ['$Clientdetails', 0] },
+                // arrayElemAt userd to convert array to object
+              },
+            },
+            {
+              $project: {
+                amount: 0,
+                plan: {
+                  _id: 0,
+                  validFor: 0,
+                  mrp: 0,
+                  offerRate: 0,
+                  discretion: 0,
+                  proGymsTips: 0,
+                  groupWorkouts: 0,
+                  perstionalTrainer: 0,
+                  smartWorkoutPlan: 0,
+                  validfor: 0,
+                  remove: 0,
+                },
+                Clientdetails: {
+                  _id: 0,
+                  email: 0,
+                  password: 0,
+                  phone: 0,
+                  block: 0,
+                  otp: 0,
+                },
+              },
+            },
+          ])
+          .toArray();
+
+        resolve(Clients);
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };

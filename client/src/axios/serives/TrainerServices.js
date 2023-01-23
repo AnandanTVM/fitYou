@@ -61,3 +61,21 @@ export const getAllClientInfo = async (token) => {
     return err;
   }
 };
+export const getClientDetails = async (token, id) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axiosTrainerInstance.get(
+      `/getClientDetails/${id}`,
+      config
+    );
+
+    return data;
+  } catch (err) {
+    return err;
+  }
+};

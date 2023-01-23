@@ -2,11 +2,13 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import DataTable from 'react-data-table-component'
+import { useNavigate } from 'react-router-dom'
 import { getAllClientInfo } from '../../axios/serives/TrainerServices'
 
 function TrainerAllotedClient() {
     const [ClientDetails, setClientDetails] = useState('')
     const [err, seterr] = useState('')
+    const navigate=useNavigate()
     useEffect(() => {
         const token = localStorage.getItem('trainertoken');
         featchData()
@@ -53,7 +55,7 @@ function TrainerAllotedClient() {
                 return (<div>  <button
                     className="btn btn-info"
                     onClick={() => {
-                        // navigate(`/trainerdetailsview/${row._id}`);
+                        navigate(`/trainer/clientDetails/view/${row._id}`);
 
 
 
@@ -67,14 +69,14 @@ function TrainerAllotedClient() {
     ];
     return (
         <div>
-            <div className="container">
+          {err?{err}:  (<div className="container">
                 <div className="row mt-4">
                     <h1> Client Info</h1>
                 </div>
 
                 <DataTable columns={columns} data={ClientDetails} fixedHeader fixedHeaderScrollHeight='400px' selectableRows selectableRowsHighlight highlightOnHover pagination />
 
-            </div>
+            </div>)}
         </div>
     )
 }

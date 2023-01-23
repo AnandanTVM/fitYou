@@ -73,9 +73,11 @@ function TrainerNav(props) {
                 )}
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/trainer">
+              {props.chat? ( <Link className="nav-link active" to="/trainer/Chat">
                   chat
-                </Link>
+                </Link>): ( <Link className="nav-link" to="/trainer/Chat">
+                  chat
+                </Link>)}
               </li>
               <li className="nav-item dropdown">
                 {props.profile ? (

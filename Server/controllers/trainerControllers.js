@@ -71,17 +71,27 @@ const verifiyOtp = AsyncHandler(async (req, res) => {
     })
     .catch((err) => res.json({ status: 'error', user: false }));
 });
-const trainerDetailsUpdate = AsyncHandler((req, res) => {
+const trainerDetailsUpdate = AsyncHandler((req, res) =>
   trainerHelpers
     // eslint-disable-next-line no-underscore-dangle
     .trainerDetailsUpdate(req.body, req.user._id)
     .then(() => res.json({ status: true }))
-    .catch(() => res.json({ status: false, error: 'error to upload..' }));
-});
-const allotedClientDetails = AsyncHandler((req, res) => {
+    .catch(() => res.json({ status: false, error: 'error to upload..' }))
+);
+const allotedClientDetails = AsyncHandler((req, res) =>
   trainerHelpers
     // eslint-disable-next-line no-underscore-dangle
     .allotedClientDetails(req.user._id)
+    .then((clientDetails) =>
+      res.json({ status: true, clientDetails: clientDetails })
+    )
+    .catch((err) => res.json({ status: false, error: err }))
+);
+const getClientDetails = AsyncHandler((req, res) => {
+  const { id } = req.params;
+  trainerHelpers
+    // eslint-disable-next-line no-underscore-dangle
+    .ClientDetails(id)
     .then((clientDetails) =>
       res.json({ status: true, clientDetails: clientDetails })
     )
@@ -96,4 +106,5 @@ module.exports = {
   SendOtp,
   trainerDetailsUpdate,
   allotedClientDetails,
+  getClientDetails,
 };

@@ -27,4 +27,9 @@ router.get(
   auth.Trainerprotect,
   trainerControllers.allotedClientDetails
 );
+router.get(
+  '/getClientDetails/:id',
+  auth.Trainerprotect,
+  trainerControllers.getClientDetails
+);
 module.exports = router;

@@ -28,6 +28,8 @@ import {
   TrainerDetailsView,
   TrainerVideoUpload,
   TrSignup,
+  TrainerViewClientDetails,
+  Tchat
 } from './Pages';
 import Chat from './Pages/Chat';
 
@@ -65,6 +67,8 @@ function App() {
         <Route path="/client/Chat" element={<Chat />} />
         <Route path="/plan/buynow/:id" element={<ClientPlanConformation />} />
         <Route path="/trainer/clientDetails" element={<TrainerClientDetails />} />
+        <Route path="/trainer/clientDetails/view/:id" element={<TrainerViewClientDetails />} />
+        <Route path="/trainer/Chat" element={<Tchat />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

@@ -6,6 +6,10 @@ body {
   overflow-x: hidden;
 }
 
+body::-webkit-scrollbar{
+  display: none;
+}
+
 /* .btn{
   background-color: #ED533B;
   color: whitesmoke !important;
