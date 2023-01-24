@@ -169,6 +169,7 @@ module.exports = {
                 paymentStatus: 1,
 
                 Clientdetails: {
+                  _id: 1,
                   fname: 1,
                   lname: 1,
                   dob: 1,
@@ -226,7 +227,6 @@ module.exports = {
               $project: {
                 amount: 0,
                 plan: {
-                  _id: 0,
                   validFor: 0,
                   mrp: 0,
                   offerRate: 0,
@@ -239,7 +239,6 @@ module.exports = {
                   remove: 0,
                 },
                 Clientdetails: {
-                  _id: 0,
                   email: 0,
                   password: 0,
                   phone: 0,

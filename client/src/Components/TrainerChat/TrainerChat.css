@@ -554,7 +554,7 @@ html {
 }
 .detail-button svg {
     position: relative;
-    top: 62px;
+    top: 0px;
   width: 18px;
   margin-right: 10px;
   /* margin-top: 10px; */
@@ -784,4 +784,11 @@ html {
   .search-bar input {
     padding-right: 10px;
   }
+}
+.chat-notfount{
+  justify-items: center;
+  width: 40%;
+}
+.chatImage{
+  left: 20%;
 }

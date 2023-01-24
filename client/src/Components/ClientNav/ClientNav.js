@@ -16,7 +16,7 @@ function ClientNav(props) {
     localStorage.removeItem('token');
     localStorage.removeItem('userDetails');
     dispatch(clearClientLoginDetails());
-    dispatch(getSelectedTrainerDetails(false))
+    dispatch(getSelectedTrainerDetails(false));
     navigate('/login');
   };
   return (
@@ -74,11 +74,15 @@ function ClientNav(props) {
 
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mar">
                 <li className="nav-item">
-                {props.chat ? (<Link className="nav-link active" to="/client/chat">
-                    Chat
-                  </Link>):<Link className="nav-link" to="/client/chat">
-                    Chat
-                  </Link>}
+                  {props.chat ? (
+                    <Link className="nav-link active" to="/client/chat">
+                      Chat
+                    </Link>
+                  ) : (
+                    <Link className="nav-link" to="/client/chat">
+                      Chat
+                    </Link>
+                  )}
                 </li>
                 <li className="nav-item dropdown">
                   {props.profile ? (

@@ -32,4 +32,14 @@ router.get(
   auth.Trainerprotect,
   trainerControllers.getClientDetails
 );
+router.get(
+  '/getMessage/:ClId',
+  auth.Trainerprotect,
+  trainerControllers.getMessage
+);
+router.post(
+  '/sendMessage/:CId',
+  auth.Trainerprotect,
+  trainerControllers.sendMessage
+);
 module.exports = router;

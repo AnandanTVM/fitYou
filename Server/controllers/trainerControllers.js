@@ -97,6 +97,19 @@ const getClientDetails = AsyncHandler((req, res) => {
     )
     .catch((err) => res.json({ status: false, error: err }));
 });
+const getMessage = AsyncHandler((req, res) => {
+  console.log('here');
+  const { ClId } = req.params;
+  console.log(ClId);
+  console.log(req.user._id);
+});
+const sendMessage = AsyncHandler((req, res) => {
+  console.log('on Send Message');
+  const { CId } = req.params;
+  console.log(CId);
+  console.log(req.user._id);
+  console.log(req.body);
+});
 
 // exports
 module.exports = {
@@ -107,4 +120,6 @@ module.exports = {
   trainerDetailsUpdate,
   allotedClientDetails,
   getClientDetails,
+  getMessage,
+  sendMessage,
 };

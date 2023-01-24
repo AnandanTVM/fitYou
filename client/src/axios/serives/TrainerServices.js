@@ -79,3 +79,42 @@ export const getClientDetails = async (token, id) => {
     return err;
   }
 };
+export const getAllMessage = async (token, ClId) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axiosTrainerInstance.get(
+      `/getMessage/${ClId}`,
+      config
+    );
+
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+export const sendMessage = async (token, ClId, values) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axiosTrainerInstance.post(
+      `/sendMessage/${ClId}`,
+      values,
+      config
+    );
+
+    return data;
+  } catch (err) {
+    console.log('on error');
+    console.log(err);
+    return err;
+  }
+};

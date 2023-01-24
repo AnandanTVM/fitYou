@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearTrainerLoginDetails } from '../../redux/adminReducer';
+import { getClientDetails } from '../../redux/trainerReducer';
 // images
 import logo from '../../images/Logo.png';
 
@@ -13,6 +14,7 @@ function TrainerNav(props) {
     localStorage.removeItem('trainertoken');
     localStorage.removeItem('trainerDetails');
     dispatch(clearTrainerLoginDetails());
+    dispatch(getClientDetails(false));
     navigate('/trainerLogin');
   };
   return (
@@ -47,11 +49,15 @@ function TrainerNav(props) {
                 )}
               </li>
               <li className="nav-item">
-               {props.clientinfo?( <Link className="nav-link active" to="/trainer/clientDetails">
-                  Client Info
-                </Link>):( <Link className="nav-link" to="/trainer/clientDetails">
-                  Client Info
-                </Link>)}
+                {props.clientinfo ? (
+                  <Link className="nav-link active" to="/trainer/clientDetails">
+                    Client Info
+                  </Link>
+                ) : (
+                  <Link className="nav-link" to="/trainer/clientDetails">
+                    Client Info
+                  </Link>
+                )}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/trainer">
@@ -73,11 +79,15 @@ function TrainerNav(props) {
                 )}
               </li>
               <li className="nav-item">
-              {props.chat? ( <Link className="nav-link active" to="/trainer/Chat">
-                  chat
-                </Link>): ( <Link className="nav-link" to="/trainer/Chat">
-                  chat
-                </Link>)}
+                {props.chat ? (
+                  <Link className="nav-link active" to="/trainer/Chat">
+                    chat
+                  </Link>
+                ) : (
+                  <Link className="nav-link" to="/trainer/Chat">
+                    chat
+                  </Link>
+                )}
               </li>
               <li className="nav-item dropdown">
                 {props.profile ? (
