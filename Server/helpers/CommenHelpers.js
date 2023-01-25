@@ -111,4 +111,56 @@ module.exports = {
         reject(err);
       }
     }),
+  sendChat: (to, from, data) =>
+    new Promise((resolve, reject) => {
+      // Date settings start
+      const cueentDate = new Date();
+      const time = cueentDate.toLocaleString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      });
+      const date = new Date().toLocaleDateString();
+      const mess = {
+        message: data.message,
+        date: date,
+        time: time,
+      };
+      // Date settings end
+      db.get()
+        .collection(collection.CHAT_COLLECTION)
+        .findOne({ to: ObjectId(to), from: from })
+        .then((responce) => {
+          if (responce === null) {
+            const messages = [mess];
+
+            db.get()
+              .collection(collection.CHAT_COLLECTION)
+              .insertOne({
+                to: ObjectId(to),
+                from: from,
+                messages: messages,
+              })
+              .then(() => resolve())
+              .catch(() => reject());
+          } else {
+            const messages = mess;
+
+            db.get()
+              .collection(collection.CHAT_COLLECTION)
+              .updateOne(
+                {
+                  to: ObjectId(to),
+                  from: from,
+                },
+                {
+                  $push: { messages: messages },
+                }
+              )
+              .then(() => resolve())
+              .catch(() => reject());
+          }
+        })
+        .catch(() => reject());
+    }),
 };

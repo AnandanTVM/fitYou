@@ -105,9 +105,10 @@ export const sendMessage = async (token, ClId, values) => {
         'Content-Type': 'application/json',
       },
     };
+    const value = { message: values };
     const { data } = await axiosTrainerInstance.post(
       `/sendMessage/${ClId}`,
-      values,
+      value,
       config
     );
 

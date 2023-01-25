@@ -99,16 +99,28 @@ const getClientDetails = AsyncHandler((req, res) => {
 });
 const getMessage = AsyncHandler((req, res) => {
   console.log('here');
-  const { ClId } = req.params;
-  console.log(ClId);
-  console.log(req.user._id);
+  const to = req.params.ClId;
+  const from = req.user._id;
+
+  trainerHelpers
+    .getAllMessage(to, from)
+    .then((responce) =>
+      res.json({
+        status: true,
+        toMessage: responce.to,
+        fromMessage: responce.from,
+      })
+    )
+    .catch((err) => res.json({ status: false, message: err }));
 });
 const sendMessage = AsyncHandler((req, res) => {
-  console.log('on Send Message');
-  const { CId } = req.params;
-  console.log(CId);
-  console.log(req.user._id);
-  console.log(req.body);
+  const to = req.params.CId;
+  // eslint-disable-next-line no-underscore-dangle
+  const from = req.user._id;
+  commenHelpers
+    .sendChat(to, from, req.body)
+    .then(() => res.json({ status: true, message: 'successfull' }))
+    .catch((err) => res.json({ status: false, message: err }));
 });
 
 // exports

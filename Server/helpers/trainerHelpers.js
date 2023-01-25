@@ -255,4 +255,12 @@ module.exports = {
         reject(error);
       }
     }),
+  getAllMessage: (to, from) =>
+    new Promise(async (resolve, reject) => {
+      const fromMessage = await db
+        .get()
+        .collection(collection.CHAT_COLLECTION)
+        .findOne({ to: ObjectId(to), from: from });
+      const toMessage = {};
+    }),
 };

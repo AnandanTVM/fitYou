@@ -36,4 +36,9 @@ router.get(
   clientControllers.getClientPlan
 );
 router.get('/getVideo/:id', auth.Clientprotect, clientControllers.getVideo);
+router.post(
+  '/sendMessage/:tId',
+  auth.Clientprotect,
+  clientControllers.sendMessage
+);
 module.exports = router;

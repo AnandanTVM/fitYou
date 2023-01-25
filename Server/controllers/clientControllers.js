@@ -193,6 +193,15 @@ const getVideo = AsyncHandler(async (req, res) => {
       res.json({ status: false, message: err });
     });
 });
+const sendMessage = AsyncHandler(async (req, res) => {
+  const to = req.params.tId;
+  // eslint-disable-next-line no-underscore-dangle
+  const from = req.user._id;
+
+  CommenHelpers.sendChat(to, from, req.body)
+    .then(() => res.json({ status: true, message: 'successfull' }))
+    .catch((err) => res.json({ status: false, message: err }));
+});
 // exports
 module.exports = {
   clientLogin,
@@ -206,4 +215,5 @@ module.exports = {
   verifiyPayment,
   getClientPlan,
   getVideo,
+  sendMessage,
 };
