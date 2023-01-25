@@ -8,9 +8,7 @@ const Trainer = createSlice({
   reducers: {
     getClientDetails: (state, action) => {
       let { clientDetails } = state;
-
       clientDetails = action.payload;
-      console.log('here');
       return { ...state, clientDetails };
     },
   },

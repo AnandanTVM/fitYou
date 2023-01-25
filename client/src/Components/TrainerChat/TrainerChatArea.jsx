@@ -16,8 +16,11 @@ function TrainerChatArea() {
   useEffect(() => {
     const token = localStorage.getItem('trainertoken');
     feachData();
+    console.log('in api');
     async function feachData() {
       const data = await getAllMessage(token, clientDetails._id);
+      console.log(data);
+      setChatDataFrom(data.fromMessage)
     }
   }, [clientDetails._id]);
   async function SendMessage() {
@@ -62,7 +65,7 @@ function TrainerChatArea() {
                   </div>
                 </div>
               </div>
-              <div className="chat-msg">
+              {chatDataFrom ? (chatDataFrom.map((chat,index) =>{return (<div key={index} className="chat-msg">
                 <div className="chat-msg-profile">
                   <img
                     className="chat-msg-img"
@@ -73,15 +76,14 @@ function TrainerChatArea() {
                     }
                     alt=""
                   />
-                  <div className="chat-msg-date">Message seen 3.16pm</div>
+                  <div className="chat-msg-date">{chat.time}</div>
                 </div>
                 <div className="chat-msg-content">
                   <div className="chat-msg-text">
-                    Consectetur adipiscing elit pellentesque habitant morbi
-                    tristique senectus et🥰
+                   {chat.message}
                   </div>
                 </div>
-              </div>
+              </div>)})) : ''}
             </div>
             {/* chat end */}
             <div className="chat-area-footer">

@@ -13,7 +13,7 @@ function TrainerChat() {
     featchData();
     async function featchData() {
       let Details = await getAllClientInfo(token);
-      console.log(Details);
+     
       if (Details.status) {
         SetClientDetails(Details.clientDetails);
       } else {
@@ -21,8 +21,7 @@ function TrainerChat() {
       }
     }
   }, []);
-  console.log(clientDetails);
-  console.log(err);
+
   return (
     <div className="trainer-chat">
       <div className="app">

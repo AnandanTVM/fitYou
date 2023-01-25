@@ -81,6 +81,7 @@ export const getClientDetails = async (token, id) => {
 };
 export const getAllMessage = async (token, ClId) => {
   try {
+    console.log('here in get message');
     const config = {
       headers: {
         Authorization: 'Bearer ' + token,
@@ -91,14 +92,17 @@ export const getAllMessage = async (token, ClId) => {
       `/getMessage/${ClId}`,
       config
     );
-
+console.log('all message');
+console.log(data);
     return data;
   } catch (err) {
+    console.log(err);
     return err;
   }
 };
 export const sendMessage = async (token, ClId, values) => {
   try {
+
     const config = {
       headers: {
         Authorization: 'Bearer ' + token,
@@ -115,7 +119,7 @@ export const sendMessage = async (token, ClId, values) => {
     return data;
   } catch (err) {
     console.log('on error');
-    console.log(err);
+    
     return err;
   }
 };

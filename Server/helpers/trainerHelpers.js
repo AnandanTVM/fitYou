@@ -257,10 +257,33 @@ module.exports = {
     }),
   getAllMessage: (to, from) =>
     new Promise(async (resolve, reject) => {
-      const fromMessage = await db
-        .get()
-        .collection(collection.CHAT_COLLECTION)
-        .findOne({ to: ObjectId(to), from: from });
-      const toMessage = {};
+      try {
+        let response = {};
+        let fromMessage = await db
+          .get()
+          .collection(collection.CHAT_COLLECTION)
+          .findOne({ to: ObjectId(to), from: from });
+        let toMessage = await db
+          .get()
+          .collection(collection.CHAT_COLLECTION)
+          .findOne({ to: from, from: ObjectId(to) })
+          .catch((err) => console.log(err));
+        if (fromMessage === null) {
+          fromMessage = false;
+          response.from = fromMessage;
+        } else {
+          response.from = fromMessage.messages;
+        }
+        if (toMessage === null) {
+          toMessage = false;
+          response.to = toMessage;
+        } else {
+          response.to = toMessage.messages;
+        }
+        console.log(response);
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
     }),
 };

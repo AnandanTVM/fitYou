@@ -98,7 +98,6 @@ const getClientDetails = AsyncHandler((req, res) => {
     .catch((err) => res.json({ status: false, error: err }));
 });
 const getMessage = AsyncHandler((req, res) => {
-  console.log('here');
   const to = req.params.ClId;
   const from = req.user._id;
 
@@ -111,7 +110,10 @@ const getMessage = AsyncHandler((req, res) => {
         fromMessage: responce.from,
       })
     )
-    .catch((err) => res.json({ status: false, message: err }));
+    .catch((err) => {
+      console.log(err);
+      res.json({ status: false, message: err });
+    });
 });
 const sendMessage = AsyncHandler((req, res) => {
   const to = req.params.CId;
