@@ -29,9 +29,9 @@ import {
   TrainerVideoUpload,
   TrSignup,
   TrainerViewClientDetails,
-  Tchat
+  Tchat,
+  ClientChat
 } from './Pages';
-import Chat from './Pages/Chat';
 
 function App() {
   return (
@@ -64,7 +64,7 @@ function App() {
         <Route path="/Client/Video/view/:id" element={<ClientViewVideo />} />
         <Route path="/login/ClientOTP" element={<COTPLogin />} />
         <Route path="/login/trainerOTP" element={<TOTPLogin />} />
-        <Route path="/client/Chat" element={<Chat />} />
+        <Route path="/client/Chat" element={<ClientChat />} />
         <Route path="/plan/buynow/:id" element={<ClientPlanConformation />} />
         <Route path="/trainer/clientDetails" element={<TrainerClientDetails />} />
         <Route path="/trainer/clientDetails/view/:id" element={<TrainerViewClientDetails />} />

@@ -36,6 +36,11 @@ router.get(
   clientControllers.getClientPlan
 );
 router.get('/getVideo/:id', auth.Clientprotect, clientControllers.getVideo);
+router.get(
+  '/gettrainerDetails',
+  auth.Clientprotect,
+  clientControllers.gettrainerDetails
+);
 router.post(
   '/sendMessage/:tId',
   auth.Clientprotect,

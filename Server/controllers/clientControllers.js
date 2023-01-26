@@ -202,6 +202,14 @@ const sendMessage = AsyncHandler(async (req, res) => {
     .then(() => res.json({ status: true, message: 'successfull' }))
     .catch((err) => res.json({ status: false, message: err }));
 });
+const gettrainerDetails = AsyncHandler(async (req, res) => {
+  // eslint-disable-next-line no-underscore-dangle
+  const userId = req.user._id;
+  clientHelpers
+    .gettrainerDetails(userId)
+    .then((details) => res.json({ status: true, trainerDetails: details }))
+    .catch((err) => res.json({ status: false, message: err }));
+});
 // exports
 module.exports = {
   clientLogin,
@@ -216,4 +224,5 @@ module.exports = {
   getClientPlan,
   getVideo,
   sendMessage,
+  gettrainerDetails,
 };

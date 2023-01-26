@@ -299,4 +299,44 @@ module.exports = {
         reject();
       }
     }),
+  gettrainerDetails: (id) =>
+    new Promise(async (resolve, reject) => {
+      console.log(id);
+      const details = await db
+        .get()
+        .collection(collection.PURCHASE_COLLECTION)
+        .aggregate([
+          {
+            $match: { userId: id },
+          },
+          {
+            // to join anothtre table fields to current table
+            $lookup: {
+              from: collection.TRAINER_COLLECTION,
+              localField: 'trainerId',
+              foreignField: '_id',
+              as: 'trainer',
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              trainer: { $arrayElemAt: ['$trainer', 0] },
+              // arrayElemAt userd to convert array to object
+            },
+          },
+          {
+            $project: {
+              trainer: {
+                fname: 1,
+                lname: 1,
+                email: 1,
+                profilePic: 1,
+              },
+            },
+          },
+        ])
+        .toArray();
+      console.log(details);
+    }),
 };

@@ -26,5 +26,5 @@ export { default as ClientPlanConformation } from './ClientPlanConformation';
 export { default as ClientViewVideo } from './ClientViewVideo';
 export { default as TrainerClientDetails } from './TrainerClientDetails';
 export { default as TrainerViewClientDetails } from './TrainerViewClientDetails';
-export { default as chat } from './Chat';
+export { default as ClientChat } from './ClientChat';
 export { default as E404 } from './E404';

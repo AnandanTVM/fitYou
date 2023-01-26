@@ -26,7 +26,7 @@ export { default as ClientPlanPayment } from './ClientPlanPayment/ClientPlanPaym
 export { default as ClientSelectTrainer } from './ClientSelectTrainer/ClientSelectTrainer';
 export { default as ClientCurrentPlan } from './ClientCurrentPlan/ClientCurrentPlan';
 export { default as TrainerVefUpload } from './TrainerVerificationUpload/TrainerVerificationUpload';
-export { default as ChatMessage } from './Chat/Chat';
+export { default as ClientChat } from './ClientChat/ClientChat';
 export { default as ViewVideo } from './ViewVideo/ViewVideo';
 export { default as TrainerAllotedClient } from './TrainerAllotedClient/TrainerAllotedClient';
 export { default as TrainerClientDetails } from './TrainerViewClientDetails/TrainerViewClientDetails';

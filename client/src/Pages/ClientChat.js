@@ -1,12 +1,12 @@
 import React from 'react'
-import { ChatMessage, ClientNav } from '../Components'
+import {  ClientChat, ClientNav } from '../Components'
 
 function Chat() {
   return (
     
     <div>
         <ClientNav chat/>
-        <ChatMessage/>
+        <ClientChat/>
         </div>
   )
 }

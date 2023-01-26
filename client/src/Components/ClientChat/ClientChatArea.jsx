@@ -1,14 +1,14 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   getAllMessage,
   sendMessage,
 } from '../../axios/serives/TrainerServices';
-import './TrainerChat.css';
-function TrainerChatArea() {
-  const { clientDetails } = useSelector((state) => state.trainer);
+
+import './ClientChat.css'
+
+function ClientChatArea() {
+    const { clientDetails } = useSelector((state) => state.trainer);
 
   const [chatDataFrom, setChatDataFrom] = useState('');
   const [chatDataTo, setChatDataTo] = useState('');
@@ -31,7 +31,6 @@ function TrainerChatArea() {
 
     setMessage('');
   }
-
   return (
     <>
       {clientDetails ? (
@@ -158,7 +157,7 @@ function TrainerChatArea() {
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default TrainerChatArea;
+export default ClientChatArea
