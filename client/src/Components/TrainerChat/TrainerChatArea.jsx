@@ -15,13 +15,15 @@ function TrainerChatArea() {
   async function feachData() {
     const token = localStorage.getItem('trainertoken');
     const data = await getAllMessage(token, clientDetails._id);
-    console.log(data);
-    setChatDataFrom(data.from);
-    setChat(data.messages);
-    console.log(data);
+    if (data.messages) {
+      setChatDataFrom(data.from);
+      setChat(data.messages);
+      console.log(data);
+    }
   }
   useEffect(() => {
     feachData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientDetails]);
 
   async function SendMessage() {
@@ -54,37 +56,12 @@ function TrainerChatArea() {
               className="rapper"
               //  style={{ marginBottom: '5rem ' }}
             >
-              {chat
-                ? chat.map((data, index) => {
-                    if (data._id === chatDataFrom) {
-                      return (
-                        <div key={index} className="chat-area-main">
-                          <div className="chat-msg owner">
-                            <div className="chat-msg-profile">
-                              <img
-                                className="chat-msg-img"
-                                src={
-                                  clientDetails.ProfilePic
-                                    ? clientDetails.ProfilePic
-                                    : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
-                                }
-                                alt=""
-                              />
-                              <div className="chat-msg-date">
-                                {data.messages.time}
-                              </div>
-                            </div>
-                            <div className="chat-msg-content">
-                              <div className="chat-msg-text">
-                                {data.messages.message}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    } else {
-                      return (
-                        <div key={index} className="chat-msg">
+              {chat ? (
+                chat.map((data, index) => {
+                  if (data._id === chatDataFrom) {
+                    return (
+                      <div key={index} className="chat-area-main">
+                        <div className="chat-msg owner">
                           <div className="chat-msg-profile">
                             <img
                               className="chat-msg-img"
@@ -105,10 +82,43 @@ function TrainerChatArea() {
                             </div>
                           </div>
                         </div>
-                      );
-                    }
-                  })
-                : ''}
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div key={index} className="chat-msg">
+                        <div className="chat-msg-profile">
+                          <img
+                            className="chat-msg-img"
+                            src={
+                              clientDetails.ProfilePic
+                                ? clientDetails.ProfilePic
+                                : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
+                            }
+                            alt=""
+                          />
+                          <div className="chat-msg-date">
+                            {data.messages.time}
+                          </div>
+                        </div>
+                        <div className="chat-msg-content">
+                          <div className="chat-msg-text">
+                            {data.messages.message}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                })
+              ) : (
+                <div className="chatImage me-5 py-5">
+                  <img
+                    className="chat-notfount"
+                    src="https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674555962/Hi_Robot_Sticker_-_Hi_Robot_-_Discover_Share_GIFs_ifpprp.gif"
+                    alt=""
+                  />
+                </div>
+              )}
               <div ref={scrollRef}></div>
             </div>
             {/* chat end */}
@@ -168,7 +178,7 @@ function TrainerChatArea() {
           </div>
         </>
       ) : (
-        <div className="chat-area ME-5 ">
+        <div className="chat-area me-5 ">
           {' '}
           <div className="chatImage me-5 py-5">
             <img

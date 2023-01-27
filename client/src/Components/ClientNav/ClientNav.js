@@ -6,7 +6,10 @@ import { clearClientLoginDetails } from '../../redux/adminReducer';
 
 // images
 import logo from '../../images/Logo.png';
-import { getSelectedTrainerDetails } from '../../redux/clientReducers';
+import {
+  getChatTrainerDetails,
+  getSelectedTrainerDetails,
+} from '../../redux/clientReducers';
 
 function ClientNav(props) {
   const dispatch = useDispatch();
@@ -17,6 +20,7 @@ function ClientNav(props) {
     localStorage.removeItem('userDetails');
     dispatch(clearClientLoginDetails());
     dispatch(getSelectedTrainerDetails(false));
+    dispatch(getChatTrainerDetails(false));
     navigate('/login');
   };
   return (

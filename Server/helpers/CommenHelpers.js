@@ -204,12 +204,21 @@ module.exports = {
           response.to = toMessage[0]._id;
         }
 
-        let mergedArray = fromMessage.concat(toMessage);
-        mergedArray.sort(
-          (a, b) =>
-            new Date(a.messages.realtime) - new Date(b.messages.realtime)
-        );
-        response.message = mergedArray;
+        if (fromMessage && toMessage) {
+          let mergedArray = fromMessage.concat(toMessage);
+          mergedArray.sort(
+            (a, b) =>
+              new Date(a.messages.realtime) - new Date(b.messages.realtime)
+          );
+          response.message = mergedArray;
+        } else if (fromMessage) {
+          response.message = fromMessage;
+        } else if (toMessage) {
+          response.message = fromMessage;
+        } else {
+          response.message = false;
+        }
+
         console.log(response);
         resolve(response);
       } catch (error) {
