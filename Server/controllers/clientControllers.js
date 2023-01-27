@@ -217,8 +217,9 @@ const getMessage = AsyncHandler(async (req, res) => {
     .then((responce) =>
       res.json({
         status: true,
-        toMessage: responce.to,
-        fromMessage: responce.from,
+        to: responce.to,
+        from: responce.from,
+        messages: responce.message,
       })
     )
     .catch((err) => {

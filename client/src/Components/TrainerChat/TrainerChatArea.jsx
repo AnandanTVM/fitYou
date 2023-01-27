@@ -1,6 +1,5 @@
-
-
 import React, { useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
   getAllMessage,
@@ -9,36 +8,40 @@ import {
 import './TrainerChat.css';
 function TrainerChatArea() {
   const { clientDetails } = useSelector((state) => state.trainer);
-
+  const scrollRef = useRef();
   const [chatDataFrom, setChatDataFrom] = useState('');
-  const [chatDataTo, setChatDataTo] = useState('');
+  const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
-  useEffect(() => {
+  async function feachData() {
     const token = localStorage.getItem('trainertoken');
+    const data = await getAllMessage(token, clientDetails._id);
+    console.log(data);
+    setChatDataFrom(data.from);
+    setChat(data.messages);
+    console.log(data);
+  }
+  useEffect(() => {
     feachData();
-    console.log('in api');
-    async function feachData() {
-      const data = await getAllMessage(token, clientDetails._id);
-      console.log(data);
-      setChatDataFrom(data.fromMessage)
-      setChatDataTo(data.toMessage)
-      console.log(data);
-    }
-  }, [clientDetails._id]);
+  }, [clientDetails]);
+
   async function SendMessage() {
     console.log('here');
     const token = localStorage.getItem('trainertoken');
 
-    const data = await sendMessage(token, clientDetails._id, message);
+    await sendMessage(token, clientDetails._id, message).then(() => {
+      feachData();
+    });
 
     setMessage('');
   }
-
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView(false);
+  }, [chat]);
   return (
     <>
       {clientDetails ? (
         <>
-          <div className="chat-area me-5 ">
+          <div className="chat-area">
             <div className="chat-area-header">
               <div className="chat-area-title">
                 {' '}
@@ -47,49 +50,66 @@ function TrainerChatArea() {
               <div className="chat-area-group"></div>
             </div>
             {/* chat Start */}
-            <div className="chat-area-main">
-              {chatDataTo ? (chatDataTo.map((chat, index) => {
-                return (<div className="chat-msg owner">
-                  <div className="chat-msg-profile">
-                    <img
-                      className="chat-msg-img"
-                      src={
-                        clientDetails.ProfilePic
-                          ? clientDetails.ProfilePic
-                          : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
-                      }
-                      alt=""
-                    />
-                    <div className="chat-msg-date">{chat.time}</div>
-                  </div>
-                  <div className="chat-msg-content">
-                    <div className="chat-msg-text">
-                      {chat.message}
-                    </div>
-                  </div>
-                </div>)
-              })) : ''}
-              {chatDataFrom ? (chatDataFrom.map((chat, index) => {
-                return (<div key={index} className="chat-msg">
-                  <div className="chat-msg-profile">
-                    <img
-                      className="chat-msg-img"
-                      src={
-                        clientDetails.ProfilePic
-                          ? clientDetails.ProfilePic
-                          : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
-                      }
-                      alt=""
-                    />
-                    <div className="chat-msg-date">{chat.time}</div>
-                  </div>
-                  <div className="chat-msg-content">
-                    <div className="chat-msg-text">
-                      {chat.message}
-                    </div>
-                  </div>
-                </div>)
-              })) : 'nknkj'}
+            <div
+              className="rapper"
+              //  style={{ marginBottom: '5rem ' }}
+            >
+              {chat
+                ? chat.map((data, index) => {
+                    if (data._id === chatDataFrom) {
+                      return (
+                        <div key={index} className="chat-area-main">
+                          <div className="chat-msg owner">
+                            <div className="chat-msg-profile">
+                              <img
+                                className="chat-msg-img"
+                                src={
+                                  clientDetails.ProfilePic
+                                    ? clientDetails.ProfilePic
+                                    : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
+                                }
+                                alt=""
+                              />
+                              <div className="chat-msg-date">
+                                {data.messages.time}
+                              </div>
+                            </div>
+                            <div className="chat-msg-content">
+                              <div className="chat-msg-text">
+                                {data.messages.message}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div key={index} className="chat-msg">
+                          <div className="chat-msg-profile">
+                            <img
+                              className="chat-msg-img"
+                              src={
+                                clientDetails.ProfilePic
+                                  ? clientDetails.ProfilePic
+                                  : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
+                              }
+                              alt=""
+                            />
+                            <div className="chat-msg-date">
+                              {data.messages.time}
+                            </div>
+                          </div>
+                          <div className="chat-msg-content">
+                            <div className="chat-msg-text">
+                              {data.messages.message}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })
+                : ''}
+              <div ref={scrollRef}></div>
             </div>
             {/* chat end */}
             <div className="chat-area-footer">

@@ -125,6 +125,7 @@ module.exports = {
         message: data.message,
         date: date,
         time: time,
+        realtime: cueentDate,
       };
       // Date settings end
       db.get()
@@ -177,7 +178,7 @@ module.exports = {
             { $project: { _id: 1, messages: 1 } },
           ])
           .toArray();
-        console.log(fromMessage);
+
         let toMessage = await db
           .get()
           .collection(collection.CHAT_COLLECTION)
@@ -188,18 +189,27 @@ module.exports = {
             { $project: { _id: 1, messages: 1 } },
           ])
           .toArray();
-        if (fromMessage === null) {
+        console.log(fromMessage);
+        console.log(toMessage);
+        if (fromMessage.length === 0) {
           fromMessage = false;
-          response.from = fromMessage;
         } else {
-          response.from = fromMessage;
+          // eslint-disable-next-line no-underscore-dangle
+          response.from = fromMessage[0]._id;
         }
-        if (toMessage === null) {
+        if (toMessage.length === 0) {
           toMessage = false;
-          response.to = toMessage;
         } else {
-          response.to = toMessage.messages;
+          // eslint-disable-next-line no-underscore-dangle
+          response.to = toMessage[0]._id;
         }
+
+        let mergedArray = fromMessage.concat(toMessage);
+        mergedArray.sort(
+          (a, b) =>
+            new Date(a.messages.realtime) - new Date(b.messages.realtime)
+        );
+        response.message = mergedArray;
         console.log(response);
         resolve(response);
       } catch (error) {

@@ -99,6 +99,7 @@ const getClientDetails = AsyncHandler((req, res) => {
 });
 const getMessage = AsyncHandler((req, res) => {
   const to = req.params.ClId;
+  // eslint-disable-next-line no-underscore-dangle
   const from = req.user._id;
 
   commenHelpers
@@ -106,8 +107,9 @@ const getMessage = AsyncHandler((req, res) => {
     .then((responce) =>
       res.json({
         status: true,
-        toMessage: responce.to,
-        fromMessage: responce.from,
+        to: responce.to,
+        from: responce.from,
+        messages: responce.message,
       })
     )
     .catch((err) => {
