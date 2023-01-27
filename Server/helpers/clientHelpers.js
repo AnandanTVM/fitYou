@@ -206,83 +206,86 @@ module.exports = {
     }),
   getClientPlan: (id) =>
     new Promise(async (resolve, reject) => {
-      console.log(id);
-      const details = await db
-        .get()
-        .collection(collection.PURCHASE_COLLECTION)
-        .aggregate([
-          {
-            $match: { userId: ObjectId(id) },
-          },
-          {
-            // to join anothtre table fields to current table
-            $lookup: {
-              from: collection.TRAINER_COLLECTION,
-              localField: 'trainerId',
-              foreignField: '_id',
-              as: 'trainer',
+      try {
+        const details = await db
+          .get()
+          .collection(collection.PURCHASE_COLLECTION)
+          .aggregate([
+            {
+              $match: { userId: ObjectId(id) },
             },
-          },
-          {
-            $lookup: {
-              from: collection.PACKAGE_COLLECTION,
-              localField: 'planId',
-              foreignField: '_id',
-              as: 'plan',
-            },
-          },
-          {
-            $project: {
-              validtill: 1,
-              validfrom: 1,
-              paymentStatus: 1,
-              trainer: { $arrayElemAt: ['$trainer', 0] },
-              plan: { $arrayElemAt: ['$plan', 0] },
-              // arrayElemAt userd to convert array to object
-            },
-          },
-          {
-            $project: {
-              trainer: {
-                dob: 0,
-                password: 0,
-                link: 0,
-                block: 0,
-                date: 0,
-                phone: 0,
-              },
-              plan: {
-                remove: 0,
-                offerRate: 0,
+            {
+              // to join anothtre table fields to current table
+              $lookup: {
+                from: collection.TRAINER_COLLECTION,
+                localField: 'trainerId',
+                foreignField: '_id',
+                as: 'trainer',
               },
             },
-          },
-        ])
-        .toArray();
+            {
+              $lookup: {
+                from: collection.PACKAGE_COLLECTION,
+                localField: 'planId',
+                foreignField: '_id',
+                as: 'plan',
+              },
+            },
+            {
+              $project: {
+                validtill: 1,
+                validfrom: 1,
+                paymentStatus: 1,
+                trainer: { $arrayElemAt: ['$trainer', 0] },
+                plan: { $arrayElemAt: ['$plan', 0] },
+                // arrayElemAt userd to convert array to object
+              },
+            },
+            {
+              $project: {
+                trainer: {
+                  dob: 0,
+                  password: 0,
+                  link: 0,
+                  block: 0,
+                  date: 0,
+                  phone: 0,
+                },
+                plan: {
+                  remove: 0,
+                  offerRate: 0,
+                },
+              },
+            },
+          ])
+          .toArray();
 
-      if (details[0]) {
-        const timestamp = details[0].validtill;
-        const timefor = details[0].validfrom;
-        const vaild = new Date(Date.parse(timestamp));
-        const from = new Date(Date.parse(timefor));
-        // date converting part
-        const options = {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          timeZone: 'UTC',
-        };
-        const formatter = new Intl.DateTimeFormat('en-US', options);
+        if (details[0]) {
+          const timestamp = details[0].validtill;
+          const timefor = details[0].validfrom;
+          const vaild = new Date(Date.parse(timestamp));
+          const from = new Date(Date.parse(timefor));
+          // date converting part
+          const options = {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZone: 'UTC',
+          };
+          const formatter = new Intl.DateTimeFormat('en-US', options);
 
-        // outputs "12/31/2022, 6:46 PM"
-        details[0].validtill = formatter.format(vaild);
-        details[0].validfrom = formatter.format(from);
+          // outputs "12/31/2022, 6:46 PM"
+          details[0].validtill = formatter.format(vaild);
+          details[0].validfrom = formatter.format(from);
 
-        resolve(details);
-      } else {
-        reject();
+          resolve(details);
+        } else {
+          reject();
+        }
+      } catch (error) {
+        reject(error);
       }
     }),
   allTrainerDetails: () =>
@@ -301,42 +304,47 @@ module.exports = {
     }),
   gettrainerDetails: (id) =>
     new Promise(async (resolve, reject) => {
-      console.log(id);
-      const details = await db
-        .get()
-        .collection(collection.PURCHASE_COLLECTION)
-        .aggregate([
-          {
-            $match: { userId: id },
-          },
-          {
-            // to join anothtre table fields to current table
-            $lookup: {
-              from: collection.TRAINER_COLLECTION,
-              localField: 'trainerId',
-              foreignField: '_id',
-              as: 'trainer',
+      try {
+        const details = await db
+          .get()
+          .collection(collection.PURCHASE_COLLECTION)
+          .aggregate([
+            {
+              $match: { userId: id },
             },
-          },
-          {
-            $project: {
-              _id: 0,
-              trainer: { $arrayElemAt: ['$trainer', 0] },
-              // arrayElemAt userd to convert array to object
-            },
-          },
-          {
-            $project: {
-              trainer: {
-                fname: 1,
-                lname: 1,
-                email: 1,
-                profilePic: 1,
+            {
+              // to join anothtre table fields to current table
+              $lookup: {
+                from: collection.TRAINER_COLLECTION,
+                localField: 'trainerId',
+                foreignField: '_id',
+                as: 'trainer',
               },
             },
-          },
-        ])
-        .toArray();
-      console.log(details);
+            {
+              $project: {
+                _id: 0,
+                trainer: { $arrayElemAt: ['$trainer', 0] },
+                // arrayElemAt userd to convert array to object
+              },
+            },
+            {
+              $project: {
+                trainer: {
+                  _id: 1,
+                  fname: 1,
+                  lname: 1,
+                  email: 1,
+                  profilePic: 1,
+                },
+              },
+            },
+          ])
+          .toArray();
+
+        resolve(details);
+      } catch (error) {
+        reject(error);
+      }
     }),
 };

@@ -21,6 +21,8 @@ function TrainerChatArea() {
       const data = await getAllMessage(token, clientDetails._id);
       console.log(data);
       setChatDataFrom(data.fromMessage)
+      setChatDataTo(data.toMessage)
+      console.log(data);
     }
   }, [clientDetails._id]);
   async function SendMessage() {
@@ -46,7 +48,7 @@ function TrainerChatArea() {
             </div>
             {/* chat Start */}
             <div className="chat-area-main">
-              {chatDataFrom ? (chatDataFrom.map((chat, index) => {
+              {chatDataTo ? (chatDataTo.map((chat, index) => {
                 return (<div className="chat-msg owner">
                   <div className="chat-msg-profile">
                     <img
@@ -67,7 +69,7 @@ function TrainerChatArea() {
                   </div>
                 </div>)
               })) : ''}
-              {chatDataTo ? (chatDataTo.map((chat, index) => {
+              {chatDataFrom ? (chatDataFrom.map((chat, index) => {
                 return (<div key={index} className="chat-msg">
                   <div className="chat-msg-profile">
                     <img
@@ -87,7 +89,7 @@ function TrainerChatArea() {
                     </div>
                   </div>
                 </div>)
-              })) : ''}
+              })) : 'nknkj'}
             </div>
             {/* chat end */}
             <div className="chat-area-footer">

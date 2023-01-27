@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 const INITIAL_STATE = {
   selectedTrainerdetails: '',
-  planDetails:'',
+  planDetails: '',
+  TrainerDetails: '',
 };
 const Client = createSlice({
   name: 'client',
@@ -21,8 +22,14 @@ const Client = createSlice({
 
       return { ...state, planDetails };
     },
+    getChatTrainerDetails: (state, action) => {
+      let { TrainerDetails } = state;
+      TrainerDetails = action.payload;
+      return { ...state, TrainerDetails };
+    },
   },
 });
 
-export const { getSelectedTrainerDetails ,getPlanDetails} = Client.actions;
+export const { getChatTrainerDetails, getSelectedTrainerDetails, getPlanDetails } =
+  Client.actions;
 export default Client.reducer;

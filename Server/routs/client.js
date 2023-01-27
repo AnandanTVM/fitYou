@@ -41,6 +41,11 @@ router.get(
   auth.Clientprotect,
   clientControllers.gettrainerDetails
 );
+router.get(
+  '/getMessage/:tId',
+  auth.Clientprotect,
+  clientControllers.getMessage
+);
 router.post(
   '/sendMessage/:tId',
   auth.Clientprotect,

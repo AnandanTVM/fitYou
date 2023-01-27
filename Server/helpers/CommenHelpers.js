@@ -163,4 +163,47 @@ module.exports = {
         })
         .catch(() => reject());
     }),
+  getAllMessage: (to, from) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const response = {};
+        let fromMessage = await db
+          .get()
+          .collection(collection.CHAT_COLLECTION)
+          .aggregate([
+            { $match: { to: ObjectId(to), from: from } },
+            // { $group: { _id: from } },
+            { $unwind: '$messages' },
+            { $project: { _id: 1, messages: 1 } },
+          ])
+          .toArray();
+        console.log(fromMessage);
+        let toMessage = await db
+          .get()
+          .collection(collection.CHAT_COLLECTION)
+          .aggregate([
+            { $match: { to: from, from: ObjectId(to) } },
+            // { $group: { _id: from } },
+            { $unwind: '$messages' },
+            { $project: { _id: 1, messages: 1 } },
+          ])
+          .toArray();
+        if (fromMessage === null) {
+          fromMessage = false;
+          response.from = fromMessage;
+        } else {
+          response.from = fromMessage;
+        }
+        if (toMessage === null) {
+          toMessage = false;
+          response.to = toMessage;
+        } else {
+          response.to = toMessage.messages;
+        }
+        console.log(response);
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };

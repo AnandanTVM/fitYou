@@ -1,24 +1,25 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAllClientInfo } from '../../axios/serives/TrainerServices';
-import { getClientDetails } from '../../redux/trainerReducer';
+import { getTrainerDetails } from '../../axios/serives/UserServices';
+import { getChatTrainerDetails } from '../../redux/clientReducers';
 import './ClientChat.css'
 import ClientChatArea from './ClientChatArea';
 function Chat() {
    const dispatch = useDispatch();
-  const [clientDetails, SetClientDetails] = useState('');
+  const [trainerDetails, SetTrainerDetails] = useState('');
   const [err, setErr] = useState('');
   useEffect(() => {
-    const token = localStorage.getItem('trainertoken');
+    const token = localStorage.getItem('token');
     featchData();
     async function featchData() {
-      let Details = await getAllClientInfo(token);
-     
+      
+      let Details = await getTrainerDetails(token);
+     console.log(Details);
       if (Details.status) {
-        SetClientDetails(Details.clientDetails);
+        SetTrainerDetails(Details.trainerDetails);
       } else {
-        setErr('No clients currently available....');
+        setErr('Pls get a trainer...');
       }
     }
   }, []);
@@ -30,28 +31,28 @@ function Chat() {
           <div className="conversation-area">
             {/* active online */}
             <div>
-              {clientDetails ? (
-                clientDetails.map((data, index) => {
+              {trainerDetails ? (
+                trainerDetails.map((data, index) => {
                   return (
                     <div
                       className="msg   "
                       key={index}
                       onClick={() => {
-                        dispatch(getClientDetails(data.Clientdetails));
+                       dispatch(getChatTrainerDetails(data.trainer));
                       }}
                     >
                       <img
                         className="msg-profile "
                         src={
-                          data.Clientdetails.ProfilePic
-                            ? data.Clientdetails.ProfilePic
+                          data.trainer.profilePic
+                            ? data.trainer.profilePic
                             : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
                         }
                         alt=""
                       />
                       <div className="msg-detail">
                         <div className="msg-username">
-                          {data.Clientdetails.fname} {data.Clientdetails.lname}
+                          {data.trainer.fname} {data.trainer.lname}
                         </div>
                         <div className="msg-content">
                           <span className="msg-message">
@@ -85,8 +86,7 @@ function Chat() {
             </div> */}
           </div>
           <ClientChatArea/>
-{/* 
-          <TrainerChatArea /> */}
+
         </div>
       </div>
     </div>

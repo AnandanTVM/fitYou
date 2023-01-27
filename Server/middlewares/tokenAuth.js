@@ -40,11 +40,11 @@ const Clientprotect = AsyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
       req.user = await CommenHelpers.findClientById(decoded.userId);
 
       next();
     } catch (error) {
+      console.log('failed token');
       res.status(401);
       throw new Error('Not authorized, token fail');
     }

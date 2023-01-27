@@ -101,7 +101,7 @@ const getMessage = AsyncHandler((req, res) => {
   const to = req.params.ClId;
   const from = req.user._id;
 
-  trainerHelpers
+  commenHelpers
     .getAllMessage(to, from)
     .then((responce) =>
       res.json({

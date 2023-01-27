@@ -27,9 +27,9 @@ export const getFreeVideo = async (token) => {
   const { data } = await axiosClientInstance.get('/freeVideos', config);
   if (data.status) {
     return data;
-  }else{
-    let error=true;
-    return error
+  } else {
+    let error = true;
+    return error;
   }
 };
 export const getallTrainerDetails = async (token) => {
@@ -124,11 +124,73 @@ export const getVideo = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(
-    `/getVideo/${id}`,
-    config
-  );
+  const { data } = await axiosClientInstance.get(`/getVideo/${id}`, config);
   if (data.status) {
     return data;
+  }
+};
+export const getTrainerDetails = async (token) => {
+  try {
+    
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get('/gettrainerDetails', config);
+     return data;
+  
+  } catch (error) {
+    console.log(error);
+  }
+
+};
+export const sendChatMessage = async (token,tId, values) => {
+  try {
+
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+   
+    const value = { message: values };
+    const { data } = await axiosClientInstance.post(
+      `/sendMessage/${tId}`,
+      value,
+      config
+    );
+
+    return data;
+  } catch (err) {
+    console.log('on error');
+    
+    return err;
+  }
+
+};
+export const getAllMessage = async (token, tId) => {
+  try {
+    console.log('here in get message');
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axiosClientInstance.get(
+      `/getMessage/${tId}`,
+      config
+    );
+console.log('all message');
+console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+    return err;
   }
 };

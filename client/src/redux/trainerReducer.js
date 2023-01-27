@@ -12,6 +12,7 @@ const Trainer = createSlice({
       return { ...state, clientDetails };
     },
   },
+  
 });
 
 export const { getClientDetails } = Trainer.actions;

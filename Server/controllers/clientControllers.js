@@ -197,7 +197,6 @@ const sendMessage = AsyncHandler(async (req, res) => {
   const to = req.params.tId;
   // eslint-disable-next-line no-underscore-dangle
   const from = req.user._id;
-
   CommenHelpers.sendChat(to, from, req.body)
     .then(() => res.json({ status: true, message: 'successfull' }))
     .catch((err) => res.json({ status: false, message: err }));
@@ -209,6 +208,23 @@ const gettrainerDetails = AsyncHandler(async (req, res) => {
     .gettrainerDetails(userId)
     .then((details) => res.json({ status: true, trainerDetails: details }))
     .catch((err) => res.json({ status: false, message: err }));
+});
+const getMessage = AsyncHandler(async (req, res) => {
+  const to = req.params.tId;
+  const from = req.user._id;
+
+  CommenHelpers.getAllMessage(to, from)
+    .then((responce) =>
+      res.json({
+        status: true,
+        toMessage: responce.to,
+        fromMessage: responce.from,
+      })
+    )
+    .catch((err) => {
+      console.log(err);
+      res.json({ status: false, message: err });
+    });
 });
 // exports
 module.exports = {
@@ -225,4 +241,5 @@ module.exports = {
   getVideo,
   sendMessage,
   gettrainerDetails,
+  getMessage,
 };
