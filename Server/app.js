@@ -15,6 +15,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 // data base connection
+
 const db = require('./config/connection');
 
 // for sever
@@ -28,6 +29,7 @@ const homeRouter = require('./routs/home');
 const clientRouter = require('./routs/client');
 const adminRouter = require('./routs/admin');
 const trainerRouter = require('./routs/trainer');
+const { Socket } = require('socket.io');
 
 // redirects to roughts
 app.use('/', homeRouter);
@@ -60,6 +62,50 @@ db.connect((err) => {
   if (err) console.log(`Connection error${err}`);
   else console.log('Datebase Connected to port 27017');
 });
-app.listen(3001, () => {
+const server = app.listen(3001, () => {
   console.log('sever started running on localhost:3001');
+});
+
+// eslint-disable-next-line import/order
+const io = require('socket.io')(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: 'http://localhost:3000',
+  },
+});
+
+let users = [];
+const addUser = (userId, socketId) => {
+  // eslint-disable-next-line no-unused-expressions
+  !users.some((user) => user.userId === userId) &&
+    users.push({ userId, socketId });
+};
+const removeUser = (sockedId) => {
+  users = users.filter((user) => user.socketId !== sockedId);
+};
+const getUser = (userId) => users.find((user) => user.userId === userId);
+io.on('connection', (socket) => {
+  // when connect
+  console.log('connected to sockect io');
+
+  // take userId and sockectId from user
+  socket.on('addUser', (userId) => {
+    addUser(userId, socket.id);
+    io.emit('getUsers', users);
+  });
+  // send and get message
+  socket.on('sendMessage', ({ senderId, receverId, text }) => {
+    console.log(text);
+    const user = getUser(receverId);
+    io.to(user.socketId).emit('getMessage', {
+      senderId,
+      text,
+    });
+  });
+  // when disconnect
+  socket.on('disconnect', () => {
+    console.log('a user disconnected!');
+    removeUser(socket.id);
+    io.emit('getUsers', users);
+  });
 });

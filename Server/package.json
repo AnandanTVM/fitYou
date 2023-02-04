@@ -23,6 +23,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^2.0.20",
     "razorpay": "^2.8.4",
+    "socket.io": "^4.5.4",
     "stock.io": "^0.0.0"
   }
 }

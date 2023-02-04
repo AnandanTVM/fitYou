@@ -5,20 +5,27 @@ import {
   getAllMessage,
   sendMessage,
 } from '../../axios/serives/TrainerServices';
+import jwt from 'jwt-decode';
 import './TrainerChat.css';
+import io from 'socket.io-client'
+import { format } from 'timeago.js';
+const ENDPOINT = 'http://localhost:3001';
+
 function TrainerChatArea() {
   const { clientDetails } = useSelector((state) => state.trainer);
   const scrollRef = useRef();
   const [chatDataFrom, setChatDataFrom] = useState('');
   const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
+  const [arrvelmessage, setArrvelMessage] = useState(null);
+  const socket = useRef()
+
   async function feachData() {
     const token = localStorage.getItem('trainertoken');
     const data = await getAllMessage(token, clientDetails._id);
     if (data.messages) {
       setChatDataFrom(data.from);
       setChat(data.messages);
-      console.log(data);
     }
   }
   useEffect(() => {
@@ -26,10 +33,44 @@ function TrainerChatArea() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientDetails]);
 
+  // socket io
+  useEffect(() => {
+    socket.current = io(ENDPOINT);
+    socket.current.on("getMessage",data=>{
+      setArrvelMessage({
+        _id: data.senderId,
+        messages: {
+          message: data.text,
+          realtime: Date.now(),
+        },
+      })
+     
+    })
+  }, [])
+  useEffect(() => {
+    arrvelmessage && setChat((prev) => [...prev, arrvelmessage]);
+    
+  }, [arrvelmessage]);
+
+
+  let user = jwt(localStorage.getItem('trainertoken'));
+  console.log('tocken ');
+  console.log(user.trainerId);
+  useEffect(() => {
+    socket.current.emit("addUser", user.trainerId)
+    socket.current.on("getUsers", users => {
+      console.log(users)
+    })
+  }, [user.trainerId])
+
   async function SendMessage() {
     console.log('here');
     const token = localStorage.getItem('trainertoken');
-
+    socket.current.emit('sendMessage', {
+      senderId: user.trainerId,
+      receverId: clientDetails._id,
+      text: message,
+    })
     await sendMessage(token, clientDetails._id, message).then(() => {
       feachData();
     });
@@ -37,7 +78,7 @@ function TrainerChatArea() {
     setMessage('');
   }
   useEffect(() => {
-    scrollRef.current?.scrollIntoView(false);
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
   return (
     <>
@@ -54,7 +95,7 @@ function TrainerChatArea() {
             {/* chat Start */}
             <div
               className="rapper"
-              //  style={{ marginBottom: '5rem ' }}
+            //  style={{ marginBottom: '5rem ' }}
             >
               {chat ? (
                 chat.map((data, index) => {
@@ -73,7 +114,7 @@ function TrainerChatArea() {
                               alt=""
                             />
                             <div className="chat-msg-date">
-                              {data.messages.time}
+                              {format(data.messages.realtime)}
                             </div>
                           </div>
                           <div className="chat-msg-content">
@@ -98,7 +139,7 @@ function TrainerChatArea() {
                             alt=""
                           />
                           <div className="chat-msg-date">
-                            {data.messages.time}
+                            {format(data.messages.realtime)}
                           </div>
                         </div>
                         <div className="chat-msg-content">

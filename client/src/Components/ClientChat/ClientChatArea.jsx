@@ -2,46 +2,85 @@
 import React, { useState, useEffect } from 'react';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-
+import { format } from 'timeago.js';
 import {
   getAllMessage,
   sendChatMessage,
 } from '../../axios/serives/UserServices';
-
+import jwt from 'jwt-decode';
+import io from 'socket.io-client'
 import './ClientChat.css';
-
+const ENDPOINT = 'http://localhost:3001';
 function ClientChatArea() {
   const { TrainerDetails } = useSelector((state) => state.client);
-  console.log(TrainerDetails);
+
   const [chatDataFrom, setChatDataFrom] = useState('');
   const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
+  const [arrvelmessage, setArrvelMessage] = useState(null);
   const scrollRef = useRef();
+  const socket = useRef()
+  let user = jwt(localStorage.getItem('token'));
+
   async function feachData() {
     const token = localStorage.getItem('token');
-    console.log('in gessage ');
     const data = await getAllMessage(token, TrainerDetails._id);
     if (data.messages) {
       setChatDataFrom(data.from);
       setChat(data.messages);
-      console.log(data);
+
     }
   }
   async function SendMessage() {
     const token = localStorage.getItem('token');
+
+    socket.current.emit('sendMessage', {
+      senderId: user.userId,
+      receverId: TrainerDetails._id,
+      text: message,
+    })
     await sendChatMessage(token, TrainerDetails._id, message).then(() => {
       feachData();
     });
 
     setMessage('');
   }
+
+  // socket io
+  useEffect(() => {
+    socket.current = io(ENDPOINT)
+    socket.current.on("getMessage", data => {
+      console.log('on dtat')
+      console.log(data)
+      setArrvelMessage({
+        _id: data.senderId,
+        messages: {
+          message: data.text,
+          realtime: Date.now(),
+        },
+      })
+
+    })
+  }, [])
+  useEffect(() => {
+    arrvelmessage && setChat((prev) => [...prev, arrvelmessage]);
+    console.log(chat);
+  }, [arrvelmessage]);
+  useEffect(() => {
+
+    socket.current.emit("addUser", user.userId)
+    socket.current.on("getUsers", users => {
+      console.log(users)
+    })
+  }, [user.userId])
+
   useEffect(() => {
     if (TrainerDetails) {
       feachData();
     }
   }, [TrainerDetails]);
   useEffect(() => {
-    scrollRef.current?.scrollIntoView(false);
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
   return (
     <>
@@ -59,7 +98,7 @@ function ClientChatArea() {
 
             <div
               className="rapper"
-              //  style={{ marginBottom: '5rem ' }}
+            //  style={{ marginBottom: '5rem ' }}
             >
               {chat ? (
                 chat.map((data, index) => {
@@ -78,7 +117,7 @@ function ClientChatArea() {
                               alt=""
                             />
                             <div className="chat-msg-date">
-                              {data.messages.time}
+                              {format(data.messages.realtime)}
                             </div>
                           </div>
                           <div className="chat-msg-content">
@@ -103,7 +142,7 @@ function ClientChatArea() {
                             alt=""
                           />
                           <div className="chat-msg-date">
-                            {data.messages.time}
+                            {format(data.messages.realtime)}
                           </div>
                         </div>
                         <div className="chat-msg-content">

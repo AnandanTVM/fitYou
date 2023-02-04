@@ -189,8 +189,8 @@ module.exports = {
             { $project: { _id: 1, messages: 1 } },
           ])
           .toArray();
-        console.log(fromMessage);
-        console.log(toMessage);
+        // console.log(fromMessage);
+        // console.log(toMessage);
         if (fromMessage.length === 0) {
           fromMessage = false;
         } else {
@@ -219,7 +219,7 @@ module.exports = {
           response.message = false;
         }
 
-        console.log(response);
+        // console.log(response);
         resolve(response);
       } catch (error) {
         reject(error);
