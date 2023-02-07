@@ -79,6 +79,7 @@ const addUser = (userId, socketId) => {
   // eslint-disable-next-line no-unused-expressions
   !users.some((user) => user.userId === userId) &&
     users.push({ userId, socketId });
+  console.log(users);
 };
 const removeUser = (sockedId) => {
   users = users.filter((user) => user.socketId !== sockedId);
@@ -97,10 +98,12 @@ io.on('connection', (socket) => {
   socket.on('sendMessage', ({ senderId, receverId, text }) => {
     console.log(text);
     const user = getUser(receverId);
+    // if (user) {
     io.to(user.socketId).emit('getMessage', {
       senderId,
       text,
     });
+    // }
   });
   // when disconnect
   socket.on('disconnect', () => {

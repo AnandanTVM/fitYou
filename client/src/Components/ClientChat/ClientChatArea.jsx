@@ -29,6 +29,8 @@ function ClientChatArea() {
       setChatDataFrom(data.from);
       setChat(data.messages);
 
+    }else{
+      setChat(false)
     }
   }
   async function SendMessage() {

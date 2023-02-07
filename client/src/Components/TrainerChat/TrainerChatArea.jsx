@@ -18,6 +18,7 @@ function TrainerChatArea() {
   const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
   const [arrvelmessage, setArrvelMessage] = useState(null);
+  const [online, setOnline] = useState(false)
   const socket = useRef()
 
   async function feachData() {
@@ -26,6 +27,8 @@ function TrainerChatArea() {
     if (data.messages) {
       setChatDataFrom(data.from);
       setChat(data.messages);
+    }else{
+      setChat(false)
     }
   }
   useEffect(() => {
@@ -60,8 +63,11 @@ function TrainerChatArea() {
     socket.current.emit("addUser", user.trainerId)
     socket.current.on("getUsers", users => {
       console.log(users)
+      if(user.userId===clientDetails._id){
+        setOnline(true)
+      }
     })
-  }, [user.trainerId])
+  }, [clientDetails._id, user.trainerId, user.userId])
 
   async function SendMessage() {
     console.log('here');
@@ -196,7 +202,7 @@ function TrainerChatArea() {
               <div className="detail-title">
                 {clientDetails.fname} {clientDetails.lname}
               </div>
-              <div className="detail-subtitle">Online</div>
+              <div className="detail-subtitle">{online?'Online':''}</div>
               <div className="detail-buttons">
                 <button className="detail-button">
                   <svg

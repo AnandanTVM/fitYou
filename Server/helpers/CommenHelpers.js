@@ -214,7 +214,7 @@ module.exports = {
         } else if (fromMessage) {
           response.message = fromMessage;
         } else if (toMessage) {
-          response.message = fromMessage;
+          response.message = toMessage;
         } else {
           response.message = false;
         }
