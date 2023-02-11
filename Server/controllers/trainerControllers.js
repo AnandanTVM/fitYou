@@ -13,7 +13,9 @@ const trainerLogin = AsyncHandler(async (req, res) => {
         console.log('response', response);
         const token = jwt.sign(
           {
+            // eslint-disable-next-line no-underscore-dangle
             trainerId: response.trainer._id,
+            profilePic: response.trainer.profilePic,
             name: response.trainer.fname + response.trainer.lname,
             status: response.trainer.status,
           },

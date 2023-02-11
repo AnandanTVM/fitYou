@@ -31,4 +31,5 @@ export { default as ViewVideo } from './ViewVideo/ViewVideo';
 export { default as TrainerAllotedClient } from './TrainerAllotedClient/TrainerAllotedClient';
 export { default as TrainerClientDetails } from './TrainerViewClientDetails/TrainerViewClientDetails';
 export { default as TrainerChat } from './TrainerChat/TrainerChat';
+export { default as VideoChat } from './VideoChat/VideoChat';
 export { default as Error } from './Error/Error';

@@ -8,18 +8,19 @@ import {
   sendChatMessage,
 } from '../../axios/serives/UserServices';
 import jwt from 'jwt-decode';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 import './ClientChat.css';
+import { useNavigate } from 'react-router-dom';
 const ENDPOINT = 'http://localhost:3001';
 function ClientChatArea() {
   const { TrainerDetails } = useSelector((state) => state.client);
-
+  const navigate = useNavigate();
   const [chatDataFrom, setChatDataFrom] = useState('');
   const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
   const [arrvelmessage, setArrvelMessage] = useState(null);
   const scrollRef = useRef();
-  const socket = useRef()
+  const socket = useRef();
   let user = jwt(localStorage.getItem('token'));
 
   async function feachData() {
@@ -28,9 +29,8 @@ function ClientChatArea() {
     if (data.messages) {
       setChatDataFrom(data.from);
       setChat(data.messages);
-
-    }else{
-      setChat(false)
+    } else {
+      setChat(false);
     }
   }
   async function SendMessage() {
@@ -40,7 +40,7 @@ function ClientChatArea() {
       senderId: user.userId,
       receverId: TrainerDetails._id,
       text: message,
-    })
+    });
     await sendChatMessage(token, TrainerDetails._id, message).then(() => {
       feachData();
     });
@@ -50,31 +50,29 @@ function ClientChatArea() {
 
   // socket io
   useEffect(() => {
-    socket.current = io(ENDPOINT)
-    socket.current.on("getMessage", data => {
-      console.log('on dtat')
-      console.log(data)
+    socket.current = io(ENDPOINT);
+    socket.current.on('getMessage', (data) => {
+      console.log('on dtat');
+      console.log(data);
       setArrvelMessage({
         _id: data.senderId,
         messages: {
           message: data.text,
           realtime: Date.now(),
         },
-      })
-
-    })
-  }, [])
+      });
+    });
+  }, []);
   useEffect(() => {
     arrvelmessage && setChat((prev) => [...prev, arrvelmessage]);
     console.log(chat);
   }, [arrvelmessage]);
   useEffect(() => {
-
-    socket.current.emit("addUser", user.userId)
-    socket.current.on("getUsers", users => {
-      console.log(users)
-    })
-  }, [user.userId])
+    socket.current.emit('addUser', user.userId);
+    socket.current.on('getUsers', (users) => {
+      console.log(users);
+    });
+  }, [user.userId]);
 
   useEffect(() => {
     if (TrainerDetails) {
@@ -82,7 +80,7 @@ function ClientChatArea() {
     }
   }, [TrainerDetails]);
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chat]);
   return (
     <>
@@ -100,7 +98,7 @@ function ClientChatArea() {
 
             <div
               className="rapper"
-            //  style={{ marginBottom: '5rem ' }}
+              //  style={{ marginBottom: '5rem ' }}
             >
               {chat ? (
                 chat.map((data, index) => {
@@ -112,8 +110,8 @@ function ClientChatArea() {
                             <img
                               className="chat-msg-img"
                               src={
-                                TrainerDetails.ProfilePic
-                                  ? TrainerDetails.ProfilePic
+                                TrainerDetails.profilePic
+                                  ? TrainerDetails.profilePic
                                   : 'https://res.cloudinary.com/ddtcmyvhx/image/upload/v1674546681/favicon_mqlyjv.png'
                               }
                               alt=""
@@ -203,7 +201,12 @@ function ClientChatArea() {
               </div>
               <div className="detail-subtitle">Online</div>
               <div className="detail-buttons">
-                <button className="detail-button">
+                <button
+                  className="detail-button"
+                  onClick={(e) => {
+                    navigate('/videoChat');
+                  }}
+                >
                   <svg
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"

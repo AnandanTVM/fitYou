@@ -4,16 +4,22 @@ import { getAllClientInfo } from '../../axios/serives/TrainerServices';
 import { getClientDetails } from '../../redux/trainerReducer';
 import './TrainerChat.css';
 import TrainerChatArea from './TrainerChatArea';
+//testing
+import jwt from 'jwt-decode';
+import io from 'socket.io-client';
+import { useRef } from 'react';
+const ENDPOINT = 'http://localhost:3001';
 function TrainerChat() {
   const dispatch = useDispatch();
   const [clientDetails, SetClientDetails] = useState('');
   const [err, setErr] = useState('');
+  const socket = useRef();
   useEffect(() => {
     const token = localStorage.getItem('trainertoken');
     featchData();
     async function featchData() {
       let Details = await getAllClientInfo(token);
-     
+
       if (Details.status) {
         SetClientDetails(Details.clientDetails);
       } else {
@@ -21,6 +27,27 @@ function TrainerChat() {
       }
     }
   }, []);
+
+  //testing
+
+  let user = jwt(localStorage.getItem('trainertoken'));
+  console.log('tocken ');
+  console.log(user.trainerId);
+  useEffect(() => {
+    socket.current = io(ENDPOINT);
+    socket.current.emit('addUser', user.trainerId);
+    socket.current.on('getUsers', (users) => {
+      console.log(users);
+      // users.forEach((user) => {
+      //   if (user.userId === clientDetails._id) {
+      //     console.log('online');
+      //     // setOnline(true);
+      //   } else {
+      //     // setOnline(false);
+      //   }
+      // });
+    });
+  }, [clientDetails._id, user.trainerId, user.userId]);
 
   return (
     <div className="trainer-chat">

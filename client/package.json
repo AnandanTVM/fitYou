@@ -26,6 +26,7 @@
     "socket.io-client": "^4.5.4",
     "styled-component": "^2.8.0",
     "styled-components": "^5.3.6",
+    "sweetalert": "^2.1.2",
     "timeago.js": "^4.0.0-beta.3",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"

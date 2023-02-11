@@ -7,8 +7,10 @@ import {
 } from '../../axios/serives/TrainerServices';
 import jwt from 'jwt-decode';
 import './TrainerChat.css';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 import { format } from 'timeago.js';
+import swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
 const ENDPOINT = 'http://localhost:3001';
 
 function TrainerChatArea() {
@@ -18,8 +20,10 @@ function TrainerChatArea() {
   const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
   const [arrvelmessage, setArrvelMessage] = useState(null);
-  const [online, setOnline] = useState(false)
-  const socket = useRef()
+  const [online, setOnline] = useState(false);
+  const socket = useRef();
+
+  const navigate = useNavigate();
 
   async function feachData() {
     const token = localStorage.getItem('trainertoken');
@@ -27,8 +31,8 @@ function TrainerChatArea() {
     if (data.messages) {
       setChatDataFrom(data.from);
       setChat(data.messages);
-    }else{
-      setChat(false)
+    } else {
+      setChat(false);
     }
   }
   useEffect(() => {
@@ -39,35 +43,37 @@ function TrainerChatArea() {
   // socket io
   useEffect(() => {
     socket.current = io(ENDPOINT);
-    socket.current.on("getMessage",data=>{
+    socket.current.on('getMessage', (data) => {
       setArrvelMessage({
         _id: data.senderId,
         messages: {
           message: data.text,
           realtime: Date.now(),
         },
-      })
-     
-    })
-  }, [])
+      });
+    });
+  }, []);
   useEffect(() => {
     arrvelmessage && setChat((prev) => [...prev, arrvelmessage]);
-    
   }, [arrvelmessage]);
-
 
   let user = jwt(localStorage.getItem('trainertoken'));
   console.log('tocken ');
   console.log(user.trainerId);
   useEffect(() => {
-    socket.current.emit("addUser", user.trainerId)
-    socket.current.on("getUsers", users => {
-      console.log(users)
-      if(user.userId===clientDetails._id){
-        setOnline(true)
-      }
-    })
-  }, [clientDetails._id, user.trainerId, user.userId])
+    socket.current.emit('addUser', user.trainerId);
+    socket.current.on('getUsers', (users) => {
+      console.log(users);
+      users.forEach((user) => {
+        if (user.userId === clientDetails._id) {
+          console.log('online');
+          setOnline(true);
+        } else {
+          setOnline(false);
+        }
+      });
+    });
+  }, [clientDetails._id, user.trainerId, user.userId]);
 
   async function SendMessage() {
     console.log('here');
@@ -76,7 +82,7 @@ function TrainerChatArea() {
       senderId: user.trainerId,
       receverId: clientDetails._id,
       text: message,
-    })
+    });
     await sendMessage(token, clientDetails._id, message).then(() => {
       feachData();
     });
@@ -84,7 +90,7 @@ function TrainerChatArea() {
     setMessage('');
   }
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chat]);
   return (
     <>
@@ -101,7 +107,7 @@ function TrainerChatArea() {
             {/* chat Start */}
             <div
               className="rapper"
-            //  style={{ marginBottom: '5rem ' }}
+              //  style={{ marginBottom: '5rem ' }}
             >
               {chat ? (
                 chat.map((data, index) => {
@@ -202,9 +208,23 @@ function TrainerChatArea() {
               <div className="detail-title">
                 {clientDetails.fname} {clientDetails.lname}
               </div>
-              <div className="detail-subtitle">{online?'Online':''}</div>
+              <div className="detail-subtitle">{online ? 'Online' : ''}</div>
               <div className="detail-buttons">
-                <button className="detail-button">
+                <button
+                  className="detail-button"
+                  onClick={(e) => {
+                    swal(
+                      `Do you want to make a video call with ${clientDetails.fname} ${clientDetails.lname}?`,
+                      {
+                        buttons: ['Oh noez!', 'Call'],
+                      }
+                    ).then((value) => {
+                      if (value) {
+                        navigate('/trainer/videoChat');
+                      }
+                    });
+                  }}
+                >
                   <svg
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"

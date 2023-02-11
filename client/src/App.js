@@ -30,7 +30,9 @@ import {
   TrSignup,
   TrainerViewClientDetails,
   Tchat,
-  ClientChat
+  ClientChat,
+  TrainerVideoChat,
+  ClientVideoChat,
 } from './Pages';
 
 function App() {
@@ -66,9 +68,17 @@ function App() {
         <Route path="/login/trainerOTP" element={<TOTPLogin />} />
         <Route path="/client/Chat" element={<ClientChat />} />
         <Route path="/plan/buynow/:id" element={<ClientPlanConformation />} />
-        <Route path="/trainer/clientDetails" element={<TrainerClientDetails />} />
-        <Route path="/trainer/clientDetails/view/:id" element={<TrainerViewClientDetails />} />
+        <Route
+          path="/trainer/clientDetails"
+          element={<TrainerClientDetails />}
+        />
+        <Route
+          path="/trainer/clientDetails/view/:id"
+          element={<TrainerViewClientDetails />}
+        />
         <Route path="/trainer/Chat" element={<Tchat />} />
+        <Route path="/videoChat" element={<ClientVideoChat />} />
+        <Route path="/trainer/videoChat" element={<TrainerVideoChat />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

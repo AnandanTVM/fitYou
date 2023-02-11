@@ -27,4 +27,6 @@ export { default as ClientViewVideo } from './ClientViewVideo';
 export { default as TrainerClientDetails } from './TrainerClientDetails';
 export { default as TrainerViewClientDetails } from './TrainerViewClientDetails';
 export { default as ClientChat } from './ClientChat';
+export { default as ClientVideoChat } from './ClientVideoChat';
+export { default as TrainerVideoChat } from './TrainerVideoChat';
 export { default as E404 } from './E404';
