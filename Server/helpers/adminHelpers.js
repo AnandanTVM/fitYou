@@ -6,18 +6,22 @@ const collection = require('../config/collection');
 
 module.exports = {
   doadminLogin: (userData) =>
-    new Promise(async (resolve) => {
-      const response = {};
-      const user = await db
-        .get()
-        .collection(collection.ADMIN_COLLECTION)
-        .findOne({ phone: userData.Phone });
-      if (user) {
-        response.user = user;
-        response.status = true;
-        resolve(response);
-      } else {
-        resolve({ status: false });
+    new Promise(async (resolve, reject) => {
+      try {
+        const response = {};
+        const user = await db
+          .get()
+          .collection(collection.ADMIN_COLLECTION)
+          .findOne({ phone: userData.Phone });
+        if (user) {
+          response.user = user;
+          response.status = true;
+          resolve(response);
+        } else {
+          resolve({ status: false });
+        }
+      } catch (error) {
+        reject(error);
       }
     }),
   userdetails: () =>
@@ -35,29 +39,25 @@ module.exports = {
     }),
   editUser: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.CLIENT_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data.userid),
+      db.get()
+        .collection(collection.CLIENT_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data.userid),
+          },
+          {
+            $set: {
+              email: data.email,
+              phone: data.phone,
             },
-            {
-              $set: {
-                email: data.email,
-                phone: data.phone,
-              },
-            }
-          )
-          .then(() => {
-            resolve();
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
     }),
 
   // give trainer details for approvel so this retuns only penging list
@@ -115,232 +115,199 @@ module.exports = {
     }),
   rejectTrainer: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.TRAINER_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data),
+      db.get()
+        .collection(collection.TRAINER_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data),
+          },
+          {
+            $set: {
+              status: 'Reject',
             },
-            {
-              $set: {
-                status: 'Reject',
-              },
-            }
-          )
-          .then(async () => {
-            const details = await db
-              .get()
-              .collection(collection.TRAINER_COLLECTION)
-              .find({ _id: ObjectId(data) })
-              .toArray();
-            resolve(details);
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(async () => {
+          const details = await db
+            .get()
+            .collection(collection.TRAINER_COLLECTION)
+            .find({ _id: ObjectId(data) })
+            .toArray();
+          resolve(details);
+        })
+        .catch(() => {
+          reject();
+        });
     }),
   approvelTrainer: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.TRAINER_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data),
+      db.get()
+        .collection(collection.TRAINER_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data),
+          },
+          {
+            $set: {
+              status: 'Verified',
             },
-            {
-              $set: {
-                status: 'Verified',
-              },
-            }
-          )
-          .then(async () => {
-            const details = await db
-              .get()
-              .collection(collection.TRAINER_COLLECTION)
-              .find({ _id: ObjectId(data) })
-              .toArray();
-            resolve(details);
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(async () => {
+          const details = await db
+            .get()
+            .collection(collection.TRAINER_COLLECTION)
+            .find({ _id: ObjectId(data) })
+            .toArray();
+          resolve(details);
+        })
+        .catch(() => {
+          reject();
+        });
     }),
   unBlockTrainer: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.TRAINER_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data),
+      db.get()
+        .collection(collection.TRAINER_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data),
+          },
+          {
+            $set: {
+              block: false,
             },
-            {
-              $set: {
-                block: false,
-              },
-            }
-          )
-          .then(async () => {
-            const details = await db
-              .get()
-              .collection(collection.TRAINER_COLLECTION)
-              .find({ $or: [{ status: 'Active PT' }, { status: 'Verified' }] })
-              .toArray();
-            resolve(details);
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(async () => {
+          const details = await db
+            .get()
+            .collection(collection.TRAINER_COLLECTION)
+            .find({ $or: [{ status: 'Active PT' }, { status: 'Verified' }] })
+            .toArray();
+          resolve(details);
+        })
+        .catch(() => {
+          reject();
+        });
     }),
   blockTrainer: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.TRAINER_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data),
+      db.get()
+        .collection(collection.TRAINER_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data),
+          },
+          {
+            $set: {
+              block: true,
             },
-            {
-              $set: {
-                block: true,
-              },
-            }
-          )
-          .then(async () => {
-            const details = await db
-              .get()
-              .collection(collection.TRAINER_COLLECTION)
-              .find({ $or: [{ status: 'Active PT' }, { status: 'Verified' }] })
-              .toArray();
-            resolve(details);
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(async () => {
+          const details = await db
+            .get()
+            .collection(collection.TRAINER_COLLECTION)
+            .find({ $or: [{ status: 'Active PT' }, { status: 'Verified' }] })
+            .toArray();
+          resolve(details);
+        })
+        .catch(() => {
+          reject();
+        });
     }),
   unBlockUser: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.CLIENT_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data),
+      db.get()
+        .collection(collection.CLIENT_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data),
+          },
+          {
+            $set: {
+              block: false,
             },
-            {
-              $set: {
-                block: false,
-              },
-            }
-          )
-          .then(async () => {
-            const details = await db
-              .get()
-              .collection(collection.CLIENT_COLLECTION)
-              .find()
-              .toArray();
-            resolve(details);
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(async () => {
+          const details = await db
+            .get()
+            .collection(collection.CLIENT_COLLECTION)
+            .find()
+            .toArray();
+          resolve(details);
+        })
+        .catch(() => {
+          reject();
+        });
     }),
   blockUser: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.CLIENT_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data),
+      db.get()
+        .collection(collection.CLIENT_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data),
+          },
+          {
+            $set: {
+              block: true,
             },
-            {
-              $set: {
-                block: true,
-              },
-            }
-          )
-          .then(async () => {
-            const details = await db
-              .get()
-              .collection(collection.CLIENT_COLLECTION)
-              .find()
-              .toArray();
-            resolve(details);
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(async () => {
+          const details = await db
+            .get()
+            .collection(collection.CLIENT_COLLECTION)
+            .find()
+            .toArray();
+          resolve(details);
+        })
+        .catch(() => {
+          reject();
+        });
     }),
   addPlan: (data) =>
-    new Promise(async (resolve, reject) => {
-      try {
-        const d = data;
-        d.remove = false;
-        db.get()
-          .collection(collection.PACKAGE_COLLECTION)
-          .insertOne(d)
-          .then((res) => {
-            console.log(res);
-            resolve();
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      } catch (error) {
-        console.log(error);
-      }
+    new Promise((resolve, reject) => {
+      const d = data;
+      d.remove = false;
+      db.get()
+        .collection(collection.PACKAGE_COLLECTION)
+        .insertOne(d)
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
     }),
 
   removePackage: (data) =>
     new Promise((resolve, reject) => {
-      try {
-        db.get()
-          .collection(collection.PACKAGE_COLLECTION)
-          .updateOne(
-            {
-              _id: ObjectId(data),
+      db.get()
+        .collection(collection.PACKAGE_COLLECTION)
+        .updateOne(
+          {
+            _id: ObjectId(data),
+          },
+          {
+            $set: {
+              remove: true,
             },
-            {
-              $set: {
-                remove: true,
-              },
-            }
-          )
-          .then(async () => {
-            const details = await db
-              .get()
-              .collection(collection.PACKAGE_COLLECTION)
-              .find({ remove: false })
-              .toArray();
-            resolve(details);
-          })
-          .catch(() => {
-            reject();
-          });
-      } catch (error) {
-        console.log(error);
-      }
+          }
+        )
+        .then(async () => {
+          const details = await db
+            .get()
+            .collection(collection.PACKAGE_COLLECTION)
+            .find({ remove: false })
+            .toArray();
+          resolve(details);
+        })
+        .catch(() => {
+          reject();
+        });
     }),
 };
