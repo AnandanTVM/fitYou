@@ -17,7 +17,7 @@ function TrainerHome() {
       if (!user) {
         localStorage.removeItem('trainertoken');
         navigate('/trainerLogin');
-      } else if(user.status==='Veifiyed'){
+      } else if(user.status==='Verified'){
         setVerified(true)
       }
     } else {

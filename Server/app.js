@@ -49,7 +49,7 @@ db.connect((err) => {
   else console.log('Datebase Connected to port 27017');
 });
 
-const server = app.listen(3001, () => {
+const server = app.listen(process.env.PORT, () => {
   console.log('sever started running on localhost:3001');
 });
 // eslint-disable-next-line import/order

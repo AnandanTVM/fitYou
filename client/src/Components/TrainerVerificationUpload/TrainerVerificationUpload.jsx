@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { clearTrainerLoginDetails } from '../../redux/adminReducer';
 import { trainerDetailsUpdate } from '../../axios/serives/TrainerServices';
 import { useNavigate } from 'react-router-dom';
+import { getClientDetails } from '../../redux/trainerReducer';
 function TrainerVerificationUpload() {
   const dispatch = useDispatch();
   const [image1, setImage1] = useState();
@@ -17,6 +18,7 @@ function TrainerVerificationUpload() {
   const [error, setError] = useState('');
   const [loading, setLoding] = useState(false);
   const navigate = useNavigate();
+
   const onSubmit = async (values, actions) => {
     setLoding(true);
 
@@ -93,6 +95,13 @@ function TrainerVerificationUpload() {
     validationSchema: trainerBaseSchema,
     onSubmit,
   });
+  const logout = () => {
+    localStorage.removeItem('trainertoken');
+    localStorage.removeItem('trainerDetails');
+    dispatch(clearTrainerLoginDetails());
+    dispatch(getClientDetails(false));
+    navigate('/trainerLogin');
+  };
   return (
     <div>
       {loading ? (
@@ -107,11 +116,18 @@ function TrainerVerificationUpload() {
                 <div
                   className="card shadow-2-strong card-registration"
                   style={{ borderRadius: '15px' }}
-                >
+                ><div className=' ms-5 mt-5 me-5'><button 
+                        className="navbtn btn btn-primary btn-md"
+                        onClick={logout}
+                      >
+                        LogOut
+                      </button></div>
                   <div className="card-body p-4 p-md-5">
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">
                       Upload Your Details
                     </h3>
+                    
+                    
                     <h6>
                       Dreaer Trainer Plase upload your Photo and aadhar card to
                       be a Active PT
@@ -330,6 +346,7 @@ function TrainerVerificationUpload() {
                           value="Upload"
                         />
                       </div>
+                      
                     </form>
                   </div>
                 </div>

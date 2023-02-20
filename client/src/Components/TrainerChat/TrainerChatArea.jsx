@@ -11,7 +11,7 @@ import io from 'socket.io-client';
 import { format } from 'timeago.js';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
-const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = `${process.env.REACT_APP_END_POINT}`;
 
 function TrainerChatArea() {
   const { clientDetails } = useSelector((state) => state.trainer);

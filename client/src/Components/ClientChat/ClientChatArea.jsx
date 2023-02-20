@@ -11,7 +11,7 @@ import jwt from 'jwt-decode';
 import io from 'socket.io-client';
 import './ClientChat.css';
 import { useNavigate } from 'react-router-dom';
-const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = `${process.env.REACT_APP_END_POINT}`;
 function ClientChatArea() {
   const { TrainerDetails } = useSelector((state) => state.client);
   const navigate = useNavigate();
@@ -98,7 +98,7 @@ function ClientChatArea() {
 
             <div
               className="rapper"
-              //  style={{ marginBottom: '5rem ' }}
+            //  style={{ marginBottom: '5rem ' }}
             >
               {chat ? (
                 chat.map((data, index) => {

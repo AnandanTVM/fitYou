@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 export const axiosHomeInstance = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: `${process.env.REACT_APP_HOME_URL}`,
 });
 export const axiosClientInstance = axios.create({
-  baseURL: 'http://localhost:3001/api/client',
+  baseURL: `${process.env.REACT_APP_CLIENT_URL}`,
 });
 export const axiosAdminInstance = axios.create({
-  baseURL: 'http://localhost:3001/api/admin',
+  baseURL: `${process.env.REACT_APP_ADMIN_URL}`,
 });
 export const axiosTrainerInstance = axios.create({
-  baseURL: 'http://localhost:3001/api/trainer',
+  baseURL: `${process.env.REACT_APP_TRAINER_URL}`,
 });

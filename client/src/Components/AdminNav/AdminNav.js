@@ -14,6 +14,7 @@ function AdminNav(props) {
     localStorage.removeItem('adminDetails');
     dispatch(clearAdminLoginDetails());
   };
+ 
   return (
     <div>
       <div>
