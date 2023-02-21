@@ -9,6 +9,7 @@ const clientLogin = AsyncHandler(async (req, res) => {
     if (response.status) {
       const token = jwt.sign(
         {
+          // eslint-disable-next-line no-underscore-dangle
           userId: response.user._id,
           name: response.user.fname,
           email: response.user.email,
@@ -137,7 +138,7 @@ const placeOdder = AsyncHandler(async (req, res) => {
       res.json({ status: false, message: 'ERROR' });
       break;
   }
-
+  console.log(data);
   clientHelpers
     .placeOdder(data)
     .then((id) => {

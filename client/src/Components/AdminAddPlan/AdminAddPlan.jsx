@@ -88,9 +88,7 @@ function AdminAddPlan() {
                             onBlur={handleBlur}
                             className="select form-control-lg"
                           >
-                            <option value="" disabled>
-                              Choose option
-                            </option>
+                            <option>Choose option</option>
                             <option value="1 Month">1 Month</option>
                             <option value="2 Month">2 Month</option>
                             <option value="3 Month">3 Month</option>
@@ -104,14 +102,6 @@ function AdminAddPlan() {
                             <option value="11 Month">11 Month</option>
                             <option value="12 Month">12 Month</option>
                           </select>
-
-                          {/* <label className="form-label select-label">
-                            {errors.validFor && touched.validFor && (
-                              <p className="red-error me-1">
-                                {errors.validFor}
-                              </p>
-                            )}
-                          </label> */}
                         </div>
                       </div>
                     </div>
