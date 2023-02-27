@@ -78,7 +78,7 @@ function App() {
         />
         <Route path="/trainer/Chat" element={<Tchat />} />
         <Route path="/videoChat" element={<ClientVideoChat />} />
-        <Route path="/trainer/videoChat" element={<TrainerVideoChat />} />
+        <Route path="/trainer/videoChat/:roomId" element={<TrainerVideoChat />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

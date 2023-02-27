@@ -8,7 +8,7 @@ import TrainerChatArea from './TrainerChatArea';
 import jwt from 'jwt-decode';
 import io from 'socket.io-client';
 import { useRef } from 'react';
-const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = process.env.REACT_APP_END_POINT;
 function TrainerChat() {
   const dispatch = useDispatch();
   const [clientDetails, SetClientDetails] = useState('');
