@@ -220,7 +220,9 @@ function TrainerChatArea() {
                       }
                     ).then((value) => {
                       if (value) {
-                        navigate('/trainer/videoChat');
+                        navigate(
+                          `/trainer/videoChat/${clientDetails.fname}${clientDetails._id}`
+                        );
                       }
                     });
                   }}

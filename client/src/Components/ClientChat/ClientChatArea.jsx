@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 const ENDPOINT = `${process.env.REACT_APP_END_POINT}`;
 function ClientChatArea() {
   const { TrainerDetails } = useSelector((state) => state.client);
+  const { clientDetails } = useSelector((state) => state.admin);
   const navigate = useNavigate();
   const [chatDataFrom, setChatDataFrom] = useState('');
   const [chat, setChat] = useState('');
@@ -98,7 +99,7 @@ function ClientChatArea() {
 
             <div
               className="rapper"
-            //  style={{ marginBottom: '5rem ' }}
+              //  style={{ marginBottom: '5rem ' }}
             >
               {chat ? (
                 chat.map((data, index) => {
@@ -204,7 +205,9 @@ function ClientChatArea() {
                 <button
                   className="detail-button"
                   onClick={(e) => {
-                    navigate('/videoChat');
+                    navigate(
+                      `/videoChat/${clientDetails.name + clientDetails.userId}`
+                    );
                   }}
                 >
                   <svg
