@@ -15,7 +15,7 @@ function VideoChat(props) {
         serverSecret,
         roomId,
         Date.now().toString(),
-        'Trainer'
+        `${props.name} (Trainer )`
       );
       console.log(appID);
       const zc = ZegoUIKitPrebuilt.create(kitToken);
@@ -43,7 +43,7 @@ function VideoChat(props) {
         serverSecret,
         roomId,
         Date.now().toString(),
-        'Client'
+        `${props.name}`
       );
       console.log(appID);
       const zc = ZegoUIKitPrebuilt.create(kitToken);

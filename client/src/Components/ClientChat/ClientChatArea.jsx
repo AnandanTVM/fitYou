@@ -8,6 +8,7 @@ import {
   sendChatMessage,
 } from '../../axios/serives/UserServices';
 import jwt from 'jwt-decode';
+import swal from 'sweetalert';
 import io from 'socket.io-client';
 import './ClientChat.css';
 import { useNavigate } from 'react-router-dom';
@@ -93,7 +94,17 @@ function ClientChatArea() {
                 {' '}
                 {TrainerDetails.fname} {TrainerDetails.lname}
               </div>
-              <div className="chat-area-group"></div>
+              <div className="chat-area-group">
+                <h3
+                  onClick={(e) => {
+                    navigate(
+                      `/videoChat/${clientDetails.name + clientDetails.userId}`
+                    );
+                  }}
+                >
+                  📹
+                </h3>
+              </div>
             </div>
             {/* chat Start */}
 
@@ -205,9 +216,20 @@ function ClientChatArea() {
                 <button
                   className="detail-button"
                   onClick={(e) => {
-                    navigate(
-                      `/videoChat/${clientDetails.name + clientDetails.userId}`
-                    );
+                    swal(
+                      `Do you want to make a video call with ${TrainerDetails.fname} ${TrainerDetails.lname} ?`,
+                      {
+                        buttons: ['Oh noez!', 'Call'],
+                      }
+                    ).then((value) => {
+                      if (value) {
+                        navigate(
+                          `/videoChat/${
+                            clientDetails.name + clientDetails.userId
+                          }`
+                        );
+                      }
+                    });
                   }}
                 >
                   <svg

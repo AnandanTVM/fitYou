@@ -102,7 +102,17 @@ function TrainerChatArea() {
                 {' '}
                 {clientDetails.fname} {clientDetails.lname}
               </div>
-              <div className="chat-area-group"></div>
+              <div className="chat-area-group">
+                <h3
+                  onClick={(e) => {
+                    navigate(
+                      `/trainer/videoChat/${clientDetails.fname}${clientDetails._id}`
+                    );
+                  }}
+                >
+                  📹
+                </h3>
+              </div>
             </div>
             {/* chat Start */}
             <div
