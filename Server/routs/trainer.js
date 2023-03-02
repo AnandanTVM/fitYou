@@ -10,7 +10,7 @@ router.post('/trainerLogin', trainerControllers.trainerLogin);
 router.post('/trainerSendOtp', trainerControllers.SendOtp);
 router.post('/trainerVerifyOtp', trainerControllers.verifiyOtp);
 
-// router.get('/getuserDetails/:id', auth.Trainerprotect);
+router.get('/profile', auth.Trainerprotect, trainerControllers.profile);
 
 router.post(
   '/uploadVideo',

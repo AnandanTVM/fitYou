@@ -270,4 +270,20 @@ module.exports = {
         reject(error);
       }
     }),
+  profile: (id) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const data = await db
+          .get()
+          .collection(collection.TRAINER_COLLECTION)
+          .aggregate([
+            { $match: { _id: id } },
+            { $project: { password: 0, date: 0, block: 0, otp: 0, link: 0 } },
+          ])
+          .toArray();
+        resolve(data);
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };

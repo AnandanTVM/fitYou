@@ -128,7 +128,13 @@ const sendMessage = AsyncHandler((req, res) => {
     .then(() => res.json({ status: true, message: 'successfull' }))
     .catch((err) => res.json({ status: false, message: err }));
 });
-
+const profile = AsyncHandler((req, res) => {
+  trainerHelpers
+    // eslint-disable-next-line no-underscore-dangle
+    .profile(req.user._id)
+    .then((details) => res.json({ status: true, responce: details }))
+    .catch((err) => res.json({ status: false, message: err.message }));
+});
 // exports
 module.exports = {
   trainerLogin,
@@ -140,4 +146,5 @@ module.exports = {
   getClientDetails,
   getMessage,
   sendMessage,
+  profile,
 };
