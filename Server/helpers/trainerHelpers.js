@@ -115,6 +115,19 @@ module.exports = {
     }),
   trainerDetailsUpdate: (details, id) =>
     new Promise((resolve, reject) => {
+      const timeslot = [
+        { time: '5 am', userId: false },
+        { time: '6 am', userId: false },
+        { time: '7 am', userId: false },
+        { time: '8 am', userId: false },
+        { time: '4 pm', userId: false },
+        { time: '5 pm', userId: false },
+        { time: '6 pm', userId: false },
+        { time: '7 pm', userId: false },
+        { time: '8 pm', userId: false },
+        { time: '9 pm', userId: false },
+        { time: '10 pm', userId: false },
+      ];
       db.get()
         .collection(collection.TRAINER_COLLECTION)
         .updateOne(
@@ -127,6 +140,8 @@ module.exports = {
               aadharNumber: details.aadharNumber,
               aadharFront: details.aadharFront,
               aadharBack: details.aadharBack,
+              timeslot: timeslot,
+              block: false,
             },
           }
         )

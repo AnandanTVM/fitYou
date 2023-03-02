@@ -296,7 +296,7 @@ module.exports = {
           .collection(collection.TRAINER_COLLECTION)
           .find({ $and: [{ status: 'Active PT' }, { block: false }] })
           .toArray();
-        console.log(details);
+
         resolve(details);
       } catch (err) {
         reject();
