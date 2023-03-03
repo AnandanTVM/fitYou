@@ -92,8 +92,8 @@ export const getAllMessage = async (token, ClId) => {
       `/getMessage/${ClId}`,
       config
     );
-console.log('all message');
-console.log(data);
+    console.log('all message');
+    console.log(data);
     return data;
   } catch (err) {
     console.log(err);
@@ -102,7 +102,6 @@ console.log(data);
 };
 export const sendMessage = async (token, ClId, values) => {
   try {
-
     const config = {
       headers: {
         Authorization: 'Bearer ' + token,
@@ -119,7 +118,25 @@ export const sendMessage = async (token, ClId, values) => {
     return data;
   } catch (err) {
     console.log('on error');
-    
+
+    return err;
+  }
+};
+export const trainerProfile = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axiosTrainerInstance.get('/profile', config);
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log('on error');
+
     return err;
   }
 };

@@ -17,6 +17,7 @@ export { default as AdminAddPlan } from './AdminAddPlan/AdminAddPlan';
 export { default as AdminManagePlan } from './AdminManagePlan/AdminManagePlan';
 export { default as TrainerNav } from './TrainerNav/TrainerNav';
 export { default as Plans } from './Plans/Plans';
+export { default as TrainerProf } from './TrainerProfile/TrainerProfile';
 export { default as ClientProfile } from './ClientProfile/ClientProfile';
 export { default as Loading } from './loading/loading';
 export { default as FreeVideos } from './FreeVideos/FreeVideos';

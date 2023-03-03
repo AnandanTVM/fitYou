@@ -115,7 +115,6 @@ const getMessage = AsyncHandler((req, res) => {
       })
     )
     .catch((err) => {
-      console.log(err);
       res.json({ status: false, message: err });
     });
 });

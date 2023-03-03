@@ -33,6 +33,7 @@ import {
   ClientChat,
   TrainerVideoChat,
   ClientVideoChat,
+  Tprofile,
 } from './Pages';
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
           path="/trainer/clientDetails"
           element={<TrainerClientDetails />}
         />
+        <Route path="/trainer/profile" element={<Tprofile />} />
         <Route
           path="/trainer/clientDetails/view/:id"
           element={<TrainerViewClientDetails />}

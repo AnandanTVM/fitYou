@@ -99,12 +99,12 @@ function TrainerNav(props) {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Profile
+                   {userName ? userName : 'Profile'}
                   </Link>
                 ) : (
                   <Link
                     className="nav-link dropdown-toggle"
-                    to="/signup"
+                    to="/trainer"
                     id="navbarDropdown"
                     role="button"
                     data-bs-toggle="dropdown"
@@ -115,15 +115,15 @@ function TrainerNav(props) {
                 )}
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    <Link className="dropdown-item" to="/signup">
+                    <Link className="dropdown-item" to="/trainer/profile">
                       Personal Info
                     </Link>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
-                  </li>{' '}
+                  </li>
                   <li>
-                    <Link className="dropdown-item" to="/trainerSignup">
+                    <Link className="dropdown-item" to="/trainer">
                       Payments
                     </Link>
                   </li>

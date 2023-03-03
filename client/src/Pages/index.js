@@ -16,6 +16,7 @@ export { default as AdminNewPackages } from './AdminNewPackages';
 export { default as AdminManagePackage } from './AdminManagePackage';
 export { default as Trainer } from './TrainerHome';
 export { default as Tchat } from './Tchat';
+export { default as Tprofile } from './TrainerProfaile';
 export { default as ClientPlan } from './ClientPlanView';
 export { default as Profile } from './Profile';
 export { default as TrainerVideoUpload } from './TrainerVideoUpload';
