@@ -12,46 +12,44 @@ const clientSignup = AsyncHandler(async (req, res) => {
     .doClientSignup(data)
     .then((response) => {
       if (response.phoneFound) {
-        res.json({ status: 'error', error: 'Duplicate Phone number' });
+        res
+          .status(409)
+          .json({ status: 'error', error: 'Duplicate Phone number' });
       } else {
         res.json({ status: 'success' });
       }
     })
     .catch((err) => {
-      console.log(err);
+      throw new Error(err);
     });
 });
 
-const trainerSignup = AsyncHandler(async (req, res) => {
+const trainerSignup = AsyncHandler((req, res) => {
   const data = req.body;
   const ytUrl = data.link;
   data.link = ytUrl.replace('/watch?v=', '/embed/');
+  data.block = false;
+  data.date = new Date();
+  data.status = 'Pending';
   homeHelper
     .dotrainerSignup(data)
-    .then((response) => {
-      if (response.phoneFound) {
-        res.json({ status: 'error', error: 'Duplicate Phone number' });
-      } else {
-        res.json({ status: 'success' });
-      }
+    .then(() => {
+      res.json({ status: 'success' });
     })
     .catch((err) => {
-      console.log(err);
+      res
+        .status(409)
+        .json({ status: 'error', error: 'Duplicate Phone number', stack: err });
     });
 });
-const viewAllPlan = AsyncHandler(async (req, res) => {
+const viewAllPlan = AsyncHandler((req, res) => {
   homeHelper
     .viewAllPlan()
     .then((response) => {
-      if (response) {
-        console.log(response);
-        res.json({ status: 'success', plan: response });
-      } else {
-        res.json({ Plan: 'error', error: 'Duplicate Phone number' });
-      }
+      res.json({ status: 'success', response: response });
     })
     .catch((err) => {
-      console.log(err);
+      throw new Error(err);
     });
 });
 

@@ -5,68 +5,58 @@ const collection = require('../config/collection');
 const db = require('../config/connection');
 
 module.exports = {
-  doClientSignup: async (data) =>
-    new Promise(async (resolve, reject) => {
-      const extphone = await db
-        .get()
+  doClientSignup: (data) =>
+    new Promise((resolve, reject) => {
+      // eslint-disable-next-line prefer-const
+      let details = data;
+      details.block = false;
+      db.get()
         .collection(collection.CLIENT_COLLECTION)
-        .findOne({ phone: data.phone });
-
-      if (extphone == null) {
-        return new Promise(async (resolve, reject) => {
-          data.password = await bcrypt.hash(data.password, 10);
-          db.get()
-            .collection(collection.CLIENT_COLLECTION)
-            .insertOne(data)
-            .then((data) => {
-              resolve(data);
-            })
-            .catch((error) => {
-              reject(error);
-            });
-        })
-          .then((data) => {
-            resolve(data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      } else {
-        resolve({ phoneFound: true });
-      }
+        .findOne({ phone: details.phone })
+        .then(async (extphone) => {
+          if (extphone == null) {
+            details.password = await bcrypt.hash(details.password, 10);
+            db.get()
+              .collection(collection.CLIENT_COLLECTION)
+              .insertOne(details)
+              .then(() => {
+                resolve({ phoneFound: false });
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          } else {
+            resolve({ phoneFound: true });
+          }
+        });
     }),
 
-  dotrainerSignup: async (data) =>
-    new Promise(async (resolve, reject) => {
-      const extphone = await db
-        .get()
+  dotrainerSignup: (data) =>
+    new Promise((resolve, reject) => {
+      // const extphone = await
+      let details = data;
+      db.get()
         .collection(collection.TRAINER_COLLECTION)
-        .findOne({ phone: data.phone });
-
-      if (extphone == null) {
-        return new Promise(async (resolve, reject) => {
-          data.password = await bcrypt.hash(data.password, 10);
-          data.date = new Date();
-          data.status = 'Pending';
-          db.get()
-            .collection(collection.TRAINER_COLLECTION)
-            .insertOne(data)
-            .then((data) => {
-              resolve(data);
-            })
-            .catch((error) => {
-              reject(error);
-            });
+        .findOne({ phone: details.phone })
+        .then(async (extphone) => {
+          if (extphone == null) {
+            details.password = await bcrypt.hash(details.password, 10);
+            db.get()
+              .collection(collection.TRAINER_COLLECTION)
+              .insertOne(details)
+              .then(() => {
+                resolve();
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          } else {
+            reject();
+          }
         })
-          .then((data) => {
-            resolve(data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      } else {
-        resolve({ phoneFound: true });
-      }
+        .catch((err) => {
+          reject(err);
+        });
     }),
 
   viewAllPlan: async () =>

@@ -286,4 +286,20 @@ module.exports = {
         reject(error);
       }
     }),
+  getTrainerVideo: (id) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const data = await db
+          .get()
+          .collection(collection.VIDEO_COLLECTION)
+          .aggregate([
+            { $match: { creatorId: id.toString() } },
+            // { $project: { password: 0, date: 0, block: 0, otp: 0, link: 0 } },
+          ])
+          .toArray();
+        resolve(data);
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };
