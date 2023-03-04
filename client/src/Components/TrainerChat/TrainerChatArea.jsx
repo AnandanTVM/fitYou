@@ -198,7 +198,13 @@ function TrainerChatArea() {
                 src="https://img.icons8.com/fluency/48/null/sent.png"
                 alt="Send"
                 title="Send Message"
-                onClick={SendMessage}
+                onClick={((e)=>{
+                  if(message===''){
+
+                  }else{
+                    SendMessage()
+                  }
+                })}
               />
             </div>
           </div>
