@@ -110,7 +110,7 @@ function ClientChatArea() {
 
             <div
               className="rapper"
-              //  style={{ marginBottom: '5rem ' }}
+            //  style={{ marginBottom: '5rem ' }}
             >
               {chat ? (
                 chat.map((data, index) => {
@@ -191,7 +191,13 @@ function ClientChatArea() {
                 src="https://img.icons8.com/fluency/48/null/sent.png"
                 alt="Send"
                 title="Send Message"
-                onClick={SendMessage}
+                onClick={((e) => {
+                  if (message === '') {
+
+                  } else {
+                    SendMessage()
+                  }
+                })}
               />
             </div>
           </div>
@@ -224,8 +230,7 @@ function ClientChatArea() {
                     ).then((value) => {
                       if (value) {
                         navigate(
-                          `/videoChat/${
-                            clientDetails.name + clientDetails.userId
+                          `/videoChat/${clientDetails.name + clientDetails.userId
                           }`
                         );
                       }

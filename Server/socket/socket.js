@@ -25,10 +25,12 @@ module.exports = {
     // send and get message
     socket.on('sendMessage', ({ senderId, receverId, text }) => {
       const user = getUser(receverId);
-      socket.to(user.socketId).emit('getMessage', {
-        senderId,
-        text,
-      });
+      if (user) {
+        socket.to(user.socketId).emit('getMessage', {
+          senderId,
+          text,
+        });
+      }
     });
 
     // when disconnect

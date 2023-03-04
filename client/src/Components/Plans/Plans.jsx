@@ -16,8 +16,8 @@ function Plans() {
     fatch();
     async function fatch() {
       const Packages = await viewAllPlan();
-      console.log(Packages.plan);
-      setPlan(Packages.plan);
+
+      setPlan(Packages.response);
     }
   }, []);
 
@@ -34,88 +34,88 @@ function Plans() {
             <div className="row">
               {plan
                 ? plan.map((data, index) => {
-                    return (
-                      <div key={index} className="col-lg-4 mt-3">
-                        <div className="card mb-5 mb-lg-0">
-                          <div className="card-body">
-                            <h5 className="card-title  text-uppercase text-center planOrangeColor packageDisappear ">
-                              {data.packageType}
+                  return (
+                    <div key={index} className="col-lg-4 mt-3">
+                      <div className="card mb-5 mb-lg-0">
+                        <div className="card-body">
+                          <h5 className="card-title  text-uppercase text-center planOrangeColor packageDisappear ">
+                            {data.packageType}
+                          </h5>
+                          <h5 className="card-title  text-uppercase text-center planOrangeColor planDisappear">
+                            {data.PackageName}
+                          </h5>
+                          <h6 className="card-price text-center">
+                            ₹{data.offerRate}/-
+                            <span className="period">
+                              <strike className="planOrangeColor">
+                                {' '}
+                                ₹{data.mrp}/-{' '}
+                              </strike>
+                            </span>
+                          </h6>
+                          <div className="planDisappear">
+                            <h5 className="card-title  text-uppercase text-center ">
+                              {data.validfor}
                             </h5>
-                            <h5 className="card-title  text-uppercase text-center planOrangeColor planDisappear">
-                              {data.PackageName}
-                            </h5>
-                            <h6 className="card-price text-center">
-                              ₹{data.offerRate}/-
-                              <span className="period">
-                                <strike className="planOrangeColor">
-                                  {' '}
-                                  ₹{data.mrp}/-{' '}
-                                </strike>
+                          </div>
+                          <hr />
+                          <ul className="fa-ul">
+                            <li>
+                              <span className="fa-li">
+                                <i className="fas fa-check"></i>
                               </span>
-                            </h6>
-                            <div className="planDisappear">
-                              <h5 className="card-title  text-uppercase text-center ">
-                                {data.validfor}
-                              </h5>
-                            </div>
-                            <hr />
-                            <ul className="fa-ul">
-                              <li>
-                                <span className="fa-li">
-                                  <i className="fas fa-check"></i>
-                                </span>
-                                Pro Gyms Tips &nbsp; : &nbsp; {data.proGymsTips}
-                              </li>
-                              <li>
-                                <span className="fa-li">
-                                  <i className="fas fa-check"></i>
-                                </span>
-                                Group Workouts &nbsp; : &nbsp;{' '}
-                                {data.groupWorkouts}
-                              </li>
-                              <li>
-                                <span className="fa-li">
-                                  <i className="fas fa-check"></i>
-                                </span>
-                                Perstional Trainer &nbsp; : &nbsp;{' '}
-                                {data.perstionalTrainer}
-                              </li>
-                              <li>
-                                <span className="fa-li">
-                                  <i className="fas fa-check"></i>
-                                </span>
-                                Smart Workout Plan &nbsp; : &nbsp;{' '}
-                                {data.smartWorkoutPlan}
-                              </li>
-                              <li className="text-muted">
-                                <span className="fa-li">
-                                  <i className="fas fa-times"></i>
-                                </span>
-                                {data.discretion}
-                              </li>
-                            </ul>
-                            <div className="d-grid">
-                              {buynow ? (
-                                <Link
-                                  to="/login"
-                                  className="btn btn-primary text-uppercase"
-                                >
-                                  Buy Now
-                                </Link>
-                              ) : (
-                                <Link
-                                  to={`/plan/buynow/${data._id}`}
-                                  className="btn btn-primary text-uppercase"
-                                >
-                                  Buy Now
-                                </Link>
-                              )}
-                            </div>
+                              Pro Gyms Tips &nbsp; : &nbsp; {data.proGymsTips}
+                            </li>
+                            <li>
+                              <span className="fa-li">
+                                <i className="fas fa-check"></i>
+                              </span>
+                              Group Workouts &nbsp; : &nbsp;{' '}
+                              {data.groupWorkouts}
+                            </li>
+                            <li>
+                              <span className="fa-li">
+                                <i className="fas fa-check"></i>
+                              </span>
+                              Perstional Trainer &nbsp; : &nbsp;{' '}
+                              {data.perstionalTrainer}
+                            </li>
+                            <li>
+                              <span className="fa-li">
+                                <i className="fas fa-check"></i>
+                              </span>
+                              Smart Workout Plan &nbsp; : &nbsp;{' '}
+                              {data.smartWorkoutPlan}
+                            </li>
+                            <li className="text-muted">
+                              <span className="fa-li">
+                                <i className="fas fa-times"></i>
+                              </span>
+                              {data.discretion}
+                            </li>
+                          </ul>
+                          <div className="d-grid">
+                            {buynow ? (
+                              <Link
+                                to="/login"
+                                className="btn btn-primary text-uppercase"
+                              >
+                                Buy Now
+                              </Link>
+                            ) : (
+                              <Link
+                                to={`/plan/buynow/${data._id}`}
+                                className="btn btn-primary text-uppercase"
+                              >
+                                Buy Now
+                              </Link>
+                            )}
                           </div>
                         </div>
                       </div>
-                    );
-                  })
+                    </div>
+                  );
+                })
                 : ''}
             </div>
           </div>
