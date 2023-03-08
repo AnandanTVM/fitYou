@@ -1,3 +1,5 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-underscore-dangle */
 const AsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 
@@ -228,6 +230,21 @@ const getMessage = AsyncHandler(async (req, res) => {
       res.json({ status: false, message: err });
     });
 });
+const slotBookControl = AsyncHandler((req, res) => {
+  const values = {
+    userId: req.user._id,
+    trainerId: req.params.tId,
+    index: req.body.index,
+  };
+  if (values.index > 10) {
+    res.status(422).json({ status: false, Message: 'Invalid Index' });
+  } else {
+    clientHelpers
+      .BookSlot(values)
+      .then((responce) => res.json({ status: true, responce: responce }))
+      .catch((err) => res.json({ status: false, Message: err.message }));
+  }
+});
 // exports
 module.exports = {
   clientLogin,
@@ -244,4 +261,5 @@ module.exports = {
   sendMessage,
   gettrainerDetails,
   getMessage,
+  slotBookControl,
 };

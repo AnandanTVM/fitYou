@@ -1,1 +1,9 @@
 @media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }
+
+.slot{
+    background-color: aliceblue;
+    color: black;
+    border: 5px;
+    border-color: black;
+    box-shadow :1px;
+}

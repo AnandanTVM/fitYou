@@ -51,4 +51,10 @@ router.post(
   auth.Clientprotect,
   clientControllers.sendMessage
 );
+router.put(
+  '/slotBook/:tId',
+  auth.Clientprotect,
+  clientControllers.slotBookControl
+);
+
 module.exports = router;

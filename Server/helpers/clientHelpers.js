@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 const bcrypt = require('bcrypt');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
@@ -205,6 +206,7 @@ module.exports = {
       }
     }),
   getClientPlan: (id) =>
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
       try {
         const details = await db
@@ -289,6 +291,7 @@ module.exports = {
       }
     }),
   allTrainerDetails: () =>
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
       try {
         const details = await db
@@ -303,6 +306,7 @@ module.exports = {
       }
     }),
   gettrainerDetails: (id) =>
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
       try {
         const details = await db
@@ -345,6 +349,52 @@ module.exports = {
         resolve(details);
       } catch (error) {
         reject(error);
+      }
+    }),
+  BookSlot: (values) =>
+    // eslint-disable-next-line no-async-promise-executor
+    new Promise(async (resolve, reject) => {
+      const details = await db
+        .get()
+        .collection(collection.TRAINER_COLLECTION)
+        .aggregate([
+          { $match: { _id: ObjectId(values.trainerId) } },
+          { $project: { timeslot: 1, _id: 0 } },
+        ])
+        .toArray();
+      // resolve(details[0].timeslot);
+      const times = details[0].timeslot;
+      let isPresent = false;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < times.length; i++) {
+        if (times[i].userId.toString() === values.userId.toString()) {
+          isPresent = i;
+          break;
+        }
+      }
+      if (isPresent) {
+        db.get()
+          .collection(collection.TRAINER_COLLECTION)
+          .updateOne(
+            { _id: ObjectId(values.trainerId) },
+            {
+              $set: {
+                [`timeslot.${values.index}.userId`]: values.userId,
+                [`timeslot.${isPresent}.userId`]: false,
+              },
+            }
+          )
+          .then(() => resolve())
+          .catch((err) => reject(err));
+      } else {
+        db.get()
+          .collection(collection.TRAINER_COLLECTION)
+          .updateOne(
+            { _id: ObjectId(values.trainerId) },
+            { $set: { [`timeslot.${values.index}.userId`]: values.userId } }
+          )
+          .then(() => resolve())
+          .catch((err) => reject(err));
       }
     }),
 };

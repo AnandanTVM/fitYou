@@ -79,6 +79,18 @@ function ClientSelectTrainer() {
                                   {data.status}
                                 </span>
                               </div>
+                              <h4 className="mb-1 me-1">Avalable Slot</h4>
+                              <div className="row">
+                                {data?.timeslot?.map((time, index) => {
+                                  return (
+                                    <div className=" col-lg-2 mt-3 py-2 ms-3 me-3">
+                                      <button className="btn btn-primary">
+                                        {time.time}
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
                               {/* <p className="text-truncate mb-4 mb-md-0">
                                 There are many variations of passages of Lorem
                                 Ipsum available, but the majority have suffered
