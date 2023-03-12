@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 
 const app = express();
 const cors = require('cors');
+const { CronJob } = require('cron');
 const { sockets } = require('./socket/socket');
 const db = require('./config/connection');
 const { errorHandler } = require('./middlewares/errorMiddleware');
-
 // .env config
 dotenv.config();
 const corsOptions = {
@@ -29,6 +30,7 @@ const homeRouter = require('./routs/home');
 const clientRouter = require('./routs/client');
 const adminRouter = require('./routs/admin');
 const trainerRouter = require('./routs/trainer');
+const { job } = require('./middlewares/shaduled');
 
 // redirects to roughts
 app.use('/', homeRouter);
