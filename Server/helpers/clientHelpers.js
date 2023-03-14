@@ -243,7 +243,7 @@ module.exports = {
           .collection(collection.PURCHASE_COLLECTION)
           .aggregate([
             {
-              $match: { userId: ObjectId(id) },
+              $match: { userId: ObjectId(id), planStatus: 'Active' },
             },
             {
               // to join anothtre table fields to current table
@@ -343,7 +343,7 @@ module.exports = {
           .collection(collection.PURCHASE_COLLECTION)
           .aggregate([
             {
-              $match: { userId: id },
+              $match: { userId: id, planStatus: 'Active' },
             },
             {
               // to join anothtre table fields to current table

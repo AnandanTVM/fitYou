@@ -62,4 +62,30 @@ module.exports = {
         reject(error);
       }
     }),
+  SendPlanExpiryMessage: (tomail, name, planName, expiryDate) =>
+    new Promise((resolve, reject) => {
+      try {
+        const mailOptions = {
+          from: process.env.AUTH_EMAIL,
+          to: tomail,
+          subject: `fitYou ${planName} Plan Expiry`,
+          html: `<h2>Dear ${name},</h2> 
+           <p><h3>Greetings from fitYou</h3> 
+          <p>We would like to remind you that your ${planName} plan is expiring on ${expiryDate}.</p>
+          <p>Please renew your plan to continue enjoying our services. For more information, visit www.fityou.life</p>
+          
+          <p>Sincerely,</p>
+          <p>The Customer Team</p>`,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(info.response);
+          }
+        });
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };

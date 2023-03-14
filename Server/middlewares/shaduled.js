@@ -3,11 +3,11 @@ const { planVidityCheck } = require('../helpers/CommenHelpers');
 const { SendOTP } = require('./SendEmail');
 
 const job = new CronJob(
-  '0 0 0 * * *',
-  // '*/60 * * * * *',
+  // '0 0 0 * * *',
+  '*/20 * * * * *',
   () => {
     planVidityCheck()
-      .then((res) => console.log(res.userdetails))
+      .then(() => console.log('task done'))
       .catch((err) => console.log(err));
     // console.log('every 12 A');
   },

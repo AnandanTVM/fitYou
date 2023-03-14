@@ -4,6 +4,7 @@ const { ObjectId } = require('mongodb');
 const moment = require('moment');
 const db = require('../config/connection');
 const collection = require('../config/collection');
+const { SendPlanExpiryMessage } = require('../middlewares/SendEmail');
 
 // node mailer confige
 
@@ -230,7 +231,6 @@ module.exports = {
   planVidityCheck: () =>
     new Promise(async (resolve, reject) => {
       try {
-        let Expired = [];
         const subscriptions = await db
           .get()
           .collection(collection.PURCHASE_COLLECTION)
@@ -244,10 +244,53 @@ module.exports = {
             db.get()
               .collection(collection.PURCHASE_COLLECTION)
               .updateOne({ _id: data._id }, { $set: { planStatus: 'Expired' } })
-              .then(() => {
-                Expired.push(data.userId);
+              .then(async () => {
+                try {
+                  const userDetails = await db
+                    .get()
+                    .collection(collection.PURCHASE_COLLECTION)
+                    .aggregate([
+                      {
+                        $match: { _id: data._id },
+                      },
+                      {
+                        $lookup: {
+                          from: collection.CLIENT_COLLECTION,
+                          localField: 'userId',
+                          foreignField: '_id',
+                          as: 'userDetails',
+                        },
+                      },
+                      {
+                        $lookup: {
+                          from: collection.PACKAGE_COLLECTION,
+                          localField: 'planId',
+                          foreignField: '_id',
+                          as: 'packageDetails',
+                        },
+                      },
+                      {
+                        $project: {
+                          packageDetails: {
+                            $arrayElemAt: ['$packageDetails', 0],
+                          },
+                          userDetails: { $arrayElemAt: ['$userDetails', 0] },
+                          _id: 0,
+                        },
+                      },
+                    ])
+                    .toArray();
+                  const name =
+                    userDetails[0].userDetails.fname +
+                    +userDetails[0].userDetails.lname;
+                  const sendemailId = userDetails[0].userDetails.email;
+                  const package = userDetails[0].packageDetails.PackageName;
+                  SendPlanExpiryMessage(sendemailId, name, package, 'today');
+                } catch (error) {
+                  console.log(error);
+                }
               });
-            resolve({ userdetails: Expired });
+            resolve();
           } else {
             console.log('Active Plan');
           }
