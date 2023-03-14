@@ -3,8 +3,8 @@ const { planVidityCheck } = require('../helpers/CommenHelpers');
 const { SendOTP } = require('./SendEmail');
 
 const job = new CronJob(
-  // '0 0 0 * * *',
-  '*/20 * * * * *',
+  '0 0 0 * * *',
+  // '*/20 * * * * *',
   () => {
     planVidityCheck()
       .then(() => console.log('task done'))
