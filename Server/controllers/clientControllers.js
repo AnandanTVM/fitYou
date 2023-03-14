@@ -165,7 +165,11 @@ const verifiyPayment = AsyncHandler(async (req, res) => {
           res.json({ status: true, Message: 'payment Sucessfull... ' });
         })
         .catch(() => {
-          res.json({ status: false, err: 'Payment Failed' });
+          clientHelpers.changePaymentStatusCancel(req.body.order).then(() => {
+            res.json({ status: false, err: 'Payment Failed' }).catch((err) => {
+              res.json({ status: false, err: err.message });
+            });
+          });
         });
     })
     .catch(() => {

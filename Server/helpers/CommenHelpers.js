@@ -1,5 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 const { ObjectId } = require('mongodb');
 // const nodemailer = require('nodemailer');
+const moment = require('moment');
 const db = require('../config/connection');
 const collection = require('../config/collection');
 
@@ -221,6 +223,35 @@ module.exports = {
 
         // console.log(response);
         resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    }),
+  planVidityCheck: () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        let Expired = [];
+        const subscriptions = await db
+          .get()
+          .collection(collection.PURCHASE_COLLECTION)
+          .find({ planStatus: 'Active' })
+          .toArray();
+
+        subscriptions.forEach((data) => {
+          const now = moment();
+          const validTill = moment(data.validtill);
+          if (now.isSameOrAfter(validTill)) {
+            db.get()
+              .collection(collection.PURCHASE_COLLECTION)
+              .updateOne({ _id: data._id }, { $set: { planStatus: 'Expired' } })
+              .then(() => {
+                Expired.push(data.userId);
+              });
+            resolve({ userdetails: Expired });
+          } else {
+            console.log('Active Plan');
+          }
+        });
       } catch (error) {
         reject(error);
       }

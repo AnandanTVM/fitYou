@@ -130,6 +130,7 @@ module.exports = {
       details.validfrom = validfrom;
       details.validtill = validtill;
       details.paymentStatus = 'Pending';
+      details.planStatus = 'Pending';
       delete details.validfor;
       details.trainerId = ObjectId(details.trainerId);
       details.userId = ObjectId(details.userId);
@@ -161,6 +162,7 @@ module.exports = {
           if (err) {
             reject(err);
           }
+
           resolve(order);
         }
       );
@@ -187,7 +189,7 @@ module.exports = {
           .findOneAndUpdate(
             { _id: ObjectId(details.receipt) },
             {
-              $set: { paymentStatus: 'Completed' },
+              $set: { paymentStatus: 'Completed', planStatus: 'Active' },
             }
           );
 
@@ -200,6 +202,33 @@ module.exports = {
         SendPackagePlasedMessage(userdetails.email, name).then(() => {
           resolve();
         });
+        resolve();
+      } catch (error) {
+        reject();
+      }
+    }),
+  changePaymentStatusCancel: (details) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const purchase = await db
+          .get()
+          .collection(collection.PURCHASE_COLLECTION)
+          .findOneAndUpdate(
+            { _id: ObjectId(details.receipt) },
+            {
+              $set: { paymentStatus: 'cancelled', planStatus: 'cancel' },
+            }
+          );
+
+        // const userdetails = await db
+        //   .get()
+        //   .collection(collection.CLIENT_COLLECTION)
+        //   .findOne({ _id: purchase.value.userId });
+
+        // const name = `${userdetails.fname} ${userdetails.lname}`;
+        // SendPackagePlasedMessage(userdetails.email, name).then(() => {
+        //   resolve();
+        // });
         resolve();
       } catch (error) {
         reject();

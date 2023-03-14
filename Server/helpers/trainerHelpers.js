@@ -156,7 +156,7 @@ module.exports = {
           .collection(collection.PURCHASE_COLLECTION)
           .aggregate([
             {
-              $match: { trainerId: ObjectId(id) },
+              $match: { trainerId: ObjectId(id), planStatus: 'Active' },
             },
             {
               $lookup: {
